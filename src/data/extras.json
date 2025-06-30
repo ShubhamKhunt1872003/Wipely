@@ -1,0 +1,58 @@
+[
+  {
+    "id": "oven_cleaning",
+    "name": "Oven Deep Clean",
+    "price": 70,
+    "icon": "ChefHat",
+    "description": "Complete oven degreasing and sanitization"
+  },
+  {
+    "id": "carpet_steam",
+    "name": "Carpet Steam Cleaning",
+    "price": 80,
+    "icon": "Layers",
+    "description": "Professional carpet deep cleaning"
+  },
+  {
+    "id": "upholstery",
+    "name": "Upholstery Cleaning", 
+    "price": 60,
+    "icon": "Armchair",
+    "description": "Sofa and furniture fabric cleaning"
+  },
+  {
+    "id": "mattress",
+    "name": "Mattress Sanitization",
+    "price": 50,
+    "icon": "Bed",
+    "description": "Deep mattress cleaning and deodorizing"
+  },
+  {
+    "id": "bbq_cleaning",
+    "name": "BBQ Deep Clean",
+    "price": 65,
+    "icon": "Flame",
+    "description": "Complete BBQ restoration and cleaning"
+  },
+  {
+    "id": "window_cleaning",
+    "name": "Window Cleaning",
+    "price": 45,
+    "icon": "Square",
+    "description": "Internal window cleaning and polishing"
+  },
+  {
+    "id": "laundry_folding",
+    "name": "Laundry & Folding",
+    "price": 35,
+    "icon": "Shirt",
+    "description": "Washing, drying and folding service"
+  },
+  {
+    "id": "appliance_clean",
+    "name": "Appliance Cleaning",
+    "price": 40,
+    "icon": "Microwave",
+    "description": "Microwave, fridge and dishwasher cleaning"
+  }
+]

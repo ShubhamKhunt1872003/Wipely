@@ -1,0 +1,26 @@
+[
+  {
+    "id": "founding-wipely",
+    "title": "Why I Started Wipely: A Personal Journey",
+    "excerpt": "After struggling to find reliable cleaning services for my elderly parents, I knew Melbourne families deserved better. Here's how Wipely was born.",
+    "date": "2024-01-15",
+    "slug": "founding-wipely",
+    "content": "It all started when my parents needed help maintaining their home..."
+  },
+  {
+    "id": "cleaning-tips-winter",
+    "title": "5 Winter Cleaning Tips for Melbourne Homes",
+    "excerpt": "Winter brings unique cleaning challenges. Here are our expert tips to keep your home fresh during the colder months.",
+    "date": "2024-02-10",
+    "slug": "winter-cleaning-tips",
+    "content": "Melbourne winters can be tough on our homes..."
+  },
+  {
+    "id": "eco-friendly-cleaning",
+    "title": "Going Green: Our Eco-Friendly Cleaning Approach",
+    "excerpt": "Discover how Wipely combines effective cleaning with environmental responsibility for a healthier home and planet.",
+    "date": "2024-02-28",
+    "slug": "eco-friendly-cleaning",
+    "content": "At Wipely, we believe cleaning your home shouldn't come at the cost of our environment..."
+  }
+]

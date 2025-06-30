@@ -1,0 +1,26 @@
+{
+  "regular_cleaning": {
+    "per_bedroom": 25,
+    "per_bathroom": 30,
+    "base_price": 80
+  },
+  "end_of_lease": {
+    "per_bedroom": 40,
+    "per_bathroom": 50,
+    "base_price": 150
+  },
+  "spring_cleaning": {
+    "per_bedroom": 35,
+    "per_bathroom": 45,
+    "base_price": 120
+  },
+  "custom_cleaning": {
+    "carpet_steam": 80,
+    "upholstery": 60,
+    "mattress": 50,
+    "oven": 70,
+    "bbq": 65,
+    "stairs": 40,
+    "commercial": 150
+  }
+}
