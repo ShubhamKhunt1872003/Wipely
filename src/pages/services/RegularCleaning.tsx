@@ -15,16 +15,82 @@ import {
   Gift,
   Baby
 } from 'lucide-react';
-
+import kitchenImg from '../../images/kitchen.jpg';
+import cleaningImg from '../../images/regularHouseImg.jpg';
+import claningImgSec from '../../images/regularCL.jpg';
+import binImg from '../../images/bin.jpg';
+import bedImg from '../../images/bed.jpg';
 const RegularCleaning: React.FC = () => {
-  const includedServices = [
-    { task: "Kitchen Cleaning", description: "Countertops, sinks, stovetops, and appliance exteriors" },
-    { task: "Bathroom Refresh", description: "Toilets, sinks, showers, mirrors, and fixtures" },
-    { task: "Dusting", description: "All surfaces, furniture, and accessible ledges" },
-    { task: "Floor Care", description: "Vacuuming carpets and mopping hard floors" },
-    { task: "Trash Removal", description: "Emptying all waste bins and replacing liners" },
-    { task: "Tidying Up", description: "Straightening rooms and making spaces neat" }
-  ];
+ const includedServices = [
+  {
+     title: 'Bedroom',
+    image: bedImg,
+    items: [
+      'Dust all surfaces & furniture',
+      'Vacuum carpets & rugs',
+      'Wipe mirrors & fixtures',
+      'Tidy up and make the bed',
+      'Empty trash bins',
+    ],
+  },
+  {
+    title: 'Bathroom',
+    image: bedImg,
+    items: [
+      'Scrub and disinfect toilet, shower, and sink',
+      'Clean mirrors, tiles, and splashbacks',
+      'Wipe all surfaces, shelves, and counters',
+      'Polish taps and chrome fixtures',
+      'Mop floors and empty bins',
+      
+    ],
+  },
+    {
+    title: 'Livingroom',
+    image: bedImg,
+    items: [
+      'Dust all surfaces & furniture',
+      'Vacuum carpets & rugs',
+      'Wipe mirrors & fixtures',
+      'Tidy up and make the bed',
+      'Empty trash bins',
+    ],
+  },
+    {
+    title: 'Kitchen',
+    image: bedImg,
+    items: [
+      'Wipe cabinet doors and handles',
+      'Scrub sink and polish fixtures',
+      'Clean stovetop and remove grease',
+      'Empty and clean trash bin',
+      'Sweep and mop the floor',
+    ],
+  },
+  {
+    title: 'Trash Removal',
+    image: binImg,
+    items: [
+      'Empty all indoor bins',
+      'Replace bin liners',
+      'Sanitize bin interiors',
+      'Remove outdoor trash bags (optional)',
+      'Tidy trash area',
+    ],
+  },
+  {
+    title: 'Laundry',
+    image: kitchenImg,
+    items: [
+      'Wipe appliances',
+      'Sink cleaned',
+      'Mop floors',
+      'Dust shelving',
+      'Clean lint filters',
+    ],
+  },
+];
+
 
   const optionalExtras = [
     { name: "Interior Windows", price: "$30", icon: "🪟" },
@@ -123,59 +189,21 @@ const RegularCleaning: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-yellow-50 to-emerald-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                Regular Cleaning Service
-                <span className="block text-emerald-600">in Melbourne</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Maintain a consistently clean home with our reliable recurring service.
-              </p>
-              <Link to="/book">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary text-lg px-8 py-4"
-                >
-                  Book Now
-                  <ArrowRight className="inline-block ml-2 w-5 h-5" />
-                </motion.button>
-              </Link>
-            </motion.div>
-            
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <img
-                src="https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Bright, clean living room with sunshine"
-                className="rounded-2xl shadow-2xl"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                    <RefreshCw className="w-6 h-6 text-yellow-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Recurring Service</div>
-                    <div className="text-gray-600">From $120/visit</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <div className="relative h-[300px] md:h-[400px] w-full">
+  <img
+    src={cleaningImg}
+    alt="Regular House Cleaning"
+    className="w-full h-full object-cover object-bottom"
+  />
+  <div className="absolute inset-0 bg-black/40 flex flex-col justify-center px-6 md:px-20">
+    <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
+      Regular House Cleaning
+    </h1>
+    <p className="text-white text-base md:text-lg max-w-2xl">
+      Weekly or fortnightly — Wipely keeps your space fresh, clean, and stress-free.
+    </p>
+  </div>
+</div>
 
       {/* What is Regular Cleaning */}
       <section className="py-20 bg-white">
@@ -218,7 +246,7 @@ const RegularCleaning: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <img
-                src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src={claningImgSec}
                 alt="Professional cleaner doing regular cleaning"
                 className="rounded-2xl shadow-xl"
               />
@@ -227,25 +255,55 @@ const RegularCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Included Services */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Included in Every Visit
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive cleaning tasks performed consistently
-            </p>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+
+      {/* Included Services */}
+
+          
+<section className="bg-gray-50 py-16">
+  <div className="max-w-6xl mx-auto px-4 text-center">
+    <h2 className="text-3xl font-bold text-gray-800 mb-2">Included in Every Visit</h2>
+    <div className="h-1 w-20 bg-emerald-500 mx-auto mb-10"></div>
+
+    <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6 text-left">
+      {includedServices.map((service, index) => (
+        <div
+          key={index}
+          className="relative bg-white rounded-xl shadow-md overflow-hidden"
+        >
+          {/* Image */}
+          <div className="overflow-hidden">
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-40 object-cover transform transition-transform duration-500 ease-in-out hover:scale-110"
+            />
+          </div>
+
+          {/* Label */}
+          <div className="absolute top-2 right-2 bg-emerald-500 text-white text-xs font-semibold uppercase px-3 py-1 rounded-md shadow-md z-10">
+            Every Visit
+          </div>
+
+          {/* Content */}
+          <div className="p-5 bg-gradient-to-br from-gray-50 to-white">
+            <h3 className="font-semibold text-base mb-4 text-emerald-600">{service.title}</h3>
+            <ul className="space-y-2 text-gray-700">
+              {service.items.map((item, idx) => (
+                <li key={idx} className="flex items-start gap-2 text-sm">
+                  <CheckCircle className="text-emerald-500 w-4 h-4 mt-0.5" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {includedServices.map((item, index) => (
               <motion.div
                 key={item.task}
@@ -264,9 +322,8 @@ const RegularCleaning: React.FC = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
+          </div> */}
+       
 
       {/* Visual Transformation Gallery */}
       <section className="py-20 bg-white">

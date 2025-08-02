@@ -40,7 +40,8 @@ const CustomCleaning: React.FC = () => {
     {
       icon: Flame,
       name: "Oven Cleaning",
-      description: "Degreasing, scrubbing, and polish — inside and out",
+      description: "Deep clean your oven with non-toxic products to remove grease, grime, and restore its shine.",
+
       features: ["Non-toxic products", "Full disassembly", "Grease removal", "Shine restoration"]
     },
     {
@@ -291,7 +292,16 @@ const CustomCleaning: React.FC = () => {
                     <service.icon className="w-6 h-6 text-purple-600" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.name}</h3>
+                    <div className="flex items-center justify-between mb-2">
+  <h3 className="text-xl font-semibold text-gray-900">{service.name}</h3>
+  <Link 
+    to={`/book`}
+    className="flex items-center text-emerald-600 font-medium hover:text-emerald-700 transition-colors duration-300"
+  >
+    Book Now
+    <ArrowRight className="w-4 h-4 ml-1 hover:translate-x-1 transition-transform duration-300" />
+  </Link>
+</div>
                     <p className="text-gray-600">{service.description}</p>
                   </div>
                 </div>

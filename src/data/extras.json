@@ -20,13 +20,7 @@
     "icon": "Armchair",
     "description": "Sofa and furniture fabric cleaning"
   },
-  {
-    "id": "mattress",
-    "name": "Mattress Sanitization",
-    "price": 50,
-    "icon": "Bed",
-    "description": "Deep mattress cleaning and deodorizing"
-  },
+
   {
     "id": "bbq_cleaning",
     "name": "BBQ Deep Clean",
@@ -41,13 +35,7 @@
     "icon": "Square",
     "description": "Internal window cleaning and polishing"
   },
-  {
-    "id": "laundry_folding",
-    "name": "Laundry & Folding",
-    "price": 35,
-    "icon": "Shirt",
-    "description": "Washing, drying and folding service"
-  },
+  
   {
     "id": "appliance_clean",
     "name": "Appliance Cleaning",

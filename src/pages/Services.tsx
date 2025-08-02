@@ -12,7 +12,13 @@ import {
   Clock,
   Award
 } from 'lucide-react';
-
+import ServiceBanner from '../images/Service.jpg';
+import ResidentalImg from '../images/residential.jpg';
+import DeepImg from '../images/deep.jpg';
+import OfficeImg from '../images/office.jpg';
+import WindowImg from '../images/wipe.jpg';
+import EndofleaseImg from '../images/eol.jpg';
+import KitchenImg from  '../images/kitchen.jpg';
 const Services: React.FC = () => {
   const services = [
     {
@@ -75,183 +81,204 @@ const Services: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Our Expert Cleaning Services
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Choose the perfect cleaning solution for your space. Professional, reliable, and tailored to your needs.
-            </p>
-          </motion.div>
-        </div>
-        
-        {/* Background Pattern */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-200/20 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl"></div>
-        </div>
-      </section>
+<section
+  className="relative h-[40vh] md:h-[50vh] bg-cover bg-center"
+  style={{ backgroundImage: `url(${ServiceBanner})` }}
+>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+
+  {/* Content */}
+  <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4">
+    <h1 className="text-3xl md:text-4xl font-bold mb-4">
+      Our Expert Cleaning Services
+    </h1>
+    <p className="text-base md:text-lg max-w-2xl">
+      Tailored cleaning solutions for homes and businesses. Trust Wipely for spotless results, every time.
+    </p>
+  </div>
+</section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="group"
-              >
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
-                  {/* Service Header */}
-                  <div className={`h-2 bg-gradient-to-r ${service.color}`}></div>
-                  
-                  <div className="p-8">
-                    {/* Icon and Title */}
-                    <div className="flex items-center mb-6">
-                      <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${service.color} flex items-center justify-center mr-4`}>
-                        <service.icon className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-300">
-                        {service.title}
-                      </h3>
-                    </div>
+     <section className="py-16 bg-white">
+  <div className="max-w-6xl mx-auto px-4">
+    <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Explore Our Services</h2>
+    <div className="w-16 h-1 bg-emerald-500 mx-auto mb-10"></div>
 
-                    {/* Description */}
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {service.description}
-                    </p>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[
+        {
+          title: "Regular House Cleaning",
+          icon: "🏠",
+          img: ResidentalImg,
+          includes: [
+            "Bedroom & Living area dusting",
+            "Mopping & vacuuming floors",
+            "Surface disinfecting",
+            "Kitchen sink wipe-down"
+          ]
+        },
+        {
+          title: "Deep Cleaning",
+          icon: "🧹",
+          img: DeepImg,
+          includes: [
+            "Behind fridge/oven cleaned",
+            "Skirting boards scrubbed",
+            "Detailed bathroom sanitization",
+            "Window sills and tracks"
+          ]
+        },
+        {
+          title: "Commercial Spaces",
+          icon: "🏢",
+          img: OfficeImg,
+          includes: [
+            "Desk & electronics wiped",
+            "Trash disposal & restocking",
+            "Kitchenette deep clean",
+            "Glass partitions cleaned"
+          ]
+        },
+        {
+          title: "Window Cleaning",
+          icon: "🪟",
+          img: WindowImg,
+          includes: [
+            "Interior & exterior glass",
+            "Track & frame wiping",
+            "Streak-free finish",
+            "Eco-friendly products"
+          ]
+        },
+        {
+          title: "End of Lease Cleaning",
+          icon: "🚪",
+          img: EndofleaseImg,
+          includes: [
+            "Full property deep clean",
+            "Oven, range hood & exhaust",
+            "Carpet steam cleaning (optional)",
+            "Bond-back guarantee support"
+          ]
+        },
+        {
+          title: "Kitchen & Bathroom",
+          icon: "🛁",
+          img: KitchenImg,
+          includes: [
+            "Appliances wiped & degreased",
+            "Sink & taps scrubbed",
+            "Tiles, walls, and mirrors polished",
+            "Toilet, tub, and shower sanitized"
+          ]
+        }
+      ].map((service, index) => (
+        <div key={index} className="bg-white border border-gray-200 rounded-lg shadow hover:shadow-md transition overflow-hidden">
+          {/* Image + Icon */}
+         <div className="relative group overflow-visible">
+  {/* Zoom Image */}
+  <img
+    src={service.img}
+    alt={service.title}
+    className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
+  />
 
-                    {/* Features */}
-                    <div className="mb-8">
-                      <h4 className="font-semibold text-gray-900 mb-3">What's Included:</h4>
-                      <ul className="space-y-2">
-                        {service.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-center text-gray-600">
-                            <CheckCircle className="w-5 h-5 text-emerald-500 mr-3 flex-shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+  {/* Centered Icon – Half on image, half on card */}
+  <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-3 text-2xl shadow-lg z-10">
+    {service.icon}
+  </div>
+</div>
 
-                    {/* CTA Button */}
-                    <Link to={service.href}>
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className={`w-full bg-gradient-to-r ${service.color} text-white py-4 rounded-xl font-semibold text-lg hover:shadow-lg transition-all duration-300 group`}
-                      >
-                        Book This Service
-                        <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                      </motion.button>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+          {/* Content */}
+          <div className="pt-8 px-6 pb-6">
+            <h3 className="text-xl font-bold text-emerald-600 mb-4">{service.title}</h3>
+            <h4 className="font-semibold text-gray-700 mb-2">What's Included:</h4>
+            <ul className="list-disc list-inside text-sm text-gray-600 space-y-1 mb-6">
+              {service.includes.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+           <button className="bg-emerald-500 text-white px-6 py-3 rounded-full hover:bg-emerald-600 shadow-md transition w-full">
+  📋 Book Now
+</button>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+
+      
+      <section className="py-16 bg-gray-100">
+  <div className="max-w-6xl mx-auto px-4">
+    <div className="mb-10 text-left">
+      <h2 className="text-3xl font-bold text-gray-800 mb-3">Why Choose Our Cleaning Services?</h2>
+      <div className="w-14 h-1 bg-emerald-500 mb-6"></div>
+      <p className="text-gray-600 text-lg max-w-2xl">
+        At Wipely, we go beyond basic cleaning. We provide flexible, professional, and eco-friendly cleaning tailored to your needs. Here's why Melbourne residents love us:
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10">
+      <div className="border p-6 rounded-lg shadow hover:shadow-md transition">
+        <div className="text-emerald-500 text-3xl mb-3">✅</div>
+        <h4 className="text-lg font-semibold mb-2">Reliable & On-Time</h4>
+        <p className="text-sm text-gray-600">We value your time. Our team arrives promptly and finishes efficiently without compromising quality.</p>
+      </div>
+
+      <div className="border p-6 rounded-lg shadow hover:shadow-md transition">
+        <div className="text-emerald-500 text-3xl mb-3">🧽</div>
+        <h4 className="text-lg font-semibold mb-2">Eco-Friendly Products</h4>
+        <p className="text-sm text-gray-600">We use safe, biodegradable products to protect your health and the planet.</p>
+      </div>
+
+      <div className="border p-6 rounded-lg shadow hover:shadow-md transition">
+        <div className="text-emerald-500 text-3xl mb-3">⏱️</div>
+        <h4 className="text-lg font-semibold mb-2">Flexible Scheduling</h4>
+        <p className="text-sm text-gray-600">We adapt to your timing — early morning or late evening, we clean when it suits you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Why Wipely Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Why Choose Wipely?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're not just another cleaning service. Here's what makes us different.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {whyWipely.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="text-center group"
-              >
-                <div className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-200 transition-colors duration-300">
-                    <item.icon className="w-8 h-8 text-emerald-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Trust Badge */}
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-16"
-          >
-            <div className="inline-flex items-center bg-emerald-100 text-emerald-800 px-6 py-3 rounded-full">
-              <Award className="w-5 h-5 mr-2" />
-              <span className="font-semibold">Rated 4.9 stars by 1200+ happy customers</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
+    
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Still Not Sure?
-            </h2>
-            <p className="text-xl md:text-2xl mb-8 text-emerald-100">
-              Get a free, no-obligation quote tailored to your specific needs
-            </p>
-            <Link to="/book">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-emerald-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg"
-              >
-                Get Free Quote Today
-                <ArrowRight className="inline-block ml-2 w-5 h-5" />
-              </motion.button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+     
+      <section className="bg-emerald-600 text-white py-12">
+  <div className="max-w-6xl mx-auto px-4 text-center">
+    <h2 className="text-3xl font-bold mb-4">
+      Ready to Experience Professional Cleaning?
+    </h2>
+    <p className="mb-6 text-lg">
+      Book your service now and enjoy a sparkling clean space. Fast, friendly, and reliable!
+    </p>
+
+    <div className="flex justify-center flex-wrap gap-4">
+      {/* Call Button */}
+      <a
+        href="tel:+61412345678"
+        className="bg-white text-emerald-600 font-medium px-6 py-3 rounded-full shadow-md hover:bg-emerald-100 transition duration-300"
+      >
+        📞 Call Us: +61 412 345 678
+      </a>
+
+      {/* Book Button */}
+      <a
+        href="#contact"
+        className="bg-white text-emerald-600 font-medium px-6 py-3 rounded-full shadow-md hover:bg-emerald-100 transition duration-300"
+      >
+        📋 Book Online
+      </a>
+    </div>
+  </div>
+</section>
+
+
     </div>
   );
 };

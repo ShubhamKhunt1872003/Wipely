@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
+import { Menu, X, ChevronDown, Sparkles, Phone } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,14 +10,22 @@ const Header: React.FC = () => {
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { 
-      name: 'Services', 
+    {
+      name: 'Services',
       href: '/services',
       dropdown: [
         { name: 'Regular House Cleaning', href: '/services/regular-cleaning' },
         { name: 'End of Lease Cleaning', href: '/services/end-of-lease' },
         { name: 'One-off Spring Cleaning', href: '/services/spring-cleaning' },
-        { name: 'Custom Cleaning', href: '/services/custom-cleaning' }
+        { name: 'Custom Cleaning', href: '/services/custom-cleaning', },
+        { name: 'Carpet Steam Cleaning', href: '/services/custom-cleaning', },
+        { name: 'Upholstery Cleaning', href: '/services/custom-cleaning', },
+        { name: 'Mattress Cleaning', href: '/services/custom-cleaning', },
+        { name: 'Oven Cleaning', href: '/services/custom-cleaning', },
+        { name: 'BBQ Cleaning', href: '/services/custom-cleaning', },
+        { name: 'Staircase Cleaning', href: '/services/custom-cleaning', },
+        { name: 'Commercial Spaces', href: '/services/custom-cleaning', }
+
       ]
     },
     { name: 'Book', href: '/book' },
@@ -66,16 +74,15 @@ const Header: React.FC = () => {
                   >
                     <Link
                       to={item.href}
-                      className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                        location.pathname.startsWith('/services')
-                          ? 'text-emerald-600'
-                          : 'text-gray-700 hover:text-emerald-600'
-                      }`}
+                      className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${location.pathname.startsWith('/services')
+                        ? 'text-emerald-600'
+                        : 'text-gray-700 hover:text-emerald-600'
+                        }`}
                     >
                       <span>{item.name}</span>
                       <ChevronDown className="w-4 h-4" />
                     </Link>
-                    
+
                     <AnimatePresence>
                       {isServicesOpen && (
                         <motion.div
@@ -101,11 +108,10 @@ const Header: React.FC = () => {
                 ) : (
                   <Link
                     to={item.href}
-                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                      location.pathname === item.href
-                        ? 'text-emerald-600'
-                        : 'text-gray-700 hover:text-emerald-600'
-                    }`}
+                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${location.pathname === item.href
+                      ? 'text-emerald-600'
+                      : 'text-gray-700 hover:text-emerald-600'
+                      }`}
                   >
                     {item.name}
                   </Link>
@@ -113,6 +119,14 @@ const Header: React.FC = () => {
               </div>
             ))}
           </nav>
+
+          {/* ✅ Contact Number */}
+          <div className="hidden md:flex items-center space-x-2 text-sm text-gray-700">
+            <Phone className="w-4 h-4 text-emerald-600" />
+            <a href="tel:+61435137936" className="hover:text-emerald-600 transition-colors duration-200">
+              +61 435 137 936
+            </a>
+          </div>
 
           {/* Book Now Button */}
           <div className="hidden md:block">
@@ -126,6 +140,7 @@ const Header: React.FC = () => {
               </motion.button>
             </Link>
           </div>
+
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -154,11 +169,10 @@ const Header: React.FC = () => {
                 <div key={item.name}>
                   <Link
                     to={item.href}
-                    className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
-                      location.pathname === item.href
-                        ? 'text-emerald-600'
-                        : 'text-gray-700 hover:text-emerald-600'
-                    }`}
+                    className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${location.pathname === item.href
+                      ? 'text-emerald-600'
+                      : 'text-gray-700 hover:text-emerald-600'
+                      }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}

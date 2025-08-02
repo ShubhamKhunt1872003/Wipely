@@ -87,3 +87,53 @@ html {
 .accordion-content.open {
   max-height: 500px;
 }
+
+/* .absolute.inset-0.img {
+    height: 500px;
+} */
+
+.title {
+    font-size: 30px !important;
+    color: #fff !important;
+}
+
+.subtitle {
+    font-size: 20px;
+}
+
+.text{
+  font-size: 16px !important;
+  line-height: 20px !important;
+}
+
+/* .slider{
+  height: 100%;
+  padding: 8%;
+} */
+
+h2 {
+  font-size: 24px !important;
+}
+
+h3 {
+  font-size: 18px !important;
+}
+
+p {
+  font-size: 15px !important;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #d1d5db; /* light gray default */
+  opacity: 1;
+  border-radius: 9999px; /* fully rounded */
+  margin: 0 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #10b981; /* emerald-500 */
+  transform: scale(1.4);
+}
