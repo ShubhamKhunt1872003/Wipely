@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -185,6 +186,13 @@ const RegularCleaning: React.FC = () => {
       answer: "Not required. Many clients provide us with access instructions so we can clean while they're at work or away."
     }
   ];
+  
+
+const [activeIndex, setActiveIndex] = useState(null);
+  const toggleFAQ = (index:any) => {
+  setActiveIndex(activeIndex === index ? null : index);
+};
+
 
   return (
     <div className="pt-16">
@@ -323,60 +331,7 @@ const RegularCleaning: React.FC = () => {
               </motion.div>
             ))}
           </div> */}
-       
-
-      {/* Visual Transformation Gallery */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Maintenance Transformations
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See the difference regular professional cleaning makes
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {beforeAfterImages.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden card-hover"
-              >
-                <div className="grid grid-cols-2 gap-0">
-                  <div className="relative">
-                    <img src={item.before} alt="Before cleaning" className="w-full h-48 object-cover" />
-                    <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white text-center py-2 text-sm font-medium">
-                      Before
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <img src={item.after} alt="After cleaning" className="w-full h-48 object-cover" />
-                    <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-center py-2 text-sm font-medium">
-                      After
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Optional Extras */}
+           {/* Optional Extras */}
       <section className="py-20 bg-gradient-to-r from-yellow-50 to-emerald-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -416,6 +371,84 @@ const RegularCleaning: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Visual Transformation Gallery */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">
+              See the Transformation
+            </h2>
+            <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6 mx-auto"></div>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto text-center">
+              At Wipely, we believe that seeing is believing. Our professional cleaning services deliver visible results you can trust. From kitchens to living rooms, these before-and-after transformations showcase the attention to detail our team brings to every space.
+            </p>
+
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                before: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600",
+                after: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600",
+                title: "Kitchen Deep Clean"
+              },
+              {
+                before: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600",
+                after: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600",
+                title: "Bathroom Restoration"
+              },
+              {
+                before: "https://images.pexels.com/photos/4239037/pexels-photo-4239037.jpeg?auto=compress&cs=tinysrgb&w=600",
+                after: "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=600",
+                title: "Living Room Refresh"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ y: 30, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white rounded-xl shadow-md overflow-hidden"
+              >
+                <div className="grid grid-cols-2">
+                  <div className="relative overflow-hidden group">
+                    <img
+                      src={item.before}
+                      alt="Before"
+                      className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white text-xs font-semibold text-center py-1">
+                      Before
+                    </div>
+                  </div>
+                  <div className="relative overflow-hidden group">
+                    <img
+                      src={item.after}
+                      alt="After"
+                      className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-xs font-semibold text-center py-1">
+                      After
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 text-center">
+                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+  
 
       {/* Why Book Regular */}
       <section className="py-20 bg-white">
@@ -506,74 +539,56 @@ const RegularCleaning: React.FC = () => {
       </section>
 
       {/* FAQ Teaser */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
+     <section className="bg-emerald-50 py-14">
+  <div className="max-w-6xl mx-auto px-4">
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">
+      Frequently Asked Questions
+    </h2>
+    <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6"></div>
 
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={faq.question}
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-50 rounded-lg p-6"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
-              </motion.div>
-            ))}
-          </div>
+    {faqs.map((faq, index) => (
+      <div
+        key={index}
+        className="border border-gray-200 bg-white rounded-md p-4 mb-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+      >
+        <button
+          onClick={() => toggleFAQ(index)}
+          className="w-full text-left flex justify-between items-center text-lg font-medium text-gray-800"
+        >
+          {faq.question}
+          <span className="ml-4 text-emerald-500 text-2xl">
+            {activeIndex === index ? "-" : "+"}
+          </span>
+        </button>
 
-          <div className="text-center mt-12">
-            <Link to="/faq">
-              <button className="btn-secondary">
-                View All FAQs
-              </button>
-            </Link>
-          </div>
-        </div>
-      </section>
+        {activeIndex === index && (
+          <p className="mt-3 text-gray-600 text-base leading-relaxed">
+            {faq.answer}
+          </p>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
+
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready for a consistently clean home?
-            </h2>
-            <p className="text-xl md:text-2xl mb-8 text-emerald-100">
-              Schedule your regular cleaning service today
-            </p>
-            <Link to="/book">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-emerald-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg"
-              >
-                Get Started
-                <ArrowRight className="inline-block ml-2 w-5 h-5" />
-              </motion.button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+     <section className="bg-emerald-600 text-white py-12">
+  <div className="max-w-6xl mx-auto px-4 text-center">
+    <h2 className="text-3xl md:text-4xl font-bold mb-3">
+      Book Your Cleaning Services in Melbourne Today!
+    </h2>
+    <p className="text-lg mb-6 max-w-2xl mx-auto">
+      Get sparkling results with Wipely — trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
+    </p>
+    <a
+      href="#contact" // or use your booking route
+      className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
+    >
+      Book Now
+    </a>
+  </div>
+</section>
     </div>
   );
 };
