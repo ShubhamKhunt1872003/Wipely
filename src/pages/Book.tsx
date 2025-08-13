@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 import { 
   CheckCircle, 
   ArrowRight, 
@@ -62,6 +63,18 @@ const Book: React.FC = () => {
   });
 
   const watchedValues = watch();
+
+  // Handle Custom Cleaning selection
+  useEffect(() => {
+    if (watchedValues.serviceType === 'custom_cleaning') {
+      setValue('bedrooms', 0);
+      setValue('bathrooms', 0);
+    } else if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
+      // For non-custom services, ensure at least one is not 0
+      setValue('bedrooms', 2);
+      setValue('bathrooms', 1);
+    }
+  }, [watchedValues.serviceType, setValue]);
 
   const steps = [
     { number: 1, title: "Service Details", icon: HomeIcon },
@@ -175,6 +188,13 @@ const Book: React.FC = () => {
 
   const nextStep = () => {
     if (currentStep < 4) {
+      // Validation for step 1 - ensure bedrooms and bathrooms are not both 0 for non-custom services
+      if (currentStep === 1 && watchedValues.serviceType !== 'custom_cleaning') {
+        if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
+          alert('For this service type, at least one bedroom or bathroom must be selected.');
+          return;
+        }
+      }
       setCurrentStep(currentStep + 1);
     }
   };
@@ -354,9 +374,9 @@ const Book: React.FC = () => {
                     </label>
                     <select
                       {...register('bedrooms', { valueAsNumber: true })}
-                      className="form-input"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     >
-                      {[1,2,3,4,5,6,7,8,9,10].map(num => (
+                      {[0,1,2,3,4,5,6,7,8,9,10].map(num => (
                         <option key={num} value={num}>{num}</option>
                       ))}
                     </select>
@@ -367,14 +387,23 @@ const Book: React.FC = () => {
                     </label>
                     <select
                       {...register('bathrooms', { valueAsNumber: true })}
-                      className="form-input"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     >
-                      {[1,2,3,4,5,6,7,8,9,10].map(num => (
+                      {[0,1,2,3,4,5,6,7,8,9,10].map(num => (
                         <option key={num} value={num}>{num}</option>
                       ))}
                     </select>
                   </div>
                 </div>
+                
+                {/* Validation message for non-custom services */}
+                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && (
+                  <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-red-600 text-sm">
+                      For this service type, at least one bedroom or bathroom must be selected.
+                    </p>
+                  </div>
+                )}
               </motion.div>
             )}
 
@@ -394,7 +423,7 @@ const Book: React.FC = () => {
                   <input
                     type="text"
                     {...register('postalCode', { 
-                      required: 'Postal code is required',
+                    className="w-4 h-4 text-emerald-600 focus:ring-emerald-600 border-gray-300 rounded"
                       validate: validatePostalCode
                     })}
                     onChange={(e) => {
@@ -403,7 +432,7 @@ const Book: React.FC = () => {
                         validatePostalCode(e.target.value);
                       }
                     }}
-                    className="form-input"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     placeholder="e.g., 3000"
                   />
                   {postalCodeValid === false && (
@@ -511,7 +540,7 @@ const Book: React.FC = () => {
                     <input
                       type="text"
                       {...register('firstName', { required: 'First name is required' })}
-                      className="form-input"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     />
                     {errors.firstName && (
                       <p className="mt-1 text-red-600 text-sm">{errors.firstName.message}</p>
@@ -524,7 +553,7 @@ const Book: React.FC = () => {
                     <input
                       type="text"
                       {...register('lastName', { required: 'Last name is required' })}
-                      className="form-input"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     />
                     {errors.lastName && (
                       <p className="mt-1 text-red-600 text-sm">{errors.lastName.message}</p>
@@ -546,7 +575,7 @@ const Book: React.FC = () => {
                           message: 'Invalid email address'
                         }
                       })}
-                      className="form-input"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     />
                     {errors.email && (
                       <p className="mt-1 text-red-600 text-sm">{errors.email.message}</p>
@@ -559,7 +588,7 @@ const Book: React.FC = () => {
                     <input
                       type="tel"
                       {...register('phone', { required: 'Phone number is required' })}
-                      className="form-input"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     />
                     {errors.phone && (
                       <p className="mt-1 text-red-600 text-sm">{errors.phone.message}</p>
@@ -574,7 +603,7 @@ const Book: React.FC = () => {
                   <textarea
                     {...register('notes')}
                     rows={4}
-                    className="form-input"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
                     placeholder="Any special instructions or requests..."
                   />
                 </div>
@@ -582,7 +611,7 @@ const Book: React.FC = () => {
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between items-center pt-8 border-t border-gray-200">
+            <div className="flex justify-between items-center pt-8">
               <div>
                 {currentStep > 1 && (
                   <motion.button
@@ -599,14 +628,16 @@ const Book: React.FC = () => {
               </div>
 
               <div className="text-center">
-                {watchedValues.serviceType && watchedValues.bedrooms && watchedValues.bathrooms && (
+                {watchedValues.serviceType && (watchedValues.serviceType === 'custom_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
                   <div className="text-sm text-gray-600 mb-2">
                     Estimated Price
                   </div>
                 )}
-                <div className="text-2xl font-bold text-emerald-600">
-                  ${calculatePrice()}
-                </div>
+                {(watchedValues.serviceType === 'custom_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
+                  <div className="text-2xl font-bold text-emerald-600">
+                    ${calculatePrice()}
+                  </div>
+                )}
               </div>
 
               <div>
