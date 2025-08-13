@@ -175,6 +175,7 @@ const Services: React.FC = () => {
             "Toilet, tub, and shower sanitized"
           ]
         }
+        ,
         {
           title: "Carpet Steam Cleaning",
           icon: "🧽",
