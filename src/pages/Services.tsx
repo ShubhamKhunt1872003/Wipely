@@ -94,6 +94,7 @@ const Services: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
+            <h1 className="text-white text-3xl md:text-5xl font-bold mb-4">
               Professional Cleaning Services
             </h1>
             <p className="text-white text-lg md:text-xl max-w-3xl mb-6">
