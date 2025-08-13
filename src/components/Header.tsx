@@ -175,10 +175,6 @@ const Header: React.FC = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`p-2 rounded-md transition-colors duration-200 ${
-                !isScrolled && hasHeroImage
-                  ? 'text-white hover:text-emerald-300' 
-                  : 'text-gray-700 hover:text-emerald-600'
-              }`}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
