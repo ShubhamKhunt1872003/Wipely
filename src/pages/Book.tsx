@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react'data/postalcode.json';
+import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react';
+import postalCodes from '../data/postalcode.json';
 import pricing from '../data/pricing.json';
 import extras from '../data/extras.json';
 
