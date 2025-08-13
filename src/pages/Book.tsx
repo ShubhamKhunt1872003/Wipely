@@ -482,7 +482,7 @@ const Book: React.FC = () => {
                     <input
                       type="checkbox"
                       {...register('hasPets')}
-                      className="w-4 h-4 text-[#059669] focus:ring-[#059669] focus:ring-2 border-gray-300 rounded accent-[#059669]"
+                      className="w-4 h-4 text-[#059669] border-gray-300 rounded accent-[#059669]"
                     />
                     <div className="flex items-center space-x-2">
                       <PawPrint className="w-5 h-5 text-gray-600" />
@@ -494,7 +494,7 @@ const Book: React.FC = () => {
                     <input
                       type="checkbox"
                       {...register('hasParking')}
-                      className="w-4 h-4 text-[#059669] focus:ring-[#059669] focus:ring-2 border-gray-300 rounded accent-[#059669]"
+                      className="w-4 h-4 text-[#059669] border-gray-300 rounded accent-[#059669]"
                     />
                     <div className="flex items-center space-x-2">
                       <Car className="w-5 h-5 text-gray-600" />
