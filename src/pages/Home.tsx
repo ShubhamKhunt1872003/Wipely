@@ -20,7 +20,6 @@ import {
   ChevronRight
 } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
-import serviceImage from '../images/Service.jpg';
 import kitchenImage from '../images/kitchen.jpg';
 import officeImage from '../images/office.jpg';
 import bannerImage from '../images/Banner.jpeg';
@@ -32,29 +31,6 @@ const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [postalCode, setPostalCode] = useState('');
   const [availabilityMessage, setAvailabilityMessage] = useState('');
-
-  const heroSlides = [
-    {
-      image: serviceImage,
-      title: "Professional Cleaning Services in Melbourne",
-      subtitle: "Trusted, Affordable & Always Spotless"
-    },
-    {
-      image: kitchenImage,
-      title: "Expert Kitchen Cleaning",
-      subtitle: "Deep Clean Every Surface"
-    },
-    {
-      image: residentialImage,
-      title: "Residential Cleaning Excellence",
-      subtitle: "Your Home, Our Priority"
-    },
-    {
-      image: officeImage,
-      title: "Commercial Cleaning Solutions",
-      subtitle: "Professional Workspace Cleaning"
-    }
-  ];
 
   const services = [
     {
@@ -121,13 +97,6 @@ const Home: React.FC = () => {
     },
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   const handleAvailabilityCheck = (e: React.FormEvent) => {
     e.preventDefault();
     if (postalCodes.includes(postalCode)) {
@@ -170,23 +139,15 @@ const toggleFAQ = (index:any) => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden slider">
-        {heroSlides.map((slide, index) => (
-          <motion.div
-            key={index}
-            className="absolute inset-0 img"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: currentSlide === index ? 1 : 0 }}
-            transition={{ duration: 1 }}
-          >
-            <img
-              src={slide.image}
-              alt="Clean home"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/20" />
-          </motion.div>
-        ))}
+      <section className="relative h-screen overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={kitchenImage}
+            alt="Professional Kitchen Cleaning"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
 
         <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
           <div className="max-w-4xl mx-auto px-4">
@@ -196,9 +157,9 @@ const toggleFAQ = (index:any) => {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="text-5xl md:text-7xl font-bold mb-6 title drop-shadow-lg"
             >
-              {heroSlides[currentSlide].title}
+              Professional Kitchen Cleaning
               <br />
-              <span className="text-emerald-400 subtitle drop-shadow-lg">{heroSlides[currentSlide].subtitle}</span>
+              <span className="text-emerald-400 subtitle drop-shadow-lg">Expert Deep Clean Services</span>
             </motion.h1>
             <motion.p
               initial={{ y: 50, opacity: 0 }}
@@ -206,7 +167,6 @@ const toggleFAQ = (index:any) => {
               transition={{ delay: 0.7, duration: 0.8 }}
               className="text-xl md:text-2xl mb-8 text-gray-200 text drop-shadow-md"
             >
-              {/* Your trusted cleaning partner across Melbourne */}
               From homes to high-rises, we deliver expert cleaning solutions across Melbourne. Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh. Book today and enjoy a cleaner, healthier environment — without the hassle.            </motion.p>
             <motion.div
               initial={{ y: 50, opacity: 0 }}
@@ -234,18 +194,6 @@ const toggleFAQ = (index:any) => {
               </div>
             </motion.div>
           </div>
-        </div>
-
-        {/* Slide indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-colors duration-300 ${currentSlide === index ? 'bg-emerald-400' : 'bg-white/50'
-                }`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
         </div>
       </section>
 
