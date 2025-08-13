@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
 import pricing from '../data/pricing.json';
-import extras from '../data/extras.json';
 
 interface FormData {
   serviceType: string;
@@ -84,14 +83,17 @@ const Book: React.FC = () => {
 
   function getIconComponent(iconName: string) {
     const iconMap: { [key: string]: any } = {
-      ChefHat: Flame,
-      Layers: Layers,
-      Armchair: Square,
-      Bed: Bed,
       Flame: Flame,
-      Square: Square,
+      Layers: Layers,
+      Sofa: Sofa,
+      Bed: Bed,
+      Window: Square,
+      Grill: Flame,
+      Microwave: Microwave,
+      Stairs: Stairs,
+      Building: Building2,
       Shirt: Shirt,
-      Microwave: Microwave
+      Square: Square
     };
     return iconMap[iconName] || Sparkles;
   }
@@ -479,7 +481,7 @@ const Book: React.FC = () => {
                     <input
                       type="checkbox"
                       {...register('hasPets')}
-                      className="w-4 h-4 text-[#059669] focus:ring-[#059669] border-gray-300 rounded"
+                      className="w-4 h-4 text-[#059669] focus:ring-[#059669] focus:ring-2 border-gray-300 rounded accent-[#059669]"
                     />
                     <div className="flex items-center space-x-2">
                       <PawPrint className="w-5 h-5 text-gray-600" />
@@ -491,7 +493,7 @@ const Book: React.FC = () => {
                     <input
                       type="checkbox"
                       {...register('hasParking')}
-                      className="w-4 h-4 text-[#059669] focus:ring-[#059669] border-gray-300 rounded"
+                      className="w-4 h-4 text-[#059669] focus:ring-[#059669] focus:ring-2 border-gray-300 rounded accent-[#059669]"
                     />
                     <div className="flex items-center space-x-2">
                       <Car className="w-5 h-5 text-gray-600" />
