@@ -20,36 +20,17 @@ import {
   ChevronRight
 } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
-import slide1 from '../images/Banner.jpeg';
+import kitchenImage from '../images/kitchen.jpg';
+import officeImage from '../images/office.jpg';
+import bannerImage from '../images/Banner.jpeg';
+import residentialImage from '../images/residential.jpg';
+import deepImage from '../images/deep.jpg';
+import eolImage from '../images/eol.jpg';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [postalCode, setPostalCode] = useState('');
   const [availabilityMessage, setAvailabilityMessage] = useState('');
-
-  const heroSlides = [
-    // {
-    //   image: "https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    //   title: "Making Homes Shine",
-    //   subtitle: "One Clean at a Time"
-    // },
-    // {
-    //   image: "https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    //   title: "Professional Cleaners",
-    //   subtitle: "You Can Trust"
-    // },
-    {
-      image: "https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      // image:{slide1},
-      title: "Professional Cleaning Services in Melbourne",
-      subtitle: "Trusted, Affordable & Always Spotless"
-    },
-    // {
-    //   image: "https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    //   title: "Eco-Friendly Solutions",
-    //   subtitle: "For a Healthier Home"
-    // }
-  ];
 
   const services = [
     {
@@ -116,13 +97,6 @@ const Home: React.FC = () => {
     },
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   const handleAvailabilityCheck = (e: React.FormEvent) => {
     e.preventDefault();
     if (postalCodes.includes(postalCode)) {
@@ -163,25 +137,17 @@ const toggleFAQ = (index:any) => {
 };
 
   return (
-    <div className="pt-10">
+    <div>
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden slider">
-        {heroSlides.map((slide, index) => (
-          <motion.div
-            key={index}
-            className="absolute inset-0 img"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: currentSlide === index ? 1 : 0 }}
-            transition={{ duration: 1 }}
-          >
-            <img
-              src={slide.image}
-              alt="Clean home"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </motion.div>
-        ))}
+      <section className="relative h-screen overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="/src/images/Service.jpg"
+            alt="Professional Kitchen Cleaning"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/30" />
+        </div>
 
         <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
           <div className="max-w-4xl mx-auto px-4">
@@ -189,30 +155,31 @@ const toggleFAQ = (index:any) => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-5xl md:text-7xl font-bold mb-6 title"
+              className="text-4xl md:text-6xl font-bold mb-6 title drop-shadow-lg"
             >
-              {heroSlides[currentSlide].title}
-              <br />
-              <span className="text-emerald-400 subtitle">{heroSlides[currentSlide].subtitle}</span>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+              Professional Cleaning Services
+              <span className="block text-emerald-400">in Melbourne</span>
+            </h1>
             </motion.h1>
             <motion.p
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-xl md:text-2xl mb-8 text-gray-200 text"
+              className="text-lg md:text-xl mb-8 text-gray-200 text drop-shadow-md"
             >
-              {/* Your trusted cleaning partner across Melbourne */}
               From homes to high-rises, we deliver expert cleaning solutions across Melbourne. Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh. Book today and enjoy a cleaner, healthier environment — without the hassle.            </motion.p>
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.8 }}
+              className="drop-shadow-md"
             >
               <div className="flex justify-center items-center gap-6 mt-6 flex-wrap">
                 {/* Phone Number Button Style */}
                 <a
                   href="tel:+61435137936"
-                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-lg hover:bg-emerald-50 transition-colors duration-200"
+                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-base hover:bg-emerald-50 transition-colors duration-200 shadow-lg"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   +61 435 137 936
@@ -220,26 +187,14 @@ const toggleFAQ = (index:any) => {
 
                 {/* Book Your Clean Now Button */}
                 <Link to="/services">
-                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-md hover:shadow-lg flex items-center">
-                    Book Your Clean Now
+                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-base font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
+                    Book Now
                     <ArrowRight className="inline-block ml-2 w-5 h-5" />
                   </button>
                 </Link>
               </div>
             </motion.div>
           </div>
-        </div>
-
-        {/* Slide indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-colors duration-300 ${currentSlide === index ? 'bg-emerald-400' : 'bg-white/50'
-                }`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
         </div>
       </section>
 
@@ -307,7 +262,7 @@ const toggleFAQ = (index:any) => {
               </h2>
               <div className="w-20 h-1 bg-emerald-500 rounded mb-6"></div>
               <p className="text-gray-700 mb-4">
-                At Wipely, we take pride in delivering professional cleaning services that meet the highest standards. Our team is trained, insured, and equipped to make your space sparkle — whether it’s a home, office, or commercial property.
+                At Wipely, we take pride in delivering professional cleaning services that meet the highest standards. Our team is trained, insured, and equipped to make your space sparkle — whether it's a home, office, or commercial property.
               </p>
               <p className="text-gray-700">
                 Serving the Melbourne area, we offer flexible scheduling, eco-friendly cleaning supplies, and transparent pricing. Experience the Wipely difference with reliable service that puts customer satisfaction first.
@@ -356,7 +311,7 @@ const toggleFAQ = (index:any) => {
             <div className="w-20 h-1 bg-emerald-500 rounded mb-6 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto text-center">
               Discover a wide range of professional cleaning services tailored for homes and businesses across Melbourne.
-              From regular upkeep to deep seasonal cleans — we’ve got every corner covered.
+              From regular upkeep to deep seasonal cleans — we've got every corner covered.
             </p>
           </motion.div>
 
@@ -560,7 +515,7 @@ const toggleFAQ = (index:any) => {
                         ))}
                       </div>
                       <p className="text-gray-700 italic mb-4">
-                        “{testimonial.text}”
+                        "{testimonial.text}"
                       </p>
                     </div>
                     <div className="text-center mt-4">

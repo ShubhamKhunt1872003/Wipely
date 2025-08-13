@@ -27,6 +27,7 @@ const Footer: React.FC = () => {
         <li><a href="#home" className="hover:text-white">Home</a></li>
         <li><a href="#about" className="hover:text-white">About Us</a></li>
         <li><a href="#services" className="hover:text-white">Our Services</a></li>
+        <li><a href="/blog" className="hover:text-white">Blog</a></li>
         <li><a href="#contact" className="hover:text-white">Contact</a></li>
         <li><a href="#faq" className="hover:text-white">FAQ</a></li>
       </ul>
@@ -38,13 +39,17 @@ const Footer: React.FC = () => {
 <div className="w-12 h-1 bg-emerald-500 mb-3"></div>
 
       <ul className="space-y-2 text-sm text-gray-300">
-        <li>🏠 Residential Cleaning</li>
-        <li>🧹 Deep Cleaning</li>
-        <li>🏢 Office Cleaning</li>
-        <li>🪟 Window Cleaning</li>
-        <li>🚪 End of Lease Cleaning</li>
-        <li>🛁 Kitchen & Bathroom Cleaning</li>
-        <li>🧽 Carpet & Upholstery</li>
+        <li>🏠 <a href="/services/regular-cleaning" className="hover:text-white">Regular House Cleaning</a></li>
+        <li>🚪 <a href="/services/end-of-lease" className="hover:text-white">End of Lease Cleaning</a></li>
+        <li>✨ <a href="/services/spring-cleaning" className="hover:text-white">One-off Spring Cleaning</a></li>
+        <li>🛠️ <a href="/services/custom-cleaning" className="hover:text-white">Custom Cleaning</a></li>
+        <li>🧽 <a href="/services/custom-cleaning" className="hover:text-white">Carpet Steam Cleaning</a></li>
+        <li>🛋️ <a href="/services/custom-cleaning" className="hover:text-white">Upholstery Cleaning</a></li>
+        <li>🛏️ <a href="/services/custom-cleaning" className="hover:text-white">Mattress Cleaning</a></li>
+        <li>🔥 <a href="/services/custom-cleaning" className="hover:text-white">Oven Cleaning</a></li>
+        <li>🍖 <a href="/services/custom-cleaning" className="hover:text-white">BBQ Cleaning</a></li>
+        <li>🪜 <a href="/services/custom-cleaning" className="hover:text-white">Staircase Cleaning</a></li>
+        <li>🏢 <a href="/services/custom-cleaning" className="hover:text-white">Commercial Spaces</a></li>
       </ul>
     </div>
 

@@ -142,7 +142,7 @@ const SpringCleaning: React.FC = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary text-lg px-8 py-4"
+                  className="btn-primary px-8 py-4"
                 >
                   Book Now
                   <ArrowRight className="inline-block ml-2 w-5 h-5" />
@@ -508,7 +508,7 @@ const SpringCleaning: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-emerald-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg"
+                className="bg-white text-emerald-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg text-base"
               >
                 Book Now
                 <ArrowRight className="inline-block ml-2 w-5 h-5" />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Sparkles, Phone } from 'lucide-react';
@@ -6,7 +6,20 @@ import { Menu, X, ChevronDown, Sparkles, Phone } from 'lucide-react';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const isHomePage = location.pathname === '/';
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -37,7 +50,11 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-emerald-100">
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      isHomePage && !isScrolled 
+        ? 'bg-transparent' 
+        : 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -74,9 +91,12 @@ const Header: React.FC = () => {
                   >
                     <Link
                       to={item.href}
-                      className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${location.pathname.startsWith('/services')
-                        ? 'text-emerald-600'
-                        : 'text-gray-700 hover:text-emerald-600'
+                      className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                        location.pathname.startsWith('/services')
+                          ? 'text-emerald-600'
+                          : isHomePage && !isScrolled
+                            ? 'text-white hover:text-emerald-300'
+                            : 'text-gray-700 hover:text-emerald-600'
                         }`}
                     >
                       <span>{item.name}</span>
@@ -108,9 +128,12 @@ const Header: React.FC = () => {
                 ) : (
                   <Link
                     to={item.href}
-                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${location.pathname === item.href
-                      ? 'text-emerald-600'
-                      : 'text-gray-700 hover:text-emerald-600'
+                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                      location.pathname === item.href
+                        ? 'text-emerald-600'
+                        : isHomePage && !isScrolled
+                          ? 'text-white hover:text-emerald-300'
+                          : 'text-gray-700 hover:text-emerald-600'
                       }`}
                   >
                     {item.name}
@@ -121,9 +144,13 @@ const Header: React.FC = () => {
           </nav>
 
           {/* ✅ Contact Number */}
-          <div className="hidden md:flex items-center space-x-2 text-sm text-gray-700">
+          <div className={`hidden md:flex items-center space-x-2 text-sm ${
+            isHomePage && !isScrolled ? 'text-white' : 'text-gray-700'
+          }`}>
             <Phone className="w-4 h-4 text-emerald-600" />
-            <a href="tel:+61435137936" className="hover:text-emerald-600 transition-colors duration-200">
+            <a href="tel:+62435137936" className={`transition-colors duration-200 ${
+              isHomePage && !isScrolled ? 'hover:text-emerald-300' : 'hover:text-emerald-600'
+            }`}>
               +61 435 137 936
             </a>
           </div>
@@ -146,7 +173,11 @@ const Header: React.FC = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-emerald-600 transition-colors duration-200"
+              className={`p-2 rounded-md transition-colors duration-200 ${
+                isHomePage && !isScrolled 
+                  ? 'text-white hover:text-emerald-300' 
+                  : 'text-gray-700 hover:text-emerald-600'
+              }`}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
