@@ -16,11 +16,14 @@ import {
   Gift,
   Baby
 } from 'lucide-react';
-import kitchenImg from '../../images/kitchen.jpg';
-import cleaningImg from '../../images/regularHouseImg.jpg';
-import claningImgSec from '../../images/regularCL.jpg';
-import binImg from '../../images/bin.jpg';
-import bedImg from '../../images/bed.jpg';
+
+// Using Pexels stock photos
+const kitchenImg = 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600';
+const cleaningImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200';
+const claningImgSec = 'https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=800';
+const binImg = 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600';
+const bedImg = 'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=600';
+
 const RegularCleaning: React.FC = () => {
  const includedServices = [
   {

@@ -12,13 +12,16 @@ import {
   Clock,
   Award
 } from 'lucide-react';
-import ServiceBanner from '../images/Service.jpg';
-import ResidentalImg from '../images/residential.jpg';
-import DeepImg from '../images/deep.jpg';
-import OfficeImg from '../images/office.jpg';
-import WindowImg from '../images/wipe.jpg';
-import EndofleaseImg from '../images/eol.jpg';
-import KitchenImg from  '../images/kitchen.jpg';
+
+// Using Pexels stock photos
+const ServiceBanner = 'https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=1200';
+const ResidentalImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=600';
+const DeepImg = 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600';
+const OfficeImg = 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=600';
+const WindowImg = 'https://images.pexels.com/photos/5824901/pexels-photo-5824901.jpeg?auto=compress&cs=tinysrgb&w=600';
+const EndofleaseImg = 'https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600';
+const KitchenImg = 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600';
+
 const Services: React.FC = () => {
   const services = [
     {
