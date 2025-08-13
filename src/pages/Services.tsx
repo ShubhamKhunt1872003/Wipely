@@ -89,11 +89,11 @@ const Services: React.FC = () => {
   <div className="absolute inset-0 bg-black bg-opacity-60"></div>
 
   {/* Content */}
-  <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4">
-    <h1 className="text-3xl md:text-4xl font-bold mb-4">
+  <div className="relative z-10 flex flex-col justify-center h-full text-white px-4 md:px-8 lg:px-16">
+    <h1 className="text-3xl md:text-5xl font-bold mb-4 text-left">
       Our Expert Cleaning Services
     </h1>
-    <p className="text-base md:text-lg max-w-2xl">
+    <p className="text-base md:text-lg max-w-2xl text-left">
       Tailored cleaning solutions for homes and businesses. Trust Wipely for spotless results, every time.
     </p>
   </div>
