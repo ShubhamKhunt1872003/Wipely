@@ -158,7 +158,7 @@ const toggleFAQ = (index:any) => {
               className="text-3xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg text-left"
             >
               Professional Cleaning Services
-              <span className="text-emerald-400 drop-shadow-lg"> in Melbourne</span>
+              <span className="block text-emerald-400 drop-shadow-lg">in Melbourne</span>
             </motion.h1>
             <motion.p
               initial={{ y: 50, opacity: 0 }}
