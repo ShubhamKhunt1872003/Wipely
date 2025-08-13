@@ -20,7 +20,13 @@ import {
   ChevronRight
 } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
-import bannerImage from '../images/Service.jpg';
+import serviceImage from '../images/Service.jpg';
+import kitchenImage from '../images/kitchen.jpg';
+import officeImage from '../images/office.jpg';
+import bannerImage from '../images/Banner.jpeg';
+import residentialImage from '../images/residential.jpg';
+import deepImage from '../images/deep.jpg';
+import eolImage from '../images/eol.jpg';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,9 +35,24 @@ const Home: React.FC = () => {
 
   const heroSlides = [
     {
-      image: bannerImage,
+      image: serviceImage,
       title: "Professional Cleaning Services in Melbourne",
       subtitle: "Trusted, Affordable & Always Spotless"
+    },
+    {
+      image: kitchenImage,
+      title: "Expert Kitchen Cleaning",
+      subtitle: "Deep Clean Every Surface"
+    },
+    {
+      image: residentialImage,
+      title: "Residential Cleaning Excellence",
+      subtitle: "Your Home, Our Priority"
+    },
+    {
+      image: officeImage,
+      title: "Commercial Cleaning Solutions",
+      subtitle: "Professional Workspace Cleaning"
     }
   ];
 
