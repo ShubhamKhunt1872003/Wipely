@@ -157,9 +157,9 @@ const toggleFAQ = (index:any) => {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="text-4xl md:text-6xl font-bold mb-6 title drop-shadow-lg"
             >
-              Professional Kitchen Cleaning
+              Professional Cleaning Services
               <br />
-              <span className="text-emerald-400 subtitle drop-shadow-lg">Expert Deep Clean Services</span>
+              <span className="text-emerald-400 subtitle drop-shadow-lg">in Melbourne</span>
             </motion.h1>
             <motion.p
               initial={{ y: 50, opacity: 0 }}
