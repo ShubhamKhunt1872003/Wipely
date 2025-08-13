@@ -146,7 +146,7 @@ const toggleFAQ = (index:any) => {
             alt="Professional Kitchen Cleaning"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/30" />
         </div>
 
         <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
