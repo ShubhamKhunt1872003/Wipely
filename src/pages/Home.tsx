@@ -166,7 +166,10 @@ const toggleFAQ = (index:any) => {
               transition={{ delay: 0.7, duration: 0.8 }}
               className="text-lg md:text-xl mb-8 text-gray-200 text drop-shadow-md text-left"
             >
-              From homes to high-rises, we deliver expert cleaning solutions across Melbourne. Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh. Book today and enjoy a cleaner, healthier environment — without the hassle.            </motion.p>
+              <span className="block">From homes to high-rises, we deliver expert cleaning solutions across Melbourne.</span>
+              <span className="block">Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh.</span>
+              <span className="block">Book today and enjoy a cleaner, healthier environment — without the hassle.</span>
+            </motion.p>
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
