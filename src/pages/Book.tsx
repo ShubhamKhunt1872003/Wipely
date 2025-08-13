@@ -374,7 +374,13 @@ const Book: React.FC = () => {
                     </label>
                     <select
                       {...register('bedrooms', { valueAsNumber: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-[#059669] transition-colors duration-200 appearance-none bg-white"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                        backgroundPosition: 'right 0.5rem center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '1.5em 1.5em'
+                      }}
                     >
                       {[0,1,2,3,4,5,6,7,8,9,10].map(num => (
                         <option key={num} value={num}>{num}</option>
@@ -387,7 +393,13 @@ const Book: React.FC = () => {
                     </label>
                     <select
                       {...register('bathrooms', { valueAsNumber: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-[#059669] transition-colors duration-200 appearance-none bg-white"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                        backgroundPosition: 'right 0.5rem center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '1.5em 1.5em'
+                      }}
                     >
                       {[0,1,2,3,4,5,6,7,8,9,10].map(num => (
                         <option key={num} value={num}>{num}</option>
@@ -618,7 +630,7 @@ const Book: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     type="button"
                     onClick={prevStep}
-                    className="btn-secondary"
+                    className="btn-secondary flex items-center"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Previous
@@ -647,7 +659,7 @@ const Book: React.FC = () => {
                     type="button"
                     onClick={nextStep}
                     disabled={currentStep === 2 && postalCodeValid !== true}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                   >
                     Next
                     <ArrowRight className="w-4 h-4 ml-2" />
@@ -657,7 +669,7 @@ const Book: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    className="btn-primary"
+                    className="btn-primary flex items-center"
                   >
                     Submit Request
                     <CheckCircle className="w-4 h-4 ml-2" />
