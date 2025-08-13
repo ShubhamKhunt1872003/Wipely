@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { motion } from 'framer-motion';
+<<<<<<< HEAD
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -545,38 +545,88 @@ const toggleFAQ = (index:any) => {
         <button
           onClick={() => toggleFAQ(index)}
           className="w-full text-left flex justify-between items-center text-lg font-medium text-gray-800"
-        >
-          {faq.question}
-          <span className="ml-4 text-emerald-500 text-2xl">
-            {activeIndex === index ? "-" : "+"}
-          </span>
-        </button>
+=======
+import { Sparkles, CheckCircle, Phone } from 'lucide-react';
 
-        {activeIndex === index && (
-          <p className="mt-3 text-gray-600 text-base leading-relaxed">
-            {faq.answer}
-          </p>
-        )}
+const Home: React.FC = () => {
+  return (
+    <div className="relative min-h-screen bg-gradient-to-br from-emerald-50 to-sage-100 overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          animate={{ 
+            rotate: 360,
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ 
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-20 left-10 text-emerald-200"
+>>>>>>> 0af80050cb37bd16d2824d477b6011bcb33338c9
+        >
+          <Sparkles size={40} />
+        </motion.div>
+        <motion.div
+          animate={{ 
+            rotate: -360,
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute bottom-20 right-10 text-sage-200"
+        >
+          <CheckCircle size={50} />
+        </motion.div>
       </div>
-    ))}
-  </div>
-</section>
-<section className="bg-emerald-600 text-white py-12">
-  <div className="max-w-6xl mx-auto px-4 text-center">
-    <h2 className="text-3xl md:text-4xl font-bold mb-3">
-      Book Your Cleaning Services in Melbourne Today!
-    </h2>
-    <p className="text-lg mb-6 max-w-2xl mx-auto">
-      Get sparkling results with Wipely — trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
-    </p>
-    <a
-      href="#contact" // or use your booking route
-      className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
-    >
-      Book Now
-    </a>
-  </div>
-</section>
+
+      <div className="relative z-10 min-h-screen bg-black/40 flex items-center">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`
+          }}
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        
+        <div className="relative z-20 container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-2xl"
+          >
+            <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+              Professional Cleaning Services
+              <span className="block text-emerald-400">in Melbourne</span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              Expert deep clean services for your home and office. Professional, reliable, and affordable cleaning solutions.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="/book"
+                className="inline-flex items-center justify-center px-8 py-4 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
+              >
+                Book Now
+              </a>
+              <a
+                href="tel:+1234567890"
+                className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-colors duration-300"
+              >
+                <Phone className="mr-2" size={20} />
+                Call Us Now
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 };

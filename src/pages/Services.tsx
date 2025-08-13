@@ -81,48 +81,23 @@ const Services: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <div className="relative h-[400px] md:h-[500px] w-full">
-        <img
-          src={ServiceBanner}
-          alt="Professional Cleaning Services"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50 flex flex-col justify-center px-6 md:px-20">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
-              Our Cleaning Services
-            </h1>
-            <p className="text-white text-lg md:text-xl max-w-3xl mb-6">
-              From regular house cleaning to specialized services - we deliver spotless results for homes and businesses across Melbourne.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/book">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary px-8 py-4"
-                >
-                  Book Now
-                  <ArrowRight className="inline-block ml-2 w-5 h-5" />
-                </motion.button>
-              </Link>
-              <a href="tel:+61435137936">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-secondary px-8 py-4 bg-white text-emerald-600 border-2 border-white hover:bg-emerald-600 hover:text-white"
-                >
-                  Call Us Now
-                </motion.button>
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+<section
+  className="relative h-[40vh] md:h-[50vh] bg-cover bg-center"
+  style={{ backgroundImage: `url(${ServiceBanner})` }}
+>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+
+  {/* Content */}
+  <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4">
+    <h1 className="text-3xl md:text-4xl font-bold mb-4">
+      Our Expert Cleaning Services
+    </h1>
+    <p className="text-base md:text-lg max-w-2xl">
+      Tailored cleaning solutions for homes and businesses. Trust Wipely for spotless results, every time.
+    </p>
+  </div>
+</section>
 
       {/* Services Grid */}
      <section className="py-16 bg-white">
