@@ -423,7 +423,6 @@ const Book: React.FC = () => {
                   <input
                     type="text"
                     {...register('postalCode', { 
-                    className="w-4 h-4 text-emerald-600 focus:ring-emerald-600 border-gray-300 rounded"
                       validate: validatePostalCode
                     })}
                     onChange={(e) => {
