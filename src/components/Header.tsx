@@ -53,7 +53,7 @@ const Header: React.FC = () => {
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       !isScrolled && hasHeroImage
-        ? 'bg-transparent' 
+        ? 'bg-transparent backdrop-blur-none' 
         : 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
