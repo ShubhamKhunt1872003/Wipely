@@ -81,21 +81,25 @@ const Services: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-sage-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                Our Expert
-                <span className="block text-emerald-600">Cleaning Services</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Tailored cleaning solutions for homes and businesses. Trust Wipely for spotless results, every time.
-              </p>
+      <div className="relative h-[400px] md:h-[500px] w-full">
+        <img
+          src={ServiceBanner}
+          alt="Professional Cleaning Services"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50 flex flex-col justify-center px-6 md:px-20">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
+              Professional Cleaning Services
+            </h1>
+            <p className="text-white text-lg md:text-xl max-w-3xl mb-6">
+              From regular house cleaning to specialized services - we deliver spotless results for homes and businesses across Melbourne.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/book">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -106,52 +110,19 @@ const Services: React.FC = () => {
                   <ArrowRight className="inline-block ml-2 w-5 h-5" />
                 </motion.button>
               </Link>
-            </motion.div>
-            
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <img
-                src={ServiceBanner}
-                alt="Professional cleaning services"
-                className="rounded-2xl shadow-2xl"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Expert Services</div>
-                    <div className="text-gray-600">From $120</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-        
-        {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-20 left-10 w-8 h-8 text-emerald-300 opacity-60"
-          >
-            <Sparkles className="w-full h-full" />
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, -30, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute top-32 right-20 w-6 h-6 text-sage-300 opacity-60"
-          >
-            <CheckCircle className="w-full h-full" />
+              <a href="tel:+61435137936">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-secondary px-8 py-4 bg-white text-emerald-600 border-2 border-white hover:bg-emerald-600 hover:text-white"
+                >
+                  Call Us Now
+                </motion.button>
+              </a>
+            </div>
           </motion.div>
         </div>
-      </section>
+      </div>
 
       {/* Services Grid */}
      <section className="py-16 bg-white">
