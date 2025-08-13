@@ -20,7 +20,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
-import slide1 from '../images/Banner.jpeg';
+import bannerImage from '../images/Banner.jpeg';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -28,27 +28,11 @@ const Home: React.FC = () => {
   const [availabilityMessage, setAvailabilityMessage] = useState('');
 
   const heroSlides = [
-    // {
-    //   image: "https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    //   title: "Making Homes Shine",
-    //   subtitle: "One Clean at a Time"
-    // },
-    // {
-    //   image: "https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    //   title: "Professional Cleaners",
-    //   subtitle: "You Can Trust"
-    // },
     {
-      image: "https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      // image:{slide1},
+      image: bannerImage,
       title: "Professional Cleaning Services in Melbourne",
       subtitle: "Trusted, Affordable & Always Spotless"
-    },
-    // {
-    //   image: "https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    //   title: "Eco-Friendly Solutions",
-    //   subtitle: "For a Healthier Home"
-    // }
+    }
   ];
 
   const services = [
