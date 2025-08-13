@@ -9,6 +9,10 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
+  // Pages with hero/slider images that should have transparent header
+  const pagesWithHeroImages = ['/', '/services', '/services/regular-cleaning', '/services/end-of-lease', '/services/spring-cleaning', '/services/custom-cleaning'];
+  const hasHeroImage = pagesWithHeroImages.includes(location.pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -18,8 +22,6 @@ const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const isHomePage = location.pathname === '/';
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -50,7 +52,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      !isScrolled 
+      !isScrolled && hasHeroImage
         ? 'bg-transparent' 
         : 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
     }`}>
@@ -93,7 +95,7 @@ const Header: React.FC = () => {
                       className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                         location.pathname.startsWith('/services')
                           ? 'text-emerald-600'
-                          : !isScrolled
+                          : !isScrolled && hasHeroImage
                             ? 'text-white hover:text-emerald-300'
                             : 'text-gray-700 hover:text-emerald-600'
                         }`}
@@ -130,7 +132,7 @@ const Header: React.FC = () => {
                     className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       location.pathname === item.href
                         ? 'text-emerald-600'
-                        : !isScrolled
+                        : !isScrolled && hasHeroImage
                           ? 'text-white hover:text-emerald-300'
                           : 'text-gray-700 hover:text-emerald-600'
                       }`}
@@ -144,11 +146,11 @@ const Header: React.FC = () => {
 
           {/* ✅ Contact Number */}
           <div className={`hidden md:flex items-center space-x-2 text-sm ${
-            !isScrolled ? 'text-white' : 'text-gray-700'
+            !isScrolled && hasHeroImage ? 'text-white' : 'text-gray-700'
           }`}>
             <Phone className="w-4 h-4 text-emerald-600" />
             <a href="tel:+62435137936" className={`transition-colors duration-200 ${
-              !isScrolled ? 'hover:text-emerald-300' : 'hover:text-emerald-600'
+              !isScrolled && hasHeroImage ? 'hover:text-emerald-300' : 'hover:text-emerald-600'
             }`}>
               +61 435 137 936
             </a>
@@ -173,7 +175,7 @@ const Header: React.FC = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`p-2 rounded-md transition-colors duration-200 ${
-                !isScrolled 
+                !isScrolled && hasHeroImage
                   ? 'text-white hover:text-emerald-300' 
                   : 'text-gray-700 hover:text-emerald-600'
               }`}
