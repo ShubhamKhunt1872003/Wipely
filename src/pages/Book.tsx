@@ -21,7 +21,8 @@ import {
   Bed,
   Shirt,
   Microwave,
-  Square
+  Square,
+  ChevronDown
 } from 'lucide-react';
 
 import postalCodes from '../data/postalcode.json';
@@ -49,6 +50,8 @@ const Book: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
   const [postalCodeValid, setPostalCodeValid] = useState<boolean | null>(null);
+  const [bedroomDropdownOpen, setBedroomDropdownOpen] = useState(false);
+  const [bathroomDropdownOpen, setBathroomDropdownOpen] = useState(false);
 
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormData>({
     defaultValues: {
@@ -114,6 +117,60 @@ const Book: React.FC = () => {
     };
     return iconMap[iconName] || Sparkles;
   }
+
+  const CustomDropdown = ({ 
+    label, 
+    value, 
+    onChange, 
+    options, 
+    isOpen, 
+    setIsOpen 
+  }: {
+    label: string;
+    value: number;
+    onChange: (value: number) => void;
+    options: number[];
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+  }) => {
+    return (
+      <div className="relative">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label}
+        </label>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-[#059669] transition-colors duration-200 bg-white text-left flex items-center justify-between"
+          >
+            <span>{value}</span>
+            <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {isOpen && (
+            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+              {options.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => {
+                    onChange(option);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full px-4 py-3 text-left hover:bg-[#059669] hover:text-white transition-colors duration-200 ${
+                    value === option ? 'bg-[#059669] text-white' : 'text-gray-900'
+                  }`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
 
   const validatePostalCode = (code: string) => {
     const isValid = postalCodes.includes(code);
@@ -368,44 +425,22 @@ const Book: React.FC = () => {
 
                 {/* Bedrooms & Bathrooms */}
                 <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Bedrooms
-                    </label>
-                    <select
-                      {...register('bedrooms', { valueAsNumber: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-[#059669] transition-colors duration-200 appearance-none bg-white"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
-                        backgroundPosition: 'right 0.5rem center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: '1.5em 1.5em'
-                      }}
-                    >
-                      {[0,1,2,3,4,5,6,7,8,9,10].map(num => (
-                        <option key={num} value={num}>{num}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Bathrooms
-                    </label>
-                    <select
-                      {...register('bathrooms', { valueAsNumber: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-[#059669] transition-colors duration-200 appearance-none bg-white"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
-                        backgroundPosition: 'right 0.5rem center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: '1.5em 1.5em'
-                      }}
-                    >
-                      {[0,1,2,3,4,5,6,7,8,9,10].map(num => (
-                        <option key={num} value={num}>{num}</option>
-                      ))}
-                    </select>
-                  </div>
+                  <CustomDropdown
+                    label="Bedrooms"
+                    value={watchedValues.bedrooms}
+                    onChange={(value) => setValue('bedrooms', value)}
+                    options={[0,1,2,3,4,5,6,7,8,9,10]}
+                    isOpen={bedroomDropdownOpen}
+                    setIsOpen={setBedroomDropdownOpen}
+                  />
+                  <CustomDropdown
+                    label="Bathrooms"
+                    value={watchedValues.bathrooms}
+                    onChange={(value) => setValue('bathrooms', value)}
+                    options={[0,1,2,3,4,5,6,7,8,9,10]}
+                    isOpen={bathroomDropdownOpen}
+                    setIsOpen={setBathroomDropdownOpen}
+                  />
                 </div>
                 
                 {/* Validation message for non-custom services */}
