@@ -178,7 +178,7 @@ const toggleFAQ = (index:any) => {
                 {/* Phone Number Button Style */}
                 <a
                   href="tel:+61435137936"
-                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-lg hover:bg-emerald-50 transition-colors duration-200 shadow-lg"
+                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-base hover:bg-emerald-50 transition-colors duration-200 shadow-lg"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   +61 435 137 936
@@ -186,7 +186,7 @@ const toggleFAQ = (index:any) => {
 
                 {/* Book Your Clean Now Button */}
                 <Link to="/services">
-                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
+                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-base font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
                     Book Your Clean Now
                     <ArrowRight className="inline-block ml-2 w-5 h-5" />
                   </button>
