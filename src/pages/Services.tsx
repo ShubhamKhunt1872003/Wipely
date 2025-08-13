@@ -81,23 +81,25 @@ const Services: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-<section
-  className="relative h-[40vh] md:h-[50vh] bg-cover bg-center"
-  style={{ backgroundImage: `url(${ServiceBanner})` }}
->
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+      <section
+        className="relative h-[40vh] md:h-[50vh] bg-cover bg-center"
+        style={{ backgroundImage: `url(${ServiceBanner})` }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
 
-  {/* Content */}
-  <div className="relative z-10 flex flex-col justify-center h-full text-white px-4 md:px-8 lg:px-16">
-    <h1 className="text-3xl md:text-5xl font-bold mb-4 text-left">
-      Our Expert Cleaning Services
-    </h1>
-    <p className="text-base md:text-lg max-w-2xl text-left">
-      Tailored cleaning solutions for homes and businesses. Trust Wipely for spotless results, every time.
-    </p>
-  </div>
-</section>
+        {/* Content */}
+        <div className="relative z-10 flex items-center h-full">
+          <div className="max-w-7xl mx-auto px-4 w-full">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+              Our Expert Cleaning Services
+            </h1>
+            <p className="text-base md:text-lg max-w-2xl text-white">
+              Tailored cleaning solutions for homes and businesses. Trust Wipely for spotless results, every time.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Services Grid */}
      <section className="py-16 bg-white">
