@@ -155,7 +155,7 @@ const toggleFAQ = (index:any) => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-3xl md:text-5xl font-bold mb-6 title drop-shadow-lg text-left"
+              className="text-3xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg text-left"
             >
               Professional Cleaning Services
               <span className="text-emerald-400 drop-shadow-lg"> in Melbourne</span>
