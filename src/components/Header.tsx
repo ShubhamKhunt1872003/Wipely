@@ -33,7 +33,6 @@ const Header: React.FC = () => {
         { name: 'Custom Cleaning', href: '/services/custom-cleaning', },
         { name: 'Carpet Steam Cleaning', href: '/services/custom-cleaning', },
         { name: 'Upholstery Cleaning', href: '/services/custom-cleaning', },
-        { name: 'Mattress Cleaning', href: '/services/custom-cleaning', },
         { name: 'Oven Cleaning', href: '/services/custom-cleaning', },
         { name: 'BBQ Cleaning', href: '/services/custom-cleaning', },
         { name: 'Staircase Cleaning', href: '/services/custom-cleaning', },

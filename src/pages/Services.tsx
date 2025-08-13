@@ -12,13 +12,15 @@ import {
   Clock,
   Award
 } from 'lucide-react';
-import ServiceBanner from '../images/Service.jpg';
-import ResidentalImg from '../images/residential.jpg';
-import DeepImg from '../images/deep.jpg';
-import OfficeImg from '../images/office.jpg';
-import WindowImg from '../images/wipe.jpg';
-import EndofleaseImg from '../images/eol.jpg';
-import KitchenImg from  '../images/kitchen.jpg';
+
+// Using Pexels stock photos
+const ResidentalImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=600';
+const DeepImg = 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600';
+const OfficeImg = 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=600';
+const WindowImg = 'https://images.pexels.com/photos/5824901/pexels-photo-5824901.jpeg?auto=compress&cs=tinysrgb&w=600';
+const EndofleaseImg = 'https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600';
+const KitchenImg = 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600';
+
 const Services: React.FC = () => {
   const services = [
     {
@@ -83,7 +85,7 @@ const Services: React.FC = () => {
       {/* Hero Section */}
       <section
         className="relative h-[40vh] md:h-[50vh] bg-cover bg-center"
-        style={{ backgroundImage: `url(${ServiceBanner})` }}
+        style={{ backgroundImage: `url(/src/images/Service.jpg)` }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
@@ -121,39 +123,6 @@ const Services: React.FC = () => {
           ]
         },
         {
-          title: "Deep Cleaning",
-          icon: "🧹",
-          img: DeepImg,
-          includes: [
-            "Behind fridge/oven cleaned",
-            "Skirting boards scrubbed",
-            "Detailed bathroom sanitization",
-            "Window sills and tracks"
-          ]
-        },
-        {
-          title: "Commercial Spaces",
-          icon: "🏢",
-          img: OfficeImg,
-          includes: [
-            "Desk & electronics wiped",
-            "Trash disposal & restocking",
-            "Kitchenette deep clean",
-            "Glass partitions cleaned"
-          ]
-        },
-        {
-          title: "Window Cleaning",
-          icon: "🪟",
-          img: WindowImg,
-          includes: [
-            "Interior & exterior glass",
-            "Track & frame wiping",
-            "Streak-free finish",
-            "Eco-friendly products"
-          ]
-        },
-        {
           title: "End of Lease Cleaning",
           icon: "🚪",
           img: EndofleaseImg,
@@ -165,17 +134,27 @@ const Services: React.FC = () => {
           ]
         },
         {
-          title: "Kitchen & Bathroom",
-          icon: "🛁",
-          img: KitchenImg,
+          title: "One-off Spring Cleaning",
+          icon: "✨",
+          img: DeepImg,
           includes: [
-            "Appliances wiped & degreased",
-            "Sink & taps scrubbed",
-            "Tiles, walls, and mirrors polished",
-            "Toilet, tub, and shower sanitized"
+            "Deep cleaning all rooms",
+            "Hard-to-reach areas",
+            "Appliance cleaning",
+            "Detailed dusting"
           ]
-        }
-        ,
+        },
+        {
+          title: "Custom Cleaning",
+          icon: "🛠️",
+          img: OfficeImg,
+          includes: [
+            "Specialized cleaning services",
+            "Flexible service options",
+            "Professional equipment",
+            "Tailored to your needs"
+          ]
+        },
         {
           title: "Carpet Steam Cleaning",
           icon: "🧽",
@@ -196,17 +175,6 @@ const Services: React.FC = () => {
             "Stain removal",
             "Odor elimination",
             "Color protection"
-          ]
-        },
-        {
-          title: "Mattress Cleaning",
-          icon: "🛏️",
-          img: OfficeImg,
-          includes: [
-            "Dust mite removal",
-            "Stain elimination",
-            "Deep sanitization",
-            "Odor control"
           ]
         },
         {
@@ -240,6 +208,17 @@ const Services: React.FC = () => {
             "Step deep clean",
             "Corner attention",
             "Safety focus"
+          ]
+        },
+        {
+          title: "Commercial Spaces",
+          icon: "🏢",
+          img: OfficeImg,
+          includes: [
+            "Desk & electronics wiped",
+            "Trash disposal & restocking",
+            "Kitchenette deep clean",
+            "Glass partitions cleaned"
           ]
         }
       ].map((service, index) => (
