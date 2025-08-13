@@ -173,17 +173,17 @@ const toggleFAQ = (index:any) => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-5xl md:text-7xl font-bold mb-6 title"
+              className="text-5xl md:text-7xl font-bold mb-6 title drop-shadow-lg"
             >
               {heroSlides[currentSlide].title}
               <br />
-              <span className="text-emerald-400 subtitle">{heroSlides[currentSlide].subtitle}</span>
+              <span className="text-emerald-400 subtitle drop-shadow-lg">{heroSlides[currentSlide].subtitle}</span>
             </motion.h1>
             <motion.p
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-xl md:text-2xl mb-8 text-gray-200 text"
+              className="text-xl md:text-2xl mb-8 text-gray-200 text drop-shadow-md"
             >
               {/* Your trusted cleaning partner across Melbourne */}
               From homes to high-rises, we deliver expert cleaning solutions across Melbourne. Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh. Book today and enjoy a cleaner, healthier environment — without the hassle.            </motion.p>
@@ -191,12 +191,13 @@ const toggleFAQ = (index:any) => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.8 }}
+              className="drop-shadow-md"
             >
               <div className="flex justify-center items-center gap-6 mt-6 flex-wrap">
                 {/* Phone Number Button Style */}
                 <a
                   href="tel:+62435137936"
-                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-lg hover:bg-emerald-50 transition-colors duration-200"
+                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-lg hover:bg-emerald-50 transition-colors duration-200 shadow-lg"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   +62 435137936
@@ -204,7 +205,7 @@ const toggleFAQ = (index:any) => {
 
                 {/* Book Your Clean Now Button */}
                 <Link to="/services">
-                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-md hover:shadow-lg flex items-center">
+                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
                     Book Your Clean Now
                     <ArrowRight className="inline-block ml-2 w-5 h-5" />
                   </button>
