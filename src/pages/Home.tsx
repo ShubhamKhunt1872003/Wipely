@@ -150,22 +150,21 @@ const toggleFAQ = (index:any) => {
         </div>
 
         <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 w-full">
             <motion.h1
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-4xl md:text-6xl font-bold mb-6 title drop-shadow-lg"
+              className="text-3xl md:text-5xl font-bold mb-4 text-white text-left drop-shadow-lg"
             >
               Professional Cleaning Services
-              <br />
-              <span className="text-emerald-400 subtitle drop-shadow-lg">in Melbourne</span>
+              <span className="text-emerald-400 drop-shadow-lg"> in Melbourne</span>
             </motion.h1>
             <motion.p
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-lg md:text-xl mb-8 text-gray-200 text drop-shadow-md"
+              className="text-lg md:text-xl mb-8 text-gray-200 text drop-shadow-md text-left"
             >
               From homes to high-rises, we deliver expert cleaning solutions across Melbourne. Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh. Book today and enjoy a cleaner, healthier environment — without the hassle.            </motion.p>
             <motion.div
@@ -174,7 +173,7 @@ const toggleFAQ = (index:any) => {
               transition={{ delay: 0.9, duration: 0.8 }}
               className="drop-shadow-md"
             >
-              <div className="flex justify-center items-center gap-6 mt-6 flex-wrap">
+              <div className="flex justify-start items-center gap-6 mt-6 flex-wrap">
                 {/* Phone Number Button Style */}
                 <a
                   href="tel:+61435137936"
