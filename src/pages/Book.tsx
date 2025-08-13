@@ -2,33 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { 
-  CheckCircle, 
-  ArrowRight, 
-  ArrowLeft,
-  MapPin,
-  Home as HomeIcon,
-  Calendar,
-  User,
-  Phone,
-  Mail,
-  MessageSquare,
-  PawPrint,
-  Car,
-  Sparkles,
-  Flame,
-  Layers,
-  Bed,
-  Shirt,
-  Microwave,
-  Square,
-  ChevronDown,
-  Sofa,
-  Building2,
-  Stairs
-} from 'lucide-react';
-
-import postalCodes from '../data/postalcode.json';
+import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react'data/postalcode.json';
 import pricing from '../data/pricing.json';
 import extras from '../data/extras.json';
 
@@ -109,16 +83,14 @@ const Book: React.FC = () => {
 
   function getIconComponent(iconName: string) {
     const iconMap: { [key: string]: any } = {
-      Flame: Flame,
+      ChefHat: Flame,
       Layers: Layers,
-      Sofa: Sofa,
-      Window: Square,
+      Armchair: Square,
       Bed: Bed,
-      Grill: Flame,
+      Flame: Flame,
+      Square: Square,
       Shirt: Shirt,
-      Microwave: Microwave,
-      Stairs: Stairs,
-      Building: Building2
+      Microwave: Microwave
     };
     return iconMap[iconName] || Sparkles;
   }
