@@ -158,7 +158,7 @@ const Book: React.FC = () => {
                     onChange(option);
                     setIsOpen(false);
                   }}
-                  className={`w-full px-4 py-3 text-left hover:bg-[#059669] hover:text-white transition-colors duration-200 ${
+                  className={`w-full px-3 py-2 text-left hover:bg-[#059669] hover:text-white transition-colors duration-200 ${
                     value === option ? 'bg-[#059669] text-white' : 'text-gray-900'
                   }`}
                 >
