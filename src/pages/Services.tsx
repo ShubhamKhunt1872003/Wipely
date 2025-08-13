@@ -175,6 +175,73 @@ const Services: React.FC = () => {
             "Toilet, tub, and shower sanitized"
           ]
         }
+        ,
+        {
+          title: "Carpet Steam Cleaning",
+          icon: "🧽",
+          img: ResidentalImg,
+          includes: [
+            "Deep stain removal",
+            "Allergen elimination",
+            "Fast drying process",
+            "Eco-friendly products"
+          ]
+        },
+        {
+          title: "Upholstery Cleaning",
+          icon: "🛋️",
+          img: DeepImg,
+          includes: [
+            "Fabric care treatment",
+            "Stain removal",
+            "Odor elimination",
+            "Color protection"
+          ]
+        },
+        {
+          title: "Mattress Cleaning",
+          icon: "🛏️",
+          img: OfficeImg,
+          includes: [
+            "Dust mite removal",
+            "Stain elimination",
+            "Deep sanitization",
+            "Odor control"
+          ]
+        },
+        {
+          title: "Oven Cleaning",
+          icon: "🔥",
+          img: WindowImg,
+          includes: [
+            "Non-toxic products",
+            "Full disassembly",
+            "Grease removal",
+            "Shine restoration"
+          ]
+        },
+        {
+          title: "BBQ Cleaning",
+          icon: "🍖",
+          img: EndofleaseImg,
+          includes: [
+            "Complete disassembly",
+            "Grease trap cleaning",
+            "Grill restoration",
+            "Safety check"
+          ]
+        },
+        {
+          title: "Staircase Cleaning",
+          icon: "🪜",
+          img: KitchenImg,
+          includes: [
+            "Balustrade cleaning",
+            "Step deep clean",
+            "Corner attention",
+            "Safety focus"
+          ]
+        }
       ].map((service, index) => (
         <div key={index} className="bg-white border border-gray-200 rounded-lg shadow hover:shadow-md transition overflow-hidden">
           {/* Image + Icon */}
