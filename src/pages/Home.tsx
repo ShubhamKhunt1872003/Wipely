@@ -163,7 +163,7 @@ const toggleFAQ = (index:any) => {
               alt="Clean home"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/20" />
           </motion.div>
         ))}
 
