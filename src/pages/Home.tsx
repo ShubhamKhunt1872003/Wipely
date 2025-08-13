@@ -20,7 +20,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
-import bannerImage from '../images/Banner.jpeg';
+import bannerImage from '../images/Service.jpg';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
