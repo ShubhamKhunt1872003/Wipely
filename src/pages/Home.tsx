@@ -147,7 +147,7 @@ const toggleFAQ = (index:any) => {
 };
 
   return (
-    <div className="pt-10">
+    <div>
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden slider">
         {heroSlides.map((slide, index) => (
