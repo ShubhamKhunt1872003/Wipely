@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 
 // Using Pexels stock photos
-const ServiceBanner = 'https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=1200';
 const ResidentalImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=600';
 const DeepImg = 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600';
 const OfficeImg = 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=600';
@@ -86,7 +85,7 @@ const Services: React.FC = () => {
       {/* Hero Section */}
       <section
         className="relative h-[40vh] md:h-[50vh] bg-cover bg-center"
-        style={{ backgroundImage: `url(${ServiceBanner})` }}
+        style={{ backgroundImage: `url(/src/images/Service.jpg)` }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
