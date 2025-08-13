@@ -13,10 +13,6 @@ const Header: React.FC = () => {
   const pagesWithHeroImages = ['/', '/services', '/services/regular-cleaning', '/services/end-of-lease', '/services/spring-cleaning', '/services/custom-cleaning'];
   const hasHeroImage = pagesWithHeroImages.includes(location.pathname);
 
-  // Pages with hero/slider images that should have transparent header
-  const pagesWithHeroImages = ['/', '/services', '/services/regular-cleaning', '/services/end-of-lease', '/services/spring-cleaning', '/services/custom-cleaning'];
-  const hasHeroImage = pagesWithHeroImages.includes(location.pathname);
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
