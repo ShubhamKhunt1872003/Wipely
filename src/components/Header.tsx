@@ -182,6 +182,10 @@ const Header: React.FC = () => {
                 !isScrolled && hasHeroImage
                   ? 'text-white hover:text-emerald-300' 
                   : 'text-gray-700 hover:text-emerald-600'
+              }`}
+                !isScrolled && hasHeroImage
+                  ? 'text-white hover:text-emerald-300' 
+                  : 'text-gray-700 hover:text-emerald-600'
                   ? 'text-white hover:text-emerald-300' 
                   : 'text-gray-700 hover:text-emerald-600'
               }`}
