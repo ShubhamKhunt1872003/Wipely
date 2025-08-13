@@ -187,7 +187,7 @@ const toggleFAQ = (index:any) => {
                 {/* Book Your Clean Now Button */}
                 <Link to="/services">
                   <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-base font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
-                    Book Your Clean Now
+                    Book Now
                     <ArrowRight className="inline-block ml-2 w-5 h-5" />
                   </button>
                 </Link>
@@ -261,7 +261,7 @@ const toggleFAQ = (index:any) => {
               </h2>
               <div className="w-20 h-1 bg-emerald-500 rounded mb-6"></div>
               <p className="text-gray-700 mb-4">
-                At Wipely, we take pride in delivering professional cleaning services that meet the highest standards. Our team is trained, insured, and equipped to make your space sparkle — whether it’s a home, office, or commercial property.
+                At Wipely, we take pride in delivering professional cleaning services that meet the highest standards. Our team is trained, insured, and equipped to make your space sparkle — whether it's a home, office, or commercial property.
               </p>
               <p className="text-gray-700">
                 Serving the Melbourne area, we offer flexible scheduling, eco-friendly cleaning supplies, and transparent pricing. Experience the Wipely difference with reliable service that puts customer satisfaction first.
@@ -310,7 +310,7 @@ const toggleFAQ = (index:any) => {
             <div className="w-20 h-1 bg-emerald-500 rounded mb-6 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto text-center">
               Discover a wide range of professional cleaning services tailored for homes and businesses across Melbourne.
-              From regular upkeep to deep seasonal cleans — we’ve got every corner covered.
+              From regular upkeep to deep seasonal cleans — we've got every corner covered.
             </p>
           </motion.div>
 
@@ -514,7 +514,7 @@ const toggleFAQ = (index:any) => {
                         ))}
                       </div>
                       <p className="text-gray-700 italic mb-4">
-                        “{testimonial.text}”
+                        "{testimonial.text}"
                       </p>
                     </div>
                     <div className="text-center mt-4">
