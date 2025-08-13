@@ -155,7 +155,7 @@ const toggleFAQ = (index:any) => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-5xl md:text-7xl font-bold mb-6 title drop-shadow-lg"
+              className="text-4xl md:text-6xl font-bold mb-6 title drop-shadow-lg"
             >
               Professional Kitchen Cleaning
               <br />
@@ -165,7 +165,7 @@ const toggleFAQ = (index:any) => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-xl md:text-2xl mb-8 text-gray-200 text drop-shadow-md"
+              className="text-lg md:text-xl mb-8 text-gray-200 text drop-shadow-md"
             >
               From homes to high-rises, we deliver expert cleaning solutions across Melbourne. Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh. Book today and enjoy a cleaner, healthier environment — without the hassle.            </motion.p>
             <motion.div
