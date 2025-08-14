@@ -198,9 +198,9 @@ const [activeIndex, setActiveIndex] = useState(null);
 
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero Section */}
-      <div className="relative h-[300px] md:h-[400px] w-full -mt-16">
+      <div className="relative h-[300px] md:h-[400px] w-full">
   <img
     src={cleaningImg}
     alt="Regular House Cleaning"
