@@ -84,7 +84,7 @@ const Services: React.FC = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <section
-        className="relative h-[40vh] md:h-[50vh] bg-cover bg-center -mt-16 pt-16"
+        className="relative h-[50vh] md:h-[60vh] bg-cover bg-center -mt-16 pt-16"
         style={{ backgroundImage: `url(/src/images/Service.jpg)` }}
       >
         {/* Overlay */}
