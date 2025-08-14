@@ -306,7 +306,6 @@ const EndOfLease: React.FC = () => {
                   
                   {/* Center Divider Line */}
                   <div className="absolute top-0 left-1/2 transform -translate-x-0.5 h-full w-1 bg-white/80 shadow-sm"></div>
-                </div>
                 
                 {/* Content Section */}
                 <div className="p-6 bg-gradient-to-br from-gray-50 to-white">
