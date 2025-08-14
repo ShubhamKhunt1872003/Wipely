@@ -250,7 +250,7 @@ const [activeIndex, setActiveIndex] = useState(null);
             >
               <div className="relative">
                 <img
-                  src="https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src="/src/images/Service.jpg"
                   alt="Professional cleaner doing regular cleaning"
                   className="rounded-2xl shadow-2xl w-full"
                 />
