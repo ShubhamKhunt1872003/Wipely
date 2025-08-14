@@ -246,15 +246,19 @@ const EndOfLease: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-6">
+              <Sparkles className="w-8 h-8 text-emerald-600" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Bond Cleaning Transformations
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               See the difference our professional bond cleaning makes
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {beforeAfterImages.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -262,12 +266,116 @@ const EndOfLease: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden card-hover"
+                className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
               >
-                <div className="grid grid-cols-2 gap-0">
-                  <div className="relative">
-                    <img src={item.before} alt="Before cleaning" className="w-full h-48 object-cover" />
-                    <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white text-center py-2 text-sm font-medium">
+                {/* Image Container with Hover Effect */}
+                <div className="relative overflow-hidden">
+                  <div className="grid grid-cols-2 gap-0">
+                    <div className="relative overflow-hidden">
+                      <img 
+                        src={item.before} 
+                        alt="Before cleaning" 
+                        className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110" 
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-red-600 to-red-500 text-white text-center py-3 text-sm font-semibold">
+                        Before
+                      </div>
+                      {/* Overlay on hover */}
+                      <div className="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div className="relative overflow-hidden">
+                      <img 
+                        src={item.after} 
+                        alt="After cleaning" 
+                        className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110" 
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-emerald-600 to-emerald-500 text-white text-center py-3 text-sm font-semibold">
+                        After
+                      </div>
+                      {/* Overlay on hover */}
+                      <div className="absolute inset-0 bg-emerald-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Floating Badge */}
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-gray-700 shadow-lg">
+                    Bond Clean
+                  </div>
+                  
+                  {/* Center Divider Line */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-0.5 h-full w-1 bg-white/80 shadow-sm"></div>
+                </div>
+                
+                {/* Content Section */}
+                <div className="p-6 bg-gradient-to-br from-gray-50 to-white">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-gray-500 mt-1">Professional Bond Cleaning</p>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Progress Bar Animation */}
+                  <div className="mt-4">
+                    <div className="flex justify-between text-xs text-gray-600 mb-2">
+                      <span>Transformation</span>
+                      <span>100%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-red-500 via-yellow-500 to-emerald-500 h-2 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Bottom CTA Section */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-16 text-center"
+          >
+            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-2xl p-8 border border-emerald-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Ready for Your Bond Back Guarantee?
+              </h3>
+              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                Join hundreds of satisfied tenants who got their full bond back with our professional cleaning service.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Link to="/book">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Book Bond Clean
+                    <ArrowRight className="inline-block ml-2 w-4 h-4" />
+                  </motion.button>
+                </Link>
+                <div className="flex items-center space-x-4 text-sm text-gray-600">
+                  <div className="flex items-center space-x-1">
+                    <CheckCircle className="w-4 h-4 text-emerald-500" />
+                    <span>Bond Back Guarantee</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Shield className="w-4 h-4 text-emerald-500" />
+                    <span>Fully Insured</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
                       Before
                     </div>
                   </div>
