@@ -10,7 +10,14 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   // Pages with hero/slider images that should have transparent header
-  const pagesWithHeroImages = ['/', '/services', '/services/regular-cleaning', '/services/end-of-lease', '/services/spring-cleaning', '/services/custom-cleaning'];
+  const pagesWithHeroImages = [
+    '/', 
+    '/services', 
+    '/services/regular-cleaning', 
+    '/services/end-of-lease', 
+    '/services/spring-cleaning', 
+    '/services/custom-cleaning'
+  ];
   const hasHeroImage = pagesWithHeroImages.includes(location.pathname);
 
   useEffect(() => {
