@@ -200,21 +200,23 @@ const [activeIndex, setActiveIndex] = useState(null);
   return (
     <div>
       {/* Hero Section */}
-      <div className="relative h-[300px] md:h-[400px] w-full">
+      <section className="relative h-[300px] md:h-[400px] w-full">
   <img
     src={cleaningImg}
     alt="Regular House Cleaning"
     className="w-full h-full object-cover object-bottom"
   />
-  <div className="absolute inset-0 bg-black/40 flex flex-col justify-center px-6 md:px-20">
+  <div className="absolute inset-0 bg-black/40 flex flex-col justify-center">
+    <div className="max-w-7xl mx-auto px-4 w-full">
     <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
       Regular House Cleaning
     </h1>
     <p className="text-white text-base md:text-lg max-w-2xl">
       Weekly or fortnightly — Wipely keeps your space fresh, clean, and stress-free.
     </p>
+    </div>
   </div>
-</div>
+</section>
 
       {/* What is Regular Cleaning */}
       <section className="py-20 bg-white">
