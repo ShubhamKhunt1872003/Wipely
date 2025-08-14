@@ -12,7 +12,8 @@ import {
   Award,
   Key,
   Calendar,
-  Leaf
+  Leaf,
+  Star
 } from 'lucide-react';
 
 const EndOfLease: React.FC = () => {
@@ -376,22 +377,6 @@ const EndOfLease: React.FC = () => {
               </div>
             </div>
           </motion.div>
-                      Before
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <img src={item.after} alt="After cleaning" className="w-full h-48 object-cover" />
-                    <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-center py-2 text-sm font-medium">
-                      After
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
