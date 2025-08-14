@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { useEffect } from 'react';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
@@ -23,6 +25,38 @@ interface FormData {
   extras: string[];
 }
 
+// Validation schema
+const validationSchema = yup.object().shape({
+  serviceType: yup.string().required('Service type is required'),
+  frequency: yup.string().required('Frequency is required'),
+  bedrooms: yup.number().min(0, 'Bedrooms must be 0 or more').required('Bedrooms is required'),
+  bathrooms: yup.number().min(0, 'Bathrooms must be 0 or more').required('Bathrooms is required'),
+  postalCode: yup.string().required('Postal code is required'),
+  firstName: yup
+    .string()
+    .required('First name is required')
+    .min(2, 'First name must be at least 2 characters'),
+  lastName: yup
+    .string()
+    .required('Last name is required')
+    .min(2, 'Last name must be at least 2 characters'),
+  email: yup
+    .string()
+    .required('Email is required')
+    .email('Please enter a valid email address'),
+  phone: yup
+    .string()
+    .required('Phone number is required')
+    .matches(
+      /^(\+61|0)[2-9]\d{8}$/,
+      'Please enter a valid Australian phone number (e.g., 0412345678 or +61412345678)'
+    ),
+  hasPets: yup.boolean(),
+  hasParking: yup.boolean(),
+  notes: yup.string(),
+  extras: yup.array().of(yup.string())
+});
+
 const Book: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -31,7 +65,9 @@ const Book: React.FC = () => {
   const [bedroomDropdownOpen, setBedroomDropdownOpen] = useState(false);
   const [bathroomDropdownOpen, setBathroomDropdownOpen] = useState(false);
 
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
+    resolver: yupResolver(validationSchema),
+    mode: 'onChange',
     defaultValues: {
       serviceType: 'regular_cleaning',
       frequency: 'bi-weekly',
@@ -566,10 +602,11 @@ const Book: React.FC = () => {
                     </label>
                     <input
                       type="text"
-                      {...register('firstName', { required: 'First name is required' })}
+                      {...register('firstName')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                      placeholder="Enter your first name"
                     />
-                    {errors.firstName && (
+                    {errors.firstName && touchedFields.firstName && (
                       <p className="mt-1 text-red-600 text-sm">{errors.firstName.message}</p>
                     )}
                   </div>
@@ -579,10 +616,11 @@ const Book: React.FC = () => {
                     </label>
                     <input
                       type="text"
-                      {...register('lastName', { required: 'Last name is required' })}
+                      {...register('lastName')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                      placeholder="Enter your last name"
                     />
-                    {errors.lastName && (
+                    {errors.lastName && touchedFields.lastName && (
                       <p className="mt-1 text-red-600 text-sm">{errors.lastName.message}</p>
                     )}
                   </div>
@@ -595,16 +633,11 @@ const Book: React.FC = () => {
                     </label>
                     <input
                       type="email"
-                      {...register('email', { 
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^\S+@\S+$/i,
-                          message: 'Invalid email address'
-                        }
-                      })}
+                      {...register('email')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                      placeholder="your.email@example.com"
                     />
-                    {errors.email && (
+                    {errors.email && touchedFields.email && (
                       <p className="mt-1 text-red-600 text-sm">{errors.email.message}</p>
                     )}
                   </div>
@@ -614,10 +647,11 @@ const Book: React.FC = () => {
                     </label>
                     <input
                       type="tel"
-                      {...register('phone', { required: 'Phone number is required' })}
+                      {...register('phone')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                      placeholder="0412 345 678"
                     />
-                    {errors.phone && (
+                    {errors.phone && touchedFields.phone && (
                       <p className="mt-1 text-red-600 text-sm">{errors.phone.message}</p>
                     )}
                   </div>
@@ -685,7 +719,10 @@ const Book: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    className="btn-primary flex items-center"
+                    disabled={!isValid}
+                    className={`btn-primary flex items-center ${
+                      !isValid ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                   >
                     Submit Request
                     <CheckCircle className="w-4 h-4 ml-2" />
