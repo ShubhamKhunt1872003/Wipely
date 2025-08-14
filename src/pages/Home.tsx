@@ -139,7 +139,7 @@ const toggleFAQ = (index:any) => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-screen overflow-hidden -mt-16 pt-16">
         <div className="absolute inset-0">
           <img
             src="/src/images/Service.jpg"

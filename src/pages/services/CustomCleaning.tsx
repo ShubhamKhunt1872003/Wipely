@@ -155,7 +155,7 @@ const CustomCleaning: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-purple-50 to-emerald-50">
+      <section className="relative py-20 bg-gradient-to-br from-purple-50 to-emerald-50 -mt-16 pt-36">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
