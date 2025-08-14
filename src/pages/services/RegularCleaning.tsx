@@ -240,12 +240,51 @@ const [activeIndex, setActiveIndex] = useState(null);
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image Section */}
             <motion.div
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative"
+              className="relative order-2 lg:order-1"
+            >
+              <div className="relative">
+                <img
+                  src="https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="Professional cleaner doing regular cleaning"
+                  className="rounded-2xl shadow-2xl w-full"
+                />
+                
+                {/* Floating testimonial card */}
+                <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-sm">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                      <Sparkles className="w-5 h-5 text-yellow-600" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900 text-sm">Sarah M.</div>
+                      <div className="text-gray-600 text-xs">Carlton</div>
+                    </div>
+                  </div>
+                  <blockquote className="text-gray-700 italic text-sm leading-relaxed">
+                    "Having Wipely come every two weeks has been life-changing. Our home is always guest-ready!"
+                  </blockquote>
+                  <div className="flex items-center mt-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Content Section */}
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative order-1 lg:order-2"
             >
               <div className="bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden">
                 {/* Decorative elements */}
@@ -285,43 +324,6 @@ const [activeIndex, setActiveIndex] = useState(null);
                         </div>
                         <span className="text-sm font-medium text-gray-700">{benefit.text}</span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative">
-                <img
-                  src={claningImgSec}
-                  alt="Professional cleaner doing regular cleaning"
-                  className="rounded-2xl shadow-2xl w-full"
-                />
-                
-                {/* Floating testimonial card */}
-                <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg max-w-sm">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-yellow-600" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900 text-sm">Sarah M.</div>
-                      <div className="text-gray-600 text-xs">Carlton</div>
-                    </div>
-                  </div>
-                  <blockquote className="text-gray-700 italic text-sm leading-relaxed">
-                    "Having Wipely come every two weeks has been life-changing. Our home is always guest-ready!"
-                  </blockquote>
-                  <div className="flex items-center mt-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
                     ))}
                   </div>
                 </div>
