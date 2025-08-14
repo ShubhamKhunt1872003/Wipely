@@ -14,7 +14,8 @@ import {
   Sun,
   Calendar,
   Gift,
-  Baby
+  Baby,
+  Star
 } from 'lucide-react';
 
 // Using Pexels stock photos
