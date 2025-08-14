@@ -286,7 +286,7 @@ const [activeIndex, setActiveIndex] = useState(null);
               transition={{ duration: 0.6 }}
               className="relative order-1 lg:order-2"
             >
-              <div className="bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden">
+              <div className="bg-white rounded-2xl p-8 relative overflow-hidden">
                 {/* Decorative elements */}
                 <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-full -translate-y-10 translate-x-10 opacity-50"></div>
                 <div className="absolute bottom-0 left-0 w-16 h-16 bg-blue-100 rounded-full translate-y-8 -translate-x-8 opacity-50"></div>
