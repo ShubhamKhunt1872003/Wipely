@@ -114,7 +114,7 @@ const Services: React.FC = () => {
         {
           title: "Regular House Cleaning",
           icon: "🏠",
-          img: ResidentalImg,
+          img: "https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=600",
           includes: [
             "Bedroom & Living area dusting",
             "Mopping & vacuuming floors",
