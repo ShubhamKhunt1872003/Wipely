@@ -92,13 +92,7 @@ const Header: React.FC = () => {
                   >
                     <Link
                       to={item.href}
-                      className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                        location.pathname.startsWith('/services')
-                          ? 'text-emerald-600'
-                          : !isScrolled && hasHeroImage
-                            ? 'text-white hover:text-emerald-300'
-                            : 'text-gray-700 hover:text-emerald-600'
-                      }`}
+                      className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 text-gray-700 hover:text-emerald-600`}
                     >
                       <span>{item.name}</span>
                       <ChevronDown className="w-4 h-4" />
