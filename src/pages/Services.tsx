@@ -84,7 +84,7 @@ const Services: React.FC = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <section
-        className="relative h-[40vh] md:h-[50vh] bg-cover bg-center"
+        className="relative h-[300px] md:h-[400px] bg-cover bg-center -mt-16"
         style={{ backgroundImage: `url(/src/images/Service.jpg)` }}
       >
         {/* Overlay */}
@@ -114,7 +114,7 @@ const Services: React.FC = () => {
         {
           title: "Regular House Cleaning",
           icon: "🏠",
-          img: ResidentalImg,
+          img: "https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=600",
           includes: [
             "Bedroom & Living area dusting",
             "Mopping & vacuuming floors",
@@ -309,10 +309,10 @@ const Services: React.FC = () => {
     <div className="flex justify-center flex-wrap gap-4">
       {/* Call Button */}
       <a
-        href="tel:+61412345678"
+        href="tel:+61435137936"
         className="bg-white text-emerald-600 font-medium px-6 py-3 rounded-full shadow-md hover:bg-emerald-100 transition duration-300"
       >
-        📞 Call Us: +61 412 345 678
+        📞 Call Us: +61 435 137 936
       </a>
 
       {/* Book Button */}

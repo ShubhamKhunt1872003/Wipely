@@ -9,6 +9,17 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
+  // Pages with hero/slider images that should have transparent header
+  const pagesWithHeroImages = [
+    '/', 
+    '/services', 
+    '/services/regular-cleaning', 
+    '/services/end-of-lease', 
+    '/services/spring-cleaning', 
+    '/services/custom-cleaning'
+  ];
+  const hasHeroImage = pagesWithHeroImages.includes(location.pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -19,8 +30,6 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isHomePage = location.pathname === '/';
-
   const navigation = [
     { name: 'Home', href: '/' },
     {
@@ -30,13 +39,13 @@ const Header: React.FC = () => {
         { name: 'Regular House Cleaning', href: '/services/regular-cleaning' },
         { name: 'End of Lease Cleaning', href: '/services/end-of-lease' },
         { name: 'One-off Spring Cleaning', href: '/services/spring-cleaning' },
-        { name: 'Custom Cleaning', href: '/services/custom-cleaning', },
-        { name: 'Carpet Steam Cleaning', href: '/services/custom-cleaning', },
-        { name: 'Upholstery Cleaning', href: '/services/custom-cleaning', },
-        { name: 'Oven Cleaning', href: '/services/custom-cleaning', },
-        { name: 'BBQ Cleaning', href: '/services/custom-cleaning', },
-        { name: 'Staircase Cleaning', href: '/services/custom-cleaning', },
-        { name: 'Commercial Spaces', href: '/services/custom-cleaning', }
+        { name: 'Custom Cleaning', href: '/services/custom-cleaning' },
+        { name: 'Carpet Steam Cleaning', href: '/services/custom-cleaning' },
+        { name: 'Upholstery Cleaning', href: '/services/custom-cleaning' },
+        { name: 'Oven Cleaning', href: '/services/custom-cleaning' },
+        { name: 'BBQ Cleaning', href: '/services/custom-cleaning' },
+        { name: 'Staircase Cleaning', href: '/services/custom-cleaning' },
+        { name: 'Commercial Spaces', href: '/services/custom-cleaning' }
 
       ]
     },
@@ -50,9 +59,9 @@ const Header: React.FC = () => {
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isHomePage && !isScrolled 
-        ? 'bg-transparent' 
-        : 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
+      isScrolled
+        ? 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
+        : hasHeroImage ? '' : 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -93,10 +102,10 @@ const Header: React.FC = () => {
                       className={`flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                         location.pathname.startsWith('/services')
                           ? 'text-emerald-600'
-                          : isHomePage && !isScrolled
+                          : !isScrolled && hasHeroImage
                             ? 'text-white hover:text-emerald-300'
                             : 'text-gray-700 hover:text-emerald-600'
-                        }`}
+                      }`}
                     >
                       <span>{item.name}</span>
                       <ChevronDown className="w-4 h-4" />
@@ -130,10 +139,10 @@ const Header: React.FC = () => {
                     className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       location.pathname === item.href
                         ? 'text-emerald-600'
-                        : isHomePage && !isScrolled
+                        : !isScrolled && hasHeroImage
                           ? 'text-white hover:text-emerald-300'
                           : 'text-gray-700 hover:text-emerald-600'
-                      }`}
+                    }`}
                   >
                     {item.name}
                   </Link>
@@ -144,11 +153,11 @@ const Header: React.FC = () => {
 
           {/* ✅ Contact Number */}
           <div className={`hidden md:flex items-center space-x-2 text-sm ${
-            isHomePage && !isScrolled ? 'text-white' : 'text-gray-700'
+            !isScrolled && hasHeroImage ? 'text-white' : 'text-gray-700'
           }`}>
             <Phone className="w-4 h-4 text-emerald-600" />
             <a href="tel:+62435137936" className={`transition-colors duration-200 ${
-              isHomePage && !isScrolled ? 'hover:text-emerald-300' : 'hover:text-emerald-600'
+              !isScrolled && hasHeroImage ? 'hover:text-emerald-300' : 'hover:text-emerald-600'
             }`}>
               +61 435 137 936
             </a>
@@ -173,9 +182,7 @@ const Header: React.FC = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`p-2 rounded-md transition-colors duration-200 ${
-                isHomePage && !isScrolled 
-                  ? 'text-white hover:text-emerald-300' 
-                  : 'text-gray-700 hover:text-emerald-600'
+                !isScrolled && hasHeroImage ? 'text-white hover:text-emerald-300' : 'text-gray-700 hover:text-emerald-600'
               }`}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -202,7 +209,7 @@ const Header: React.FC = () => {
                     className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${location.pathname === item.href
                       ? 'text-emerald-600'
                       : 'text-gray-700 hover:text-emerald-600'
-                      }`}
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}

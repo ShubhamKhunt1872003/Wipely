@@ -14,13 +14,17 @@ import {
   Sun,
   Calendar,
   Gift,
-  Baby
+  Baby,
+  Star
 } from 'lucide-react';
-import kitchenImg from '../../images/kitchen.jpg';
-import cleaningImg from '../../images/regularHouseImg.jpg';
-import claningImgSec from '../../images/regularCL.jpg';
-import binImg from '../../images/bin.jpg';
-import bedImg from '../../images/bed.jpg';
+
+// Using Pexels stock photos
+const kitchenImg = 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600';
+const cleaningImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200';
+const claningImgSec = 'https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=800';
+const binImg = 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600';
+const bedImg = 'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=600';
+
 const RegularCleaning: React.FC = () => {
  const includedServices = [
   {
@@ -195,71 +199,159 @@ const [activeIndex, setActiveIndex] = useState(null);
 
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero Section */}
-      <div className="relative h-[300px] md:h-[400px] w-full">
+      <section className="relative h-[300px] md:h-[400px] w-full">
   <img
     src={cleaningImg}
     alt="Regular House Cleaning"
     className="w-full h-full object-cover object-bottom"
   />
-  <div className="absolute inset-0 bg-black/40 flex flex-col justify-center px-6 md:px-20">
+  <div className="absolute inset-0 bg-black/40 flex flex-col justify-center">
+    <div className="max-w-7xl mx-auto px-4 w-full">
     <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
       Regular House Cleaning
     </h1>
     <p className="text-white text-base md:text-lg max-w-2xl">
       Weekly or fortnightly — Wipely keeps your space fresh, clean, and stress-free.
     </p>
+    </div>
   </div>
-</div>
+</section>
 
       {/* What is Regular Cleaning */}
-      <section className="py-20 bg-white">
+      <section className="py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Section Header */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              What is Regular Cleaning?
+            </h2>
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Consistent, professional cleaning that keeps your home spotless without the stress
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image Section */}
             <motion.div
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="relative order-2 lg:order-1"
             >
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                What is Regular Cleaning?
-              </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                Our regular cleaning service provides consistent, thorough cleaning on a schedule that works for you. 
-                Perfect for maintaining a clean home without the hassle of doing it yourself.
-              </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Unlike one-time deep cleans, regular cleaning focuses on maintaining cleanliness with each visit, 
-                keeping your home fresh and comfortable week after week.
-              </p>
-              
-              <div className="bg-emerald-50 rounded-lg p-6">
-                <div className="flex items-center space-x-3 mb-4">
-                  <Sparkles className="w-6 h-6 text-emerald-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Customer Testimonial</h3>
+              <div className="relative">
+                <img
+                  src="/src/images/Service.jpg"
+                  alt="Professional cleaner doing regular cleaning"
+                  className="rounded-2xl shadow-2xl w-full"
+                />
+                
+                {/* Floating testimonial card */}
+                <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-sm">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                      <Sparkles className="w-5 h-5 text-yellow-600" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900 text-sm">Sarah M.</div>
+                      <div className="text-gray-600 text-xs">Carlton</div>
+                    </div>
+                  </div>
+                  <blockquote className="text-gray-700 italic text-sm leading-relaxed">
+                    "Having Wipely come every two weeks has been life-changing. Our home is always guest-ready!"
+                  </blockquote>
+                  <div className="flex items-center mt-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
                 </div>
-                <blockquote className="text-gray-700 italic text-lg">
-                  "Having Wipely come every two weeks has been life-changing. Our home is always guest-ready, and we get to spend our free time actually enjoying it!"
-                </blockquote>
-                <cite className="text-emerald-600 font-medium mt-2 block">— Sarah M., Carlton</cite>
               </div>
             </motion.div>
 
+            {/* Content Section */}
             <motion.div
               initial={{ x: 50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6 }}
+              className="relative order-1 lg:order-2"
             >
-              <img
-                src={claningImgSec}
-                alt="Professional cleaner doing regular cleaning"
-                className="rounded-2xl shadow-xl"
-              />
+              <div className="bg-white rounded-2xl p-8 relative overflow-hidden">
+                {/* Decorative elements */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-full -translate-y-10 translate-x-10 opacity-50"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-blue-100 rounded-full translate-y-8 -translate-x-8 opacity-50"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <HomeIcon className="w-6 h-6 text-emerald-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">The Wipely Difference</h3>
+                  </div>
+                  
+                  <div className="space-y-4 mb-8">
+                    <p className="text-gray-700 leading-relaxed">
+                      Our regular cleaning service provides <strong>consistent, thorough cleaning</strong> on a schedule that works for you. 
+                      Perfect for maintaining a clean home without the hassle of doing it yourself.
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                      Unlike one-time deep cleans, regular cleaning focuses on <strong>maintaining cleanliness</strong> with each visit, 
+                      keeping your home fresh and comfortable week after week.
+                    </p>
+                  </div>
+
+                  {/* Key Benefits */}
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    {[
+                      { icon: Clock, text: "Time Saving" },
+                      { icon: Heart, text: "Stress-Free" },
+                      { icon: Sparkles, text: "Consistent Quality" },
+                      { icon: Users, text: "Trusted Team" }
+                    ].map((benefit, index) => (
+                      <div key={benefit.text} className="flex items-center space-x-2">
+                        <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                          <benefit.icon className="w-4 h-4 text-emerald-600" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">{benefit.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
+          
+          {/* Statistics Row */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
+          >
+            {[
+              { number: "2,500+", label: "Homes Cleaned", icon: "🏠" },
+              { number: "4.9", label: "Star Rating", icon: "⭐" },
+              { number: "98%", label: "Customer Retention", icon: "💚" },
+              { number: "24hr", label: "Response Time", icon: "⚡" }
+            ].map((stat, index) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-2xl mb-2">{stat.icon}</div>
+                <div className="text-2xl font-bold text-emerald-600 mb-1">{stat.number}</div>
+                <div className="text-sm text-gray-600">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -451,7 +543,7 @@ const [activeIndex, setActiveIndex] = useState(null);
   
 
       {/* Why Book Regular */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -460,15 +552,19 @@ const [activeIndex, setActiveIndex] = useState(null);
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-6">
+              <Heart className="w-8 h-8 text-emerald-600" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Why Choose Regular Cleaning?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The benefits of consistent professional cleaning
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Experience the life-changing benefits of consistent professional cleaning that transforms your home and lifestyle
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {whyRegular.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -476,22 +572,67 @@ const [activeIndex, setActiveIndex] = useState(null);
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center card-hover"
+                className="group"
               >
-                <div className="bg-gray-50 rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
+                  {/* Decorative background element */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-full -translate-y-10 translate-x-10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-emerald-200 group-hover:scale-110 transition-all duration-300">
                     <item.icon className="w-8 h-8 text-emerald-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-lg">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
+          
+          {/* Additional Benefits Section */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-white rounded-2xl p-8 border border-gray-100"
+          >
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">More Reasons to Love Regular Cleaning</h3>
+              <p className="text-gray-600">Additional benefits that make regular cleaning the smart choice</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: "💰",
+                  title: "Cost Effective",
+                  description: "Regular maintenance costs less than deep cleaning"
+                },
+                {
+                  icon: "🏠",
+                  title: "Home Value",
+                  description: "Maintain your property's condition and value"
+                },
+                {
+                  icon: "😌",
+                  title: "Peace of Mind",
+                  description: "Always ready for unexpected guests"
+                }
+              ].map((benefit, index) => (
+                <div key={benefit.title} className="text-center">
+                  <div className="text-3xl mb-3">{benefit.icon}</div>
+                  <h4 className="font-semibold text-gray-900 mb-2">{benefit.title}</h4>
+                  <p className="text-gray-600 text-sm">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
