@@ -77,55 +77,22 @@ const EndOfLease: React.FC = () => {
   ];
 
   return (
-    <div>
+    <div className="pt-16">
       {/* Hero Section */}
-      <section className="relative h-[300px] md:h-[400px] w-full -mt-16">
+      <section className="relative h-[300px] md:h-[400px] w-full">
         <img
           src="https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=1200"
           alt="End of Lease Cleaning"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-bottom"
         />
         <div className="absolute inset-0 bg-black/40 flex flex-col justify-center">
           <div className="max-w-7xl mx-auto px-4 w-full">
-            <motion.h1
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-3xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg text-left"
-            >
+            <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
               End of Lease Cleaning
-              <span className="block text-emerald-400 drop-shadow-lg">in Melbourne</span>
-            </motion.h1>
-            <motion.p
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-lg md:text-xl mb-8 text-gray-200 drop-shadow-md text-left max-w-3xl"
-            >
+            </h1>
+            <p className="text-white text-base md:text-lg max-w-2xl">
               Move out stress-free — we clean so you don't lose your bond. Professional bond cleaning with guarantee to get your full deposit back.
-            </motion.p>
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.9, duration: 0.8 }}
-              className="drop-shadow-md"
-            >
-              <div className="flex justify-start items-center gap-6 mt-6 flex-wrap">
-                <a
-                  href="tel:+61435137936"
-                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-base hover:bg-emerald-50 transition-colors duration-200 shadow-lg"
-                >
-                  <Key className="w-5 h-5 mr-2" />
-                  Bond Back Guarantee
-                </a>
-                <Link to="/book">
-                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-base font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
-                    Book Now
-                    <ArrowRight className="inline-block ml-2 w-5 h-5" />
-                  </button>
-                </Link>
-              </div>
-            </motion.div>
+            </p>
           </div>
         </div>
       </section>
