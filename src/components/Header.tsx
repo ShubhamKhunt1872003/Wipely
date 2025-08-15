@@ -130,7 +130,9 @@ const Header: React.FC = () => {
                   <Link
                     to={item.href}
                     className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                      : 'text-gray-700 hover:text-emerald-600'
+                      location.pathname === item.href
+                        ? 'text-emerald-600'
+                        : 'text-gray-700 hover:text-emerald-600'
                     }`}
                   >
                     {item.name}
