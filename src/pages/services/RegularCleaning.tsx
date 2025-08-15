@@ -203,7 +203,7 @@ const [activeIndex, setActiveIndex] = useState(null);
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
   <img
-    src={cleaningImg}
+    src="https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200"
     alt="Regular House Cleaning"
     className="w-full h-full object-cover object-bottom"
   />
@@ -250,7 +250,7 @@ const [activeIndex, setActiveIndex] = useState(null);
             >
               <div className="relative">
                 <img
-                  src="/src/images/Service.jpg"
+                  src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Professional cleaner doing regular cleaning"
                   className="rounded-2xl shadow-2xl w-full"
                 />

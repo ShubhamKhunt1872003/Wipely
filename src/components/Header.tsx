@@ -9,6 +9,20 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   // Pages with hero/slider images that should have transparent header
   const pagesWithHeroImages = ['/', '/services', '/services/regular-cleaning', '/services/end-of-lease', '/services/spring-cleaning', '/services/custom-cleaning'];
   const hasHeroImage = pagesWithHeroImages.includes(location.pathname);
@@ -184,28 +198,28 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white border-t border-gray-100"
+            className="md:hidden bg-white border-t border-gray-100 fixed top-16 left-0 right-0 bottom-0 z-40 overflow-y-auto"
           >
-            <div className="px-4 py-2 space-y-1">
+            <div className="px-4 py-6 space-y-1 min-h-full">
               {navigation.map((item) => (
                 <div key={item.name}>
                   <Link
                     to={item.href}
-                    className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${location.pathname === item.href
+                    className={`block px-3 py-3 text-base font-medium transition-colors duration-200 rounded-lg ${location.pathname === item.href
                       ? 'text-emerald-600'
-                      : 'text-gray-700 hover:text-emerald-600'
+                      : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                   {item.dropdown && (
-                    <div className="ml-4 space-y-1">
+                    <div className="ml-6 space-y-1 mt-2">
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem.name}
                           to={subItem.href}
-                          className="block px-3 py-2 text-sm text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+                          className="block px-3 py-2 text-sm text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors duration-200"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           {subItem.name}
@@ -215,7 +229,7 @@ const Header: React.FC = () => {
                   )}
                 </div>
               ))}
-              <div className="pt-4 pb-2">
+              <div className="pt-6 pb-4">
                 <Link to="/book" onClick={() => setIsMenuOpen(false)}>
                   <button className="w-full btn-primary">
                     Book Now

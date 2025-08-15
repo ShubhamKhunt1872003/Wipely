@@ -20,12 +20,6 @@ import {
   ChevronRight
 } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
-import kitchenImage from '../images/kitchen.jpg';
-import officeImage from '../images/office.jpg';
-import bannerImage from '../images/Banner.jpeg';
-import residentialImage from '../images/residential.jpg';
-import deepImage from '../images/deep.jpg';
-import eolImage from '../images/eol.jpg';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -139,17 +133,17 @@ const toggleFAQ = (index:any) => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden -mt-16 pt-16">
+      <section className="relative h-screen overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/src/images/Service.jpg"
+            src="../../src/images/Service.jpg"
             alt="Professional Kitchen Cleaning"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
 
-        <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
+        <div className="relative z-10 h-full flex items-center justify-center text-center text-white pt-16">
           <div className="max-w-7xl mx-auto px-4 w-full">
             <motion.h1
               initial={{ y: 50, opacity: 0 }}
@@ -252,7 +246,7 @@ const toggleFAQ = (index:any) => {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="md:w-1/2">
               <img
-                src="/src/images/Banner.jpeg"
+                src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
                 alt="Professional Cleaning"
                 className="rounded-lg shadow-md w-full object-cover"
               />

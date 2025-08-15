@@ -82,7 +82,7 @@ const Contact: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="pt-16 min-h-screen bg-gradient-to-br from-emerald-50 to-sage-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-sage-50 flex items-center justify-center">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -119,7 +119,7 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-sage-50">
         <div className="max-w-7xl mx-auto px-4 text-center">

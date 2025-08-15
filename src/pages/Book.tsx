@@ -351,7 +351,7 @@ const Book: React.FC = () => {
   }
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-br from-emerald-50 to-sage-50">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-sage-50">
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <motion.div
