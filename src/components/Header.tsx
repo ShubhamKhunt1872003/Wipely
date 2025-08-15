@@ -53,8 +53,8 @@ const Header: React.FC = () => {
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled
-        ? 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
-        : hasHeroImage ? 'bg-transparent' : 'bg-white/95 backdrop-blur-md border-b border-emerald-100'
+        ? 'bg-white border-b border-emerald-100'
+        : 'bg-white border-b border-emerald-100'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -132,9 +132,7 @@ const Header: React.FC = () => {
                     className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       location.pathname === item.href
                         ? 'text-emerald-600'
-                        : !isScrolled && hasHeroImage
-                          ? 'text-white hover:text-emerald-300'
-                          : 'text-gray-700 hover:text-emerald-600'
+                        : 'text-gray-700 hover:text-emerald-600'
                     }`}
                   >
                     {item.name}
@@ -146,11 +144,11 @@ const Header: React.FC = () => {
 
           {/* ✅ Contact Number */}
           <div className={`hidden md:flex items-center space-x-2 text-sm ${
-            !isScrolled && hasHeroImage ? 'text-white' : 'text-gray-700'
+            'text-gray-700'
           }`}>
             <Phone className="w-4 h-4 text-emerald-600" />
             <a href="tel:+62435137936" className={`transition-colors duration-200 ${
-              !isScrolled && hasHeroImage ? 'hover:text-emerald-300' : 'hover:text-emerald-600'
+              'hover:text-emerald-600'
             }`}>
               +61 435 137 936
             </a>
@@ -175,7 +173,7 @@ const Header: React.FC = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`p-2 rounded-md transition-colors duration-200 ${
-                !isScrolled && hasHeroImage ? 'text-white hover:text-emerald-300' : 'text-gray-700 hover:text-emerald-600'
+                'text-gray-700 hover:text-emerald-600'
               }`}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
