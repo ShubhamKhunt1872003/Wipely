@@ -93,18 +93,6 @@ const Book: React.FC = () => {
     }
   }, [watchedValues.serviceType, setValue]);
 
-  // Handle Custom Cleaning selection
-  useEffect(() => {
-    if (watchedValues.serviceType === 'custom_cleaning') {
-      setValue('bedrooms', 0);
-      setValue('bathrooms', 0);
-    } else if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
-      // For non-custom services, ensure at least one is not 0
-      setValue('bedrooms', 2);
-      setValue('bathrooms', 1);
-    }
-  }, [watchedValues.serviceType, setValue]);
-
   const steps = [
     { number: 1, title: "Service Details", icon: HomeIcon },
     { number: 2, title: "Location", icon: MapPin },
@@ -133,9 +121,7 @@ const Book: React.FC = () => {
   function getIconComponent(iconName: string) {
     const iconMap: { [key: string]: any } = {
       Flame: Flame,
-      Flame: Flame,
       Layers: Layers,
-      Sofa: Sofa,
       Sofa: Sofa,
       Bed: Bed,
       Window: Square,
@@ -143,71 +129,11 @@ const Book: React.FC = () => {
       Microwave: Microwave,
       Stairs: Stairs,
       Building: Building2,
-      Window: Square,
-      Grill: Flame,
-      Microwave: Microwave,
-      Stairs: Stairs,
-      Building: Building2,
       Shirt: Shirt,
-      Square: Square
       Square: Square
     };
     return iconMap[iconName] || Sparkles;
   }
-
-  const CustomDropdown = ({ 
-    label, 
-    value, 
-    onChange, 
-    options, 
-    isOpen, 
-    setIsOpen 
-  }: {
-    label: string;
-    value: number;
-    onChange: (value: number) => void;
-    options: number[];
-    isOpen: boolean;
-    setIsOpen: (open: boolean) => void;
-  }) => {
-    return (
-      <div className="relative">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          {label}
-        </label>
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-[#059669] transition-colors duration-200 bg-white text-left flex items-center justify-between"
-          >
-            <span>{value}</span>
-            <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-          </button>
-          
-          {isOpen && (
-            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
-              {options.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => {
-                    onChange(option);
-                    setIsOpen(false);
-                  }}
-                  className={`w-full px-3 py-2 text-left hover:bg-[#059669] hover:text-white transition-colors duration-200 ${
-                    value === option ? 'bg-[#059669] text-white' : 'text-gray-900'
-                  }`}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
 
   const CustomDropdown = ({ 
     label, 
