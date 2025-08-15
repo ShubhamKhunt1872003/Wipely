@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useEffect } from 'react';
+import { Snackbar, Alert } from '@mui/material';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
 import pricing from '../data/pricing.json';
 import extras from '../data/extras.json';
+const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbywwStiIeAeJDyHugeyFbQn2mMWmMOK29-RfGF9T1a0ycNwKsWj948qZpiNbHeCTKSd/exec`;
 
 interface FormData {
   serviceType: string;
@@ -64,7 +66,10 @@ const Book: React.FC = () => {
   const [postalCodeValid, setPostalCodeValid] = useState<boolean | null>(null);
   const [bedroomDropdownOpen, setBedroomDropdownOpen] = useState(false);
   const [bathroomDropdownOpen, setBathroomDropdownOpen] = useState(false);
-
+  const [submitting, setSubmitting] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success')
   const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
@@ -135,13 +140,13 @@ const Book: React.FC = () => {
     return iconMap[iconName] || Sparkles;
   }
 
-  const CustomDropdown = ({ 
-    label, 
-    value, 
-    onChange, 
-    options, 
-    isOpen, 
-    setIsOpen 
+  const CustomDropdown = ({
+    label,
+    value,
+    onChange,
+    options,
+    isOpen,
+    setIsOpen
   }: {
     label: string;
     value: number;
@@ -164,7 +169,7 @@ const Book: React.FC = () => {
             <span>{value}</span>
             <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
           </button>
-          
+
           {isOpen && (
             <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
               {options.map((option) => (
@@ -175,9 +180,8 @@ const Book: React.FC = () => {
                     onChange(option);
                     setIsOpen(false);
                   }}
-                  className={`w-full px-3 py-2 text-left hover:bg-[#059669] hover:text-white transition-colors duration-200 ${
-                    value === option ? 'bg-[#059669] text-white' : 'text-gray-900'
-                  }`}
+                  className={`w-full px-3 py-2 text-left hover:bg-[#059669] hover:text-white transition-colors duration-200 ${value === option ? 'bg-[#059669] text-white' : 'text-gray-900'
+                    }`}
                 >
                   {option}
                 </button>
@@ -217,8 +221,8 @@ const Book: React.FC = () => {
     }
 
     const basePrice = servicePricing.base_price +
-                     (bedrooms * servicePricing.per_bedroom) +
-                     (bathrooms * servicePricing.per_bathroom);
+      (bedrooms * servicePricing.per_bedroom) +
+      (bathrooms * servicePricing.per_bathroom);
 
     const extrasPrice = selectedExtras.reduce((total, extraId) => {
       const extra = extras.find(e => e.id === extraId);
@@ -232,33 +236,62 @@ const Book: React.FC = () => {
     const newExtras = selectedExtras.includes(extraId)
       ? selectedExtras.filter(id => id !== extraId)
       : [...selectedExtras, extraId];
-    
+
     setSelectedExtras(newExtras);
     setValue('extras', newExtras);
   };
 
   const onSubmit = async (data: FormData) => {
-    // Simulate HubSpot form submission
+    setSubmitting(true);
+    setSnackbarOpen(false); // Close any existing snackbar
+
     const formData = {
       ...data,
       extras: selectedExtras,
       estimatedPrice: calculatePrice(),
-      submittedAt: new Date().toISOString()
+      submittedAt: new Date().toISOString(),
+      source: 'wipely-booking'
     };
 
     try {
-      // Here you would typically submit to HubSpot Forms API
-      // For demo purposes, we'll just log and show success
-      console.log('Form submitted:', formData);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setIsSubmitted(true);
+      const fd = new FormData();
+      Object.entries(formData).forEach(([k, v]) => {
+        if (Array.isArray(v)) {
+          fd.append(k, JSON.stringify(v));
+        } else {
+          fd.append(k, String(v ?? ''));
+        }
+      });
+
+      const res = await fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: fd,
+      });
+
+      const response = await res.json();
+      console.log('Response from server:', response);
+      if (response.success) {
+        setIsSubmitted(true);
+      } else {
+        setSnackbarSeverity('error');
+        setSnackbarMessage(response.error || 'Submission failed');
+        setSnackbarOpen(true);
+      }
     } catch (error) {
       console.error('Submission error:', error);
+      setSnackbarSeverity('error');
+      setSnackbarMessage(
+        error instanceof Error
+          ? error.message
+          : 'There was a problem sending your inquiry. Please try again.'
+      );
+      setSnackbarOpen(true);
+    } finally {
+      setSubmitting(false);
     }
   };
+
+
 
   const nextStep = () => {
     if (currentStep < 4) {
@@ -318,7 +351,7 @@ const Book: React.FC = () => {
   }
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-br from-emerald-50 to-sage-50">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-sage-50">
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <motion.div
@@ -340,29 +373,25 @@ const Book: React.FC = () => {
           <div className="flex justify-between items-center">
             {steps.map((step, index) => (
               <div key={step.number} className="flex items-center">
-                <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
-                  currentStep >= step.number 
-                    ? 'bg-emerald-600 border-emerald-600 text-white' 
-                    : 'bg-white border-gray-300 text-gray-400'
-                }`}>
+                <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${currentStep >= step.number
+                  ? 'bg-emerald-600 border-emerald-600 text-white'
+                  : 'bg-white border-gray-300 text-gray-400'
+                  }`}>
                   <step.icon className="w-5 h-5" />
                 </div>
                 <div className="ml-3 hidden md:block">
-                  <div className={`text-sm font-medium ${
-                    currentStep >= step.number ? 'text-emerald-600' : 'text-gray-400'
-                  }`}>
+                  <div className={`text-sm font-medium ${currentStep >= step.number ? 'text-emerald-600' : 'text-gray-400'
+                    }`}>
                     Step {step.number}
                   </div>
-                  <div className={`text-xs ${
-                    currentStep >= step.number ? 'text-gray-900' : 'text-gray-400'
-                  }`}>
+                  <div className={`text-xs ${currentStep >= step.number ? 'text-gray-900' : 'text-gray-400'
+                    }`}>
                     {step.title}
                   </div>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`hidden md:block w-16 h-0.5 ml-6 ${
-                    currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-300'
-                  }`} />
+                  <div className={`hidden md:block w-16 h-0.5 ml-6 ${currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-300'
+                    }`} />
                 )}
               </div>
             ))}
@@ -379,7 +408,7 @@ const Book: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Service Details</h2>
-                
+
                 {/* Service Type */}
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -394,11 +423,10 @@ const Book: React.FC = () => {
                           {...register('serviceType')}
                           className="hidden"
                         />
-                        <div className={`p-4 border-2 rounded-lg transition-all duration-200 ${
-                          watchedValues.serviceType === service.value
-                            ? 'border-emerald-500 bg-emerald-50'
-                            : 'border-gray-200 hover:border-emerald-300'
-                        }`}>
+                        <div className={`p-4 border-2 rounded-lg transition-all duration-200 ${watchedValues.serviceType === service.value
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-200 hover:border-emerald-300'
+                          }`}>
                           <div className="flex items-center space-x-3">
                             <service.icon className="w-5 h-5 text-emerald-600" />
                             <span className="font-medium text-gray-900">{service.label}</span>
@@ -424,11 +452,10 @@ const Book: React.FC = () => {
                             {...register('frequency')}
                             className="hidden"
                           />
-                          <div className={`p-4 border-2 rounded-lg text-center transition-all duration-200 ${
-                            watchedValues.frequency === freq.value
-                              ? 'border-emerald-500 bg-emerald-50'
-                              : 'border-gray-200 hover:border-emerald-300'
-                          }`}>
+                          <div className={`p-4 border-2 rounded-lg text-center transition-all duration-200 ${watchedValues.frequency === freq.value
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-gray-200 hover:border-emerald-300'
+                            }`}>
                             <span className="font-medium text-gray-900">{freq.label}</span>
                             {freq.popular && (
                               <span className="block text-xs text-emerald-600 mt-1">Most Popular</span>
@@ -446,7 +473,7 @@ const Book: React.FC = () => {
                     label="Bedrooms"
                     value={watchedValues.bedrooms}
                     onChange={(value) => setValue('bedrooms', value)}
-                    options={[0,1,2,3,4,5,6,7,8,9,10]}
+                    options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                     isOpen={bedroomDropdownOpen}
                     setIsOpen={setBedroomDropdownOpen}
                   />
@@ -454,12 +481,12 @@ const Book: React.FC = () => {
                     label="Bathrooms"
                     value={watchedValues.bathrooms}
                     onChange={(value) => setValue('bathrooms', value)}
-                    options={[0,1,2,3,4,5,6,7,8,9,10]}
+                    options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                     isOpen={bathroomDropdownOpen}
                     setIsOpen={setBathroomDropdownOpen}
                   />
                 </div>
-                
+
                 {/* Validation message for non-custom services */}
                 {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && (
                   <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -479,14 +506,14 @@ const Book: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Location</h2>
-                
+
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Postal Code
                   </label>
                   <input
                     type="text"
-                    {...register('postalCode', { 
+                    {...register('postalCode', {
                       validate: validatePostalCode
                     })}
                     onChange={(e) => {
@@ -552,7 +579,7 @@ const Book: React.FC = () => {
                 <p className="text-gray-600 mb-6">
                   Select any additional services you'd like to include:
                 </p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {extrasWithIcons.map((extra) => (
                     <label key={extra.id} className="cursor-pointer">
@@ -562,11 +589,10 @@ const Book: React.FC = () => {
                         onChange={() => handleExtraToggle(extra.id)}
                         className="hidden"
                       />
-                      <div className={`p-4 border-2 rounded-lg transition-all duration-200 ${
-                        selectedExtras.includes(extra.id)
-                          ? 'border-emerald-500 bg-emerald-50'
-                          : 'border-gray-200 hover:border-emerald-300'
-                      }`}>
+                      <div className={`p-4 border-2 rounded-lg transition-all duration-200 ${selectedExtras.includes(extra.id)
+                        ? 'border-emerald-500 bg-emerald-50'
+                        : 'border-gray-200 hover:border-emerald-300'
+                        }`}>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
                             <extra.iconComponent className="w-5 h-5 text-emerald-600" />
@@ -594,7 +620,7 @@ const Book: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -719,12 +745,10 @@ const Book: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    disabled={!isValid}
-                    className={`btn-primary flex items-center ${
-                      !isValid ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    disabled={!isValid || submitting}
+                    className={`btn-primary flex items-center ${(!isValid || submitting) ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
-                    Submit Request
+                    {submitting ? 'Submitting…' : 'Submit Request'}
                     <CheckCircle className="w-4 h-4 ml-2" />
                   </motion.button>
                 )}
@@ -733,6 +757,20 @@ const Book: React.FC = () => {
           </div>
         </form>
       </div>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity={snackbarSeverity}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

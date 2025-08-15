@@ -156,7 +156,7 @@ const Reviews: React.FC = () => {
   };
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center">

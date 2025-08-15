@@ -85,7 +85,7 @@ const Services: React.FC = () => {
       {/* Hero Section */}
       <section
         className="relative h-[300px] md:h-[400px] bg-cover bg-center -mt-16"
-        style={{ backgroundImage: `url(/src/images/Service.jpg)` }}
+        style={{ backgroundImage: `url(../../src/images/Service.jpg)` }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
@@ -114,7 +114,7 @@ const Services: React.FC = () => {
         {
           title: "Regular House Cleaning",
           icon: "🏠",
-          img: "https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=600",
+          img: WindowImg,
           includes: [
             "Bedroom & Living area dusting",
             "Mopping & vacuuming floors",
