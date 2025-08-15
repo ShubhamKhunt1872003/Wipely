@@ -77,56 +77,53 @@ const EndOfLease: React.FC = () => {
   ];
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-sage-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
+      <section className="relative h-[300px] md:h-[400px] w-full -mt-16">
+        <img
+          src="https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="End of Lease Cleaning"
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/40 flex flex-col justify-center">
+          <div className="max-w-7xl mx-auto px-4 w-full">
+            <motion.h1
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="text-3xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg text-left"
             >
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                End of Lease Cleaning
-                <span className="block text-emerald-600">in Melbourne</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Move out stress-free — we clean so you don't lose your bond.
-              </p>
-              <Link to="/book">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary px-8 py-4"
+              End of Lease Cleaning
+              <span className="block text-emerald-400 drop-shadow-lg">in Melbourne</span>
+            </motion.h1>
+            <motion.p
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+              className="text-lg md:text-xl mb-8 text-gray-200 drop-shadow-md text-left max-w-3xl"
+            >
+              Move out stress-free — we clean so you don't lose your bond. Professional bond cleaning with guarantee to get your full deposit back.
+            </motion.p>
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.8 }}
+              className="drop-shadow-md"
+            >
+              <div className="flex justify-start items-center gap-6 mt-6 flex-wrap">
+                <a
+                  href="tel:+61435137936"
+                  className="flex items-center px-6 py-3 rounded-full border-2 border-emerald-600 text-emerald-600 bg-white font-semibold text-base hover:bg-emerald-50 transition-colors duration-200 shadow-lg"
                 >
-                  Book Now
-                  <ArrowRight className="inline-block ml-2 w-5 h-5" />
-                </motion.button>
-              </Link>
-            </motion.div>
-            
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <img
-                src="https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Professional cleaner working in empty apartment"
-                className="rounded-2xl shadow-2xl"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                    <Key className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Bond Back Guarantee</div>
-                    <div className="text-gray-600">From $280</div>
-                  </div>
-                </div>
+                  <Key className="w-5 h-5 mr-2" />
+                  Bond Back Guarantee
+                </a>
+                <Link to="/book">
+                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-base font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
+                    Book Now
+                    <ArrowRight className="inline-block ml-2 w-5 h-5" />
+                  </button>
+                </Link>
               </div>
             </motion.div>
           </div>
