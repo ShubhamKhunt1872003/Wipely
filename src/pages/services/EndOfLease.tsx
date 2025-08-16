@@ -386,7 +386,7 @@ const EndOfLease: React.FC = () => {
       </section>
 
       {/* Why Choose Wipely */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -395,15 +395,19 @@ const EndOfLease: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-6">
+              <Shield className="w-8 h-8 text-emerald-600" />
+            </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Why Choose Wipely for Your Exit Clean?
             </h2>
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We understand the stress of moving out. Let us handle the cleaning while you focus on your move.
+              We understand the stress of moving out. Let us handle the cleaning while you focus on your move with our professional bond-back guarantee service.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {whyChooseWipely.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -411,22 +415,67 @@ const EndOfLease: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center card-hover"
+                className="group"
               >
-                <div className="bg-gray-50 rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-200 transition-colors duration-300">
+                <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-xl relative overflow-hidden h-full">
+                  {/* Decorative background element */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-full -translate-y-10 translate-x-10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-emerald-200 group-hover:scale-110 transition-all duration-300">
                     <item.icon className="w-8 h-8 text-emerald-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-lg">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
+          
+          {/* Additional Benefits Section */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-white rounded-2xl p-8 border border-gray-100 shadow-lg"
+          >
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Bond Back Guarantee Details</h3>
+              <p className="text-gray-600">What makes our end of lease cleaning service stand out</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: "💰",
+                  title: "100% Bond Back",
+                  description: "We guarantee you'll get your full deposit back"
+                },
+                {
+                  icon: "📋",
+                  title: "Real Estate Approved",
+                  description: "We follow official property management checklists"
+                },
+                {
+                  icon: "🔄",
+                  title: "Re-clean Promise",
+                  description: "If something's missed, we'll return at no extra cost"
+                }
+              ].map((benefit, index) => (
+                <div key={benefit.title} className="text-center">
+                  <div className="text-3xl mb-3">{benefit.icon}</div>
+                  <h4 className="font-semibold text-gray-900 mb-2">{benefit.title}</h4>
+                  <p className="text-gray-600 text-sm">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
