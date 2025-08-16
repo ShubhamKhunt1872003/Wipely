@@ -3,19 +3,15 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  CheckCircle, 
   Settings, 
-  ArrowRight,
-  Flame,
-  Layers,
-  Bed,
-  Shirt,
-  Microwave,
-  Square,
+  CheckCircle, 
+  Clock, 
+  Shield, 
   Star,
+  Sparkles,
+  Award,
   Users,
-  Clock,
-  Award
+  ThumbsUp
 } from 'lucide-react';
 
 const CustomCleaning: React.FC = () => {
@@ -26,131 +22,104 @@ const CustomCleaning: React.FC = () => {
 
   const customServices = [
     {
-      icon: Layers,
-      name: "Carpet Steam Cleaning",
-      description: "Remove deep dirt, stains, and allergens with professional steam cleaning equipment",
-      features: ["Deep stain removal", "Allergen elimination", "Fast drying", "Eco-friendly products"]
+      title: "Deep Kitchen Clean",
+      description: "Comprehensive cleaning of appliances, cabinets, and surfaces",
+      icon: "🍳"
     },
     {
-      icon: Settings,
-      name: "Upholstery Cleaning", 
-      description: "Couches, sofas, chairs — restored and refreshed to like-new condition",
-      features: ["Fabric care", "Stain treatment", "Odor removal", "Color protection"]
+      title: "Bathroom Sanitization",
+      description: "Thorough disinfection and deep cleaning of all bathroom areas",
+      icon: "🚿"
     },
     {
-      icon: Bed,
-      name: "Mattress Cleaning",
-      description: "Deep steam sanitization and odor removal for healthier sleep",
-      features: ["Dust mite removal", "Stain elimination", "Sanitization", "Odor control"]
+      title: "Window & Glass Cleaning",
+      description: "Professional cleaning of windows, mirrors, and glass surfaces",
+      icon: "🪟"
     },
     {
-      icon: Flame,
-      name: "Oven Cleaning",
-      description: "Deep clean your oven with non-toxic products to remove grease, grime, and restore its shine.",
-
-      features: ["Non-toxic products", "Full disassembly", "Grease removal", "Shine restoration"]
+      title: "Carpet & Upholstery",
+      description: "Deep cleaning and stain removal for carpets and furniture",
+      icon: "🛋️"
     },
     {
-      icon: Flame,
-      name: "BBQ Cleaning",
-      description: "Restore your grill to safe, usable condition for the next cookout",
-      features: ["Complete disassembly", "Grease trap cleaning", "Grill restoration", "Safety check"]
+      title: "Post-Construction Cleanup",
+      description: "Specialized cleaning after renovations or construction work",
+      icon: "🏗️"
     },
     {
-      icon: Square,
-      name: "Staircase Cleaning",
-      description: "Hard-to-reach areas scrubbed top to bottom with attention to detail",
-      features: ["Balustrade cleaning", "Step deep clean", "Corner attention", "Safety focus"]
-    },
-    {
-      icon: Users,
-      name: "Commercial Spaces",
-      description: "Offices, shops, or salons — spotless presentation for your business",
-      features: ["Flexible scheduling", "Professional standards", "Discreet service", "Regular maintenance"]
+      title: "Garage & Storage Areas",
+      description: "Organization and cleaning of storage spaces and garages",
+      icon: "🏠"
     }
   ];
 
   const howItWorks = [
     {
       step: "1",
-      title: "Choose Your Cleaning Type(s)",
-      description: "Select from our range of specialized cleaning services"
+      title: "Tell Us Your Needs",
+      description: "Describe your specific cleaning requirements and preferences"
     },
     {
-      step: "2", 
-      title: "Select Available Date & Time",
-      description: "Pick a convenient time slot that works for your schedule"
+      step: "2",
+      title: "Get Custom Quote",
+      description: "Receive a tailored quote based on your unique needs"
     },
     {
       step: "3",
-      title: "Let Our Experts Do the Job",
-      description: "Sit back while our trained professionals handle everything"
+      title: "Schedule Service",
+      description: "Book your preferred date and time for the cleaning"
     },
     {
       step: "4",
-      title: "Enjoy a Fresh, Clean Space",
-      description: "Experience the transformation and enjoy your refreshed space"
+      title: "Expert Cleaning",
+      description: "Our specialists complete your custom cleaning service"
     }
   ];
 
   const whyChooseWipely = [
     {
-      icon: Award,
-      title: "Specialized Training",
-      description: "Our team is trained in specialized tools and techniques for each service type."
+      title: "Tailored Solutions",
+      description: "Every cleaning plan is customized to your specific needs and preferences, ensuring you get exactly what you're looking for.",
+      icon: Settings
     },
     {
-      icon: Layers,
-      title: "Eco-Friendly Products",
-      description: "We use environmentally safe, non-toxic products for your family's health."
+      title: "Professional Expertise",
+      description: "Our trained specialists have experience with all types of cleaning challenges and use the right techniques for each task.",
+      icon: Award
     },
     {
-      icon: Clock,
-      title: "Flat-Rate Pricing",
-      description: "Transparent, affordable pricing with no hidden costs or surprises."
+      title: "Quality Guarantee",
+      description: "We stand behind our work with a satisfaction guarantee. If you're not happy, we'll make it right at no extra cost.",
+      icon: Shield
     },
     {
-      icon: CheckCircle,
-      title: "No Commitments",
-      description: "Flexible one-time service with no long-term contracts required."
-    }
-  ];
-
-  const beforeAfterImages = [
-    {
-      before: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=400",
-      title: "Carpet Cleaning"
-    },
-    {
-      before: "https://images.pexels.com/photos/6436308/pexels-photo-6436308.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/6436309/pexels-photo-6436309.jpeg?auto=compress&cs=tinysrgb&w=400", 
-      title: "Oven Restoration"
-    },
-    {
-      before: "https://images.pexels.com/photos/4239037/pexels-photo-4239037.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400",
-      title: "Sofa Deep Clean"
+      title: "Flexible Scheduling",
+      description: "Book your custom cleaning service at a time that works for you, with options for one-time or recurring services.",
+      icon: Clock
     }
   ];
 
   const testimonials = [
     {
-      text: "They revived my old carpet like magic! Stains I thought were permanent just disappeared.",
-      author: "Michelle K.",
-      location: "Fitzroy"
+      author: "Sarah Johnson",
+      location: "Melbourne CBD",
+      text: "Wipely's custom cleaning service was exactly what I needed. They handled my post-renovation cleanup perfectly and paid attention to every detail."
     },
     {
-      text: "Best oven clean I've ever had. It looks brand new and actually works better now!",
-      author: "David L.", 
-      location: "Richmond"
+      author: "Michael Chen",
+      location: "South Yarra",
+      text: "I needed specialized carpet cleaning and window washing. The team was professional and the results exceeded my expectations."
     }
   ];
 
   const faqs = [
     {
-      question: "Can I book more than one service at a time?",
-      answer: "Absolutely! Many customers combine multiple services for maximum value. Just select all the services you need during booking."
+      question: "What types of custom cleaning services do you offer?",
+      answer: "We offer a wide range of specialized cleaning services including deep kitchen cleaning, bathroom sanitization, carpet cleaning, window washing, post-construction cleanup, and more. Just tell us what you need!"
+    },
+    {
+      question: "How do you determine pricing for custom cleaning?",
+      answer: "Our pricing is based on the specific services you need, the size of the area, and the complexity of the work. We provide transparent quotes with no hidden fees before starting any work."
     },
     {
       question: "Do I need to be home during cleaning?",
@@ -185,120 +154,18 @@ const CustomCleaning: React.FC = () => {
             </p>
           </div>
         </div>
-      </section>
-
-      {/* What is Custom Cleaning */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                What Is Custom Cleaning?
-              </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                Not all cleaning fits in a box. Whether it's carpets, curtains, BBQs, or your commercial space, 
-                Wipely offers targeted cleaning solutions that work for your schedule and your surfaces.
-              </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Our specialized services use professional-grade equipment and techniques specifically designed 
-                for each type of cleaning challenge. From delicate upholstery to heavy-duty commercial spaces, 
-                we have the expertise and tools to get the job done right.
-              </p>
-              
-              <div className="bg-purple-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                  Mix & Match Services
-                </h3>
-                <p className="text-gray-700">
-                  Combine Custom Cleaning with our regular house cleaning, end of lease cleaning, 
-                  or one-off spring clean services. Just ask during booking for a customized package!
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <img
-                src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Specialized cleaning equipment and tools"
-                className="rounded-2xl shadow-xl"
-              />
-            </motion.div>
-          </div>
+        
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
+            Custom Cleaning Services
+          </h1>
+          <p className="text-white text-base md:text-lg max-w-2xl mx-auto">
+            Specialized cleaning solutions tailored to your unique needs and requirements
+          </p>
         </div>
       </section>
 
-      {/* What We Can Clean */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              What We Can Clean
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Specialized cleaning services for every surface and space in your home or business
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {customServices.map((service, index) => (
-              <motion.div
-                key={service.name}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300 card-hover"
-              >
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <service.icon className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-  <h3 className="text-xl font-semibold text-gray-900">{service.name}</h3>
-  <Link 
-    to={`/book`}
-    className="flex items-center text-emerald-600 font-medium hover:text-emerald-700 transition-colors duration-300"
-  >
-    Book Now
-    <ArrowRight className="w-4 h-4 ml-1 hover:translate-x-1 transition-transform duration-300" />
-  </Link>
-</div>
-                    <p className="text-gray-600">{service.description}</p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center space-x-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                      <span className="text-sm text-gray-600">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Visual Results */}
+      {/* Services Grid */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -309,40 +176,26 @@ const CustomCleaning: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Real-Life Results
+              Our Custom Cleaning Services
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See the dramatic transformations our specialized cleaning services achieve
+              From specialized deep cleaning to unique maintenance needs, we've got you covered
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {beforeAfterImages.map((item, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {customServices.map((service, index) => (
               <motion.div
-                key={item.title}
+                key={service.title}
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden card-hover"
+                className="bg-white rounded-xl p-8 border border-gray-200 hover:border-emerald-300 hover:shadow-lg transition-all duration-300"
               >
-                <div className="grid grid-cols-2 gap-0">
-                  <div className="relative">
-                    <img src={item.before} alt="Before cleaning" className="w-full h-48 object-cover" />
-                    <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white text-center py-2 text-sm font-medium">
-                      Before
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <img src={item.after} alt="After cleaning" className="w-full h-48 object-cover" />
-                    <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-center py-2 text-sm font-medium">
-                      After
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                </div>
+                <div className="text-4xl mb-4">{service.icon}</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
               </motion.div>
             ))}
           </div>
