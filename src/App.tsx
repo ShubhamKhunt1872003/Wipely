@@ -16,6 +16,10 @@ import RegularCleaning from './pages/services/RegularCleaning';
 import EndOfLease from './pages/services/EndOfLease';
 import SpringCleaning from './pages/services/SpringCleaning';
 import CustomCleaning from './pages/services/CustomCleaning';
+import CarpetCleaning from './pages/services/CarpetCleaning';
+import UpholsteryCleaning from './pages/services/UpholsteryCleaning';
+import OvenCleaning from './pages/services/OvenCleaning';
+import BBQCleaning from './pages/services/BBQCleaning';
 
 function App() {
   return (
@@ -28,6 +32,12 @@ function App() {
           <Route path="/services/end-of-lease" element={<EndOfLease />} />
           <Route path="/services/spring-cleaning" element={<SpringCleaning />} />
           <Route path="/services/custom-cleaning" element={<CustomCleaning />} />
+          <Route path="/services/carpet-cleaning" element={<CarpetCleaning />} />
+          <Route path="/services/upholstery-cleaning" element={<UpholsteryCleaning />} />
+          <Route path="/services/oven-cleaning" element={<OvenCleaning />} />
+          <Route path="/services/bbq-cleaning" element={<BBQCleaning />} />
+
+
           <Route path="/book" element={<Book />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/blog" element={<Blog />} />

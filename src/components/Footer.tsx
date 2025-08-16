@@ -43,10 +43,10 @@ const Footer: React.FC = () => {
         <li>🚪 <a href="/services/end-of-lease" className="hover:text-white">End of Lease Cleaning</a></li>
         <li>✨ <a href="/services/spring-cleaning" className="hover:text-white">One-off Spring Cleaning</a></li>
         <li>🛠️ <a href="/services/custom-cleaning" className="hover:text-white">Custom Cleaning</a></li>
-        <li>🧽 <a href="/services/custom-cleaning" className="hover:text-white">Carpet Steam Cleaning</a></li>
-        <li>🛋️ <a href="/services/custom-cleaning" className="hover:text-white">Upholstery Cleaning</a></li>
-        <li>🔥 <a href="/services/custom-cleaning" className="hover:text-white">Oven Cleaning</a></li>
-        <li>🍖 <a href="/services/custom-cleaning" className="hover:text-white">BBQ Cleaning</a></li>
+        <li>🧽 <a href="/services/carpet-cleaning" className="hover:text-white">Carpet Steam Cleaning</a></li>
+        <li>🛋️ <a href="/services/upholstery-cleaning" className="hover:text-white">Upholstery Cleaning</a></li>
+        <li>🔥 <a href="/services/oven-cleaning" className="hover:text-white">Oven Cleaning</a></li>
+        <li>🍖 <a href="/services/bbq-cleaning" className="hover:text-white">BBQ Cleaning</a></li>
         <li>🪜 <a href="/services/custom-cleaning" className="hover:text-white">Staircase Cleaning</a></li>
         <li>🏢 <a href="/services/custom-cleaning" className="hover:text-white">Commercial Spaces</a></li>
       </ul>

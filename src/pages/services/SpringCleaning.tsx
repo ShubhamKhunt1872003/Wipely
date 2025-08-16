@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -111,68 +112,45 @@ const SpringCleaning: React.FC = () => {
 
   const faqs = [
     {
-      question: "How long does a one-off clean take?",
+      question: "How long does a one-off spring clean take?",
       answer: "Typically 3-6 hours depending on the size of your home and level of cleaning required. We'll provide an accurate estimate when you book."
     },
     {
       question: "Do I need to provide cleaning products?",
       answer: "Not at all! We bring all professional-grade supplies and equipment. However, if you prefer we use specific products, just let us know."
+    },
+    {
+      question: "What's the difference between spring cleaning and regular cleaning?",
+      answer: "Spring cleaning is more comprehensive, targeting areas often overlooked in regular cleaning like behind furniture, deep scrubbing, and detailed work on fixtures and fittings."
+    },
+    {
+      question: "Can I book same-day spring cleaning?",
+      answer: "We offer same-day availability in some areas, subject to our team's schedule. Contact us to check availability for your preferred date and time."
     }
   ];
 
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const toggleFAQ = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-yellow-50 to-emerald-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                One-Off Spring Cleaning
-                <span className="block text-emerald-600">in Melbourne</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Revive your home with a deep clean — no contracts, just a fresh start.
-              </p>
-              <Link to="/book">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary px-8 py-4"
-                >
-                  Book Now
-                  <ArrowRight className="inline-block ml-2 w-5 h-5" />
-                </motion.button>
-              </Link>
-            </motion.div>
-            
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <img
-                src="https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Bright, clean living room with sunshine"
-                className="rounded-2xl shadow-2xl"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                    <Sun className="w-6 h-6 text-yellow-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">One-Off Service</div>
-                    <div className="text-gray-600">From $180</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+      <section className="relative h-[300px] md:h-[400px] w-full">
+        <img
+          src="https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="One-off Spring Cleaning"
+          className="w-full h-full object-cover object-bottom"
+        />
+        <div className="absolute inset-0 bg-black/40 flex flex-col justify-center">
+          <div className="max-w-7xl mx-auto px-4 w-full">
+            <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
+              One-Off Spring Cleaning
+            </h1>
+            <p className="text-white text-base md:text-lg max-w-2xl">
+              Revive your home with a comprehensive deep clean — no contracts, just a fresh start.
+            </p>
           </div>
         </div>
       </section>
@@ -361,7 +339,7 @@ const SpringCleaning: React.FC = () => {
       </section>
 
       {/* Why Book One-Off */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -370,15 +348,19 @@ const SpringCleaning: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-6">
+              <Sparkles className="w-8 h-8 text-emerald-600" />
+            </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Why Book a One-Off with Wipely?
             </h2>
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Flexible, professional, and hassle-free cleaning when you need it most
+              Experience the life-changing benefits of professional deep cleaning that transforms your home
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {whyOneOff.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -386,22 +368,67 @@ const SpringCleaning: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center card-hover"
+                className="group"
               >
-                <div className="bg-gray-50 rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <item.icon className="w-8 h-8 text-emerald-600" />
+                <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
+                  {/* Decorative background element */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-full -translate-y-10 translate-x-10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-emerald-200 group-hover:scale-110 transition-all duration-300">
+                      <item.icon className="w-8 h-8 text-emerald-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-lg">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
+          
+          {/* Additional Benefits Section */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-white rounded-2xl p-8 border border-gray-100"
+          >
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">More Reasons to Love One-Off Cleaning</h3>
+              <p className="text-gray-600">Additional benefits that make spring cleaning the smart choice</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: "💰",
+                  title: "Great Value",
+                  description: "Deep clean results without ongoing commitments"
+                },
+                {
+                  icon: "🏠",
+                  title: "Perfect Timing",
+                  description: "Book when you need it most - before events or seasons"
+                },
+                {
+                  icon: "😌",
+                  title: "Stress Relief",
+                  description: "Let professionals handle the deep cleaning tasks"
+                }
+              ].map((benefit, index) => (
+                <div key={benefit.title} className="text-center">
+                  <div className="text-3xl mb-3">{benefit.icon}</div>
+                  <h4 className="font-semibold text-gray-900 mb-2">{benefit.title}</h4>
+                  <p className="text-gray-600 text-sm">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -449,43 +476,35 @@ const SpringCleaning: React.FC = () => {
       </section>
 
       {/* FAQ Teaser */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
+      <section className="bg-emerald-50 py-14">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">
+            Frequently Asked Questions
+          </h2>
+          <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6"></div>
 
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={faq.question}
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-50 rounded-lg p-6"
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="border border-gray-200 bg-white rounded-md p-4 mb-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full text-left flex justify-between items-center text-lg font-medium text-gray-800"
               >
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link to="/faq">
-              <button className="btn-secondary">
-                View All FAQs
+                {faq.question}
+                <span className="ml-4 text-emerald-500 text-2xl">
+                  {activeIndex === index ? "-" : "+"}
+                </span>
               </button>
-            </Link>
-          </div>
+
+              {activeIndex === index && (
+                <p className="mt-3 text-gray-600 text-base leading-relaxed">
+                  {faq.answer}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 
