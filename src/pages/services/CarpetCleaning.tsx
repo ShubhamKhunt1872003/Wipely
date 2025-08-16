@@ -544,6 +544,108 @@ const CarpetCleaning: React.FC = () => {
         </div>
       </section>
 
+      {/* Carpet Cleaning Pricing Table */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              Carpet Cleaning Pricing
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Transparent pricing for professional carpet cleaning services across Melbourne
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white rounded-xl shadow-lg overflow-hidden"
+          >
+            {/* Table Header */}
+            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+              <div className="grid grid-cols-2 py-4 px-6">
+                <div className="text-lg font-semibold">Home Area</div>
+                <div className="text-lg font-semibold text-center">Prices</div>
+              </div>
+            </div>
+
+            {/* Table Body */}
+            <div className="divide-y divide-gray-200">
+              {[
+                { area: "Bedroom", price: "$35" },
+                { area: "Study", price: "$25" },
+                { area: "Living room (16-20 sq.m.)", price: "$50" },
+                { area: "Through lounge (31-35 sq.m.)", price: "$70" },
+                { area: "Flight of stairs", price: "$45" },
+                { area: "Hallway", price: "$25" },
+                { area: "Small Rug (up to 4 sqm)", price: "$20" },
+                { area: "Large Rug (up to 6 sqm)", price: "$25" }
+              ].map((item, index) => (
+                <motion.div
+                  key={item.area}
+                  initial={{ x: -20, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className={`grid grid-cols-2 py-4 px-6 hover:bg-gray-50 transition-colors duration-200 ${
+                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                  }`}
+                >
+                  <div className="text-gray-900 font-medium">{item.area}</div>
+                  <div className="text-center">
+                    <span className="text-lg font-semibold text-emerald-600">{item.price}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Table Footer */}
+            <div className="bg-gray-100 px-6 py-4">
+              <p className="text-gray-700 text-sm mb-4">
+                The minimum for the service is <span className="font-semibold text-emerald-600">$125</span>.
+              </p>
+              <div className="text-center">
+                <Link to="/book">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Book Online
+                  </motion.button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Additional Info */}
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-8 text-center"
+          >
+            <div className="bg-emerald-50 rounded-lg p-6 border border-emerald-200">
+              <h3 className="text-lg font-semibold text-emerald-800 mb-2">
+                💡 Professional Tip
+              </h3>
+              <p className="text-emerald-700">
+                Regular carpet cleaning every 12-18 months extends carpet life and maintains a healthier home environment. 
+                Book multiple rooms for better value!
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
       {/* Cleaning Process */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
