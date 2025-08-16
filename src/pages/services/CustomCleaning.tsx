@@ -1,5 +1,189 @@
-item.title}</h3>
-                </div>
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  Settings, 
+  CheckCircle, 
+  Clock, 
+  Shield, 
+  Star,
+  Sparkles,
+  Award,
+  Users,
+  ThumbsUp
+} from 'lucide-react';
+
+const CustomCleaning = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const customServices = [
+    {
+      title: "Deep Kitchen Clean",
+      description: "Comprehensive cleaning of appliances, cabinets, and surfaces",
+      icon: "🍳"
+    },
+    {
+      title: "Bathroom Sanitization",
+      description: "Thorough disinfection and deep cleaning of all bathroom areas",
+      icon: "🚿"
+    },
+    {
+      title: "Window & Glass Cleaning",
+      description: "Professional cleaning of windows, mirrors, and glass surfaces",
+      icon: "🪟"
+    },
+    {
+      title: "Carpet & Upholstery",
+      description: "Deep cleaning and stain removal for carpets and furniture",
+      icon: "🛋️"
+    },
+    {
+      title: "Post-Construction Cleanup",
+      description: "Specialized cleaning after renovations or construction work",
+      icon: "🏗️"
+    },
+    {
+      title: "Garage & Storage Areas",
+      description: "Organization and cleaning of storage spaces and garages",
+      icon: "🏠"
+    }
+  ];
+
+  const howItWorks = [
+    {
+      step: "1",
+      title: "Tell Us Your Needs",
+      description: "Describe your specific cleaning requirements and preferences"
+    },
+    {
+      step: "2",
+      title: "Get Custom Quote",
+      description: "Receive a tailored quote based on your unique needs"
+    },
+    {
+      step: "3",
+      title: "Schedule Service",
+      description: "Book your preferred date and time for the cleaning"
+    },
+    {
+      step: "4",
+      title: "Expert Cleaning",
+      description: "Our specialists complete your custom cleaning service"
+    }
+  ];
+
+  const whyChooseWipely = [
+    {
+      title: "Tailored Solutions",
+      description: "Every cleaning plan is customized to your specific needs and preferences, ensuring you get exactly what you're looking for.",
+      icon: Settings
+    },
+    {
+      title: "Professional Expertise",
+      description: "Our trained specialists have experience with all types of cleaning challenges and use the right techniques for each task.",
+      icon: Award
+    },
+    {
+      title: "Quality Guarantee",
+      description: "We stand behind our work with a satisfaction guarantee. If you're not happy, we'll make it right at no extra cost.",
+      icon: Shield
+    },
+    {
+      title: "Flexible Scheduling",
+      description: "Book your custom cleaning service at a time that works for you, with options for one-time or recurring services.",
+      icon: Clock
+    }
+  ];
+
+  const testimonials = [
+    {
+      author: "Sarah Johnson",
+      location: "Melbourne CBD",
+      text: "Wipely's custom cleaning service was exactly what I needed. They handled my post-renovation cleanup perfectly and paid attention to every detail."
+    },
+    {
+      author: "Michael Chen",
+      location: "South Yarra",
+      text: "I needed specialized carpet cleaning and window washing. The team was professional and the results exceeded my expectations."
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "What types of custom cleaning services do you offer?",
+      answer: "We offer a wide range of specialized cleaning services including deep kitchen cleaning, bathroom sanitization, carpet cleaning, window washing, post-construction cleanup, and more. Just tell us what you need!"
+    },
+    {
+      question: "How do you determine pricing for custom cleaning?",
+      answer: "Our pricing is based on the specific services you need, the size of the area, and the complexity of the work. We provide transparent quotes with no hidden fees before starting any work."
+    },
+    {
+      question: "Can I combine multiple custom services in one booking?",
+      answer: "Absolutely! Many customers combine services like deep kitchen cleaning with carpet cleaning or window washing. We'll create a comprehensive plan that covers all your needs efficiently."
+    },
+    {
+      question: "Do you bring your own cleaning supplies and equipment?",
+      answer: "Yes, we bring all necessary professional-grade cleaning supplies and specialized equipment. We use eco-friendly products that are safe for your family and pets."
+    }
+  ];
+
+  return (
+    <div className="pt-16">
+      {/* Hero Section */}
+      <section className="relative h-[300px] md:h-[400px] flex items-center justify-center">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")'
+          }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+        
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
+            Custom Cleaning Services
+          </h1>
+          <p className="text-white text-base md:text-lg max-w-2xl mx-auto">
+            Specialized cleaning solutions tailored to your unique needs and requirements
+          </p>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              Our Custom Cleaning Services
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              From specialized deep cleaning to unique maintenance needs, we've got you covered
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {customServices.map((service, index) => (
+              <motion.div
+                key={service.title}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white rounded-xl p-8 border border-gray-200 hover:border-emerald-300 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="text-4xl mb-4">{service.icon}</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
               </motion.div>
             ))}
           </div>
@@ -78,7 +262,6 @@ item.title}</h3>
                 className="group"
               >
                 <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-lg relative overflow-hidden h-full">
-                  {/* Decorative background element */}
                   <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-full -translate-y-10 translate-x-10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   
                   <div className="relative z-10">
@@ -97,7 +280,6 @@ item.title}</h3>
             ))}
           </div>
           
-          {/* Additional Benefits Section */}
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -183,7 +365,7 @@ item.title}</h3>
         </div>
       </section>
 
-      {/* FAQ Preview */}
+      {/* FAQ Section */}
       <section className="bg-emerald-50 py-14">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">
