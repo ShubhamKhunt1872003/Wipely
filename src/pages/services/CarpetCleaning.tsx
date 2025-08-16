@@ -303,6 +303,202 @@ const CarpetCleaning: React.FC = () => {
         </div>
       </section>
 
+      {/* Comprehensive Carpet Cleaning Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Professional Carpet Cleaning Melbourne
+            </h2>
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Transform your carpets with Melbourne's most trusted carpet cleaning service. Our advanced steam cleaning technology 
+              removes deep-seated dirt, allergens, and stains while extending your carpet's lifespan.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-16">
+            {/* Left Column - Benefits */}
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-3xl font-bold text-gray-900 mb-8">
+                Why Choose Professional Carpet Cleaning?
+              </h3>
+              
+              <div className="space-y-6">
+                {[
+                  {
+                    title: "Deep Cleaning Power",
+                    description: "Our hot water extraction method penetrates deep into carpet fibers, removing dirt and debris that regular vacuuming can't reach.",
+                    icon: "🔥"
+                  },
+                  {
+                    title: "Healthier Indoor Environment",
+                    description: "Eliminate allergens, dust mites, bacteria, and pollutants trapped in your carpets for cleaner, fresher air.",
+                    icon: "🌿"
+                  },
+                  {
+                    title: "Extends Carpet Life",
+                    description: "Regular professional cleaning prevents premature wear and maintains your carpet's appearance and texture longer.",
+                    icon: "⏰"
+                  },
+                  {
+                    title: "Stain & Odor Removal",
+                    description: "Specialized treatments for tough stains and persistent odors, including pet accidents and spills.",
+                    icon: "✨"
+                  },
+                  {
+                    title: "Fast Drying Technology",
+                    description: "Advanced extraction equipment ensures carpets dry quickly, typically within 2-4 hours.",
+                    icon: "💨"
+                  },
+                  {
+                    title: "Safe for Family & Pets",
+                    description: "Eco-friendly, non-toxic cleaning solutions that are completely safe for children and pets.",
+                    icon: "🛡️"
+                  }
+                ].map((benefit, index) => (
+                  <motion.div
+                    key={benefit.title}
+                    initial={{ y: 30, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-emerald-50 transition-colors duration-300"
+                  >
+                    <div className="text-2xl flex-shrink-0">{benefit.icon}</div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">{benefit.title}</h4>
+                      <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right Column - Process & Info */}
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-8"
+            >
+              {/* Our Method */}
+              <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Carpet Cleaning Method</h3>
+                <div className="space-y-4">
+                  {[
+                    { step: "1", title: "Pre-Inspection", desc: "Assess carpet condition and identify problem areas" },
+                    { step: "2", title: "Pre-Treatment", desc: "Apply specialized solutions to stains and high-traffic areas" },
+                    { step: "3", title: "Hot Water Extraction", desc: "Deep steam cleaning removes embedded dirt and allergens" },
+                    { step: "4", title: "Final Inspection", desc: "Quality check and carpet protection application" }
+                  ].map((step, index) => (
+                    <div key={step.step} className="flex items-center space-x-4">
+                      <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        {step.step}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{step.title}</h4>
+                        <p className="text-gray-600 text-sm">{step.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Service Areas */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Service Areas</h3>
+                <p className="text-gray-600 mb-4">
+                  We provide professional carpet cleaning services across Melbourne and surrounding suburbs:
+                </p>
+                <div className="grid grid-cols-2 gap-2 text-sm text-gray-700">
+                  {[
+                    "Melbourne CBD", "South Yarra", "Richmond", "Carlton", "Fitzroy", "Collingwood",
+                    "Toorak", "Malvern", "Brighton", "St Kilda", "Windsor", "Prahran"
+                  ].map((area, index) => (
+                    <div key={area} className="flex items-center space-x-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-500" />
+                      <span>{area}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quick Facts */}
+              <div className="bg-gray-900 text-white rounded-2xl p-8">
+                <h3 className="text-2xl font-bold mb-6">Quick Facts</h3>
+                <div className="grid grid-cols-2 gap-6">
+                  {[
+                    { label: "Drying Time", value: "2-4 Hours" },
+                    { label: "Experience", value: "10+ Years" },
+                    { label: "Satisfaction", value: "100%" },
+                    { label: "Response", value: "24 Hours" }
+                  ].map((fact, index) => (
+                    <div key={fact.label} className="text-center">
+                      <div className="text-2xl font-bold text-emerald-400 mb-1">{fact.value}</div>
+                      <div className="text-gray-300 text-sm">{fact.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center bg-gradient-to-r from-emerald-50 to-blue-50 rounded-2xl p-8"
+          >
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+              Ready for Professional Carpet Cleaning?
+            </h3>
+            <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+              Get a free quote for carpet cleaning services in Melbourne. Our team is ready to transform your carpets today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to="/book">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Get Free Quote
+                  <ArrowRight className="inline-block ml-2 w-4 h-4" />
+                </motion.button>
+              </Link>
+              <div className="flex items-center space-x-4 text-sm text-gray-600">
+                <div className="flex items-center space-x-1">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <span>Free Inspection</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Shield className="w-4 h-4 text-emerald-500" />
+                  <span>Fully Insured</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Award className="w-4 h-4 text-emerald-500" />
+                  <span>Satisfaction Guaranteed</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
       {/* Carpet Services */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
