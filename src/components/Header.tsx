@@ -47,7 +47,7 @@ const Header: React.FC = () => {
         { name: 'End of Lease Cleaning', href: '/services/end-of-lease' },
         { name: 'One-off Spring Cleaning', href: '/services/spring-cleaning' },
         { name: 'Custom Cleaning', href: '/services/custom-cleaning' },
-        { name: 'Carpet Steam Cleaning', href: '/services/custom-cleaning' },
+        { name: 'Carpet Steam Cleaning', href: '/services/carpet-cleaning' },
         { name: 'Upholstery Cleaning', href: '/services/custom-cleaning' },
         { name: 'Oven Cleaning', href: '/services/custom-cleaning' },
         { name: 'BBQ Cleaning', href: '/services/custom-cleaning' },
