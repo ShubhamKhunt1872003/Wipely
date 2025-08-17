@@ -20,7 +20,7 @@ import CarpetCleaning from './pages/services/CarpetCleaning';
 import UpholsteryCleaning from './pages/services/UpholsteryCleaning';
 import OvenCleaning from './pages/services/OvenCleaning';
 import BBQCleaning from './pages/services/BBQCleaning';
-import StairCaseCleaning from './pages/services/StaircaseCleaning';
+import StairCaseCleaning from './pages/services/StairCaseCleaning';
 import CommercialSpacesCleaning from './pages/services/CommercialSpacesCleaning';
 function App() {
   return (
