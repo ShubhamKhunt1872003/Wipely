@@ -108,7 +108,7 @@ const BBQCleaning: React.FC = () => {
               <span className="block text-emerald-600">Cleaning Melbourne</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Advanced BBQ cleaning technology removes grease, burnt residue, and bacteria — leaving your BBQ safe and ready to use
+              Advanced BBQ cleaning technology removes grease, burnt residue, and bacteria ,  leaving your BBQ safe and ready to use
             </p>
           </motion.div>
         </div>
@@ -386,7 +386,7 @@ const BBQCleaning: React.FC = () => {
       </h2>
       <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6 mx-auto"></div>
       <p className="text-lg text-gray-600 max-w-3xl mx-auto text-center">
-        See the dramatic difference our professional BBQ cleaning makes — before and after our service.
+        See the dramatic difference our professional BBQ cleaning makes ,  before and after our service.
       </p>
     </motion.div>
 
@@ -477,7 +477,7 @@ const BBQCleaning: React.FC = () => {
       Ready for a Cleaner, Safer BBQ?
     </h2>
     <p className="text-lg mb-6 max-w-2xl mx-auto">
-      Professional BBQ cleaning that removes grease, burnt residue, and bacteria — book your service today!
+      Professional BBQ cleaning that removes grease, burnt residue, and bacteria ,  book your service today!
     </p>
     <Link to="/book">
       <button className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300">

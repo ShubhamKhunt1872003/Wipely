@@ -241,7 +241,7 @@ const CustomCleaning: React.FC = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <span className="text-2xl font-bold text-white">{step.step}</span>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">{step.title}</h3>
@@ -430,7 +430,7 @@ const CustomCleaning: React.FC = () => {
             Book Specialized Cleaning That Works for You
           </h2>
           <p className="text-lg mb-6 max-w-2xl mx-auto">
-            Professional results, flexible scheduling, transparent pricing — get the custom cleaning your space deserves.
+            Professional results, flexible scheduling, transparent pricing ,  get the custom cleaning your space deserves.
           </p>
           <a
             href="/book"

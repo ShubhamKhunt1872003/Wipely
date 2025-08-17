@@ -112,7 +112,7 @@ const Home: React.FC = () => {
   {
     question: "What services does Wipely offer?",
     answer:
-      "Wipely provides residential and commercial cleaning including deep cleans, end-of-lease cleaning, window washing, and more — tailored to Melbourne homes and offices."
+      "Wipely provides residential and commercial cleaning including deep cleans, end-of-lease cleaning, window washing, and more ,  tailored to Melbourne homes and offices."
   },
   {
     question: "Are your cleaning products eco-friendly?",
@@ -168,7 +168,7 @@ const toggleFAQ = (index:any) => {
             >
               <span className="block">From homes to high-rises, we deliver expert cleaning solutions across Melbourne.</span>
               <span className="block">Our experienced cleaners use eco-friendly products and attention to detail to leave every space spotless and fresh.</span>
-              <span className="block">Book today and enjoy a cleaner, healthier environment — without the hassle.</span>
+              <span className="block">Book today and enjoy a cleaner, healthier environment ,  without the hassle.</span>
             </motion.p>
             <motion.div
               initial={{ y: 50, opacity: 0 }}
@@ -263,7 +263,7 @@ const toggleFAQ = (index:any) => {
               </h2>
               <div className="w-20 h-1 bg-emerald-500 rounded mb-6"></div>
               <p className="text-gray-700 mb-4">
-                At Wipely, we take pride in delivering professional cleaning services that meet the highest standards. Our team is trained, insured, and equipped to make your space sparkle — whether it's a home, office, or commercial property.
+                At Wipely, we take pride in delivering professional cleaning services that meet the highest standards. Our team is trained, insured, and equipped to make your space sparkle ,  whether it's a home, office, or commercial property.
               </p>
               <p className="text-gray-700">
                 Serving the Melbourne area, we offer flexible scheduling, eco-friendly cleaning supplies, and transparent pricing. Experience the Wipely difference with reliable service that puts customer satisfaction first.
@@ -312,7 +312,7 @@ const toggleFAQ = (index:any) => {
             <div className="w-20 h-1 bg-emerald-500 rounded mb-6 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto text-center">
               Discover a wide range of professional cleaning services tailored for homes and businesses across Melbourne.
-              From regular upkeep to deep seasonal cleans — we've got every corner covered.
+              From regular upkeep to deep seasonal cleans ,  we've got every corner covered.
             </p>
           </motion.div>
 
@@ -568,7 +568,7 @@ const toggleFAQ = (index:any) => {
       Book Your Cleaning Services in Melbourne Today!
     </h2>
     <p className="text-lg mb-6 max-w-2xl mx-auto">
-      Get sparkling results with Wipely — trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
+      Get sparkling results with Wipely ,  trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
     </p>
     <a
       href="#contact" // or use your booking route

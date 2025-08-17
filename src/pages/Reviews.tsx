@@ -311,7 +311,7 @@ const Reviews: React.FC = () => {
               Your Cleaning Journey
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From first contact to sparkling results — here's what you can expect
+              From first contact to sparkling results ,  here's what you can expect
             </p>
           </motion.div>
 
@@ -461,7 +461,7 @@ const Reviews: React.FC = () => {
               Want to See Your Home Here Next?
             </h2>
             <p className="text-xl md:text-2xl mb-8 text-emerald-100">
-              Get a free cleaning quote — no payment required, response within 24 hours
+              Get a free cleaning quote ,  no payment required, response within 24 hours
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/book">

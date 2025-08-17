@@ -223,7 +223,7 @@ const [activeIndex, setActiveIndex] = useState(null);
               <span className="block text-emerald-600">Cleaning</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Weekly or fortnightly — Wipely keeps your space fresh, clean, and stress-free
+              Weekly or fortnightly ,  Wipely keeps your space fresh, clean, and stress-free
             </p>
           </motion.div>
         </div>
@@ -755,7 +755,7 @@ const [activeIndex, setActiveIndex] = useState(null);
       Book Your Cleaning Services in Melbourne Today!
     </h2>
     <p className="text-lg mb-6 max-w-2xl mx-auto">
-      Get sparkling results with Wipely — trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
+      Get sparkling results with Wipely ,  trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
     </p>
     <a
       href="#contact" // or use your booking route

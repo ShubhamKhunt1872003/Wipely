@@ -18,13 +18,6 @@ import {
 } from 'lucide-react';
 
 const About: React.FC = () => {
-  const founderInfo = {
-    name: "Rohit Desai",
-    title: "Founder & CEO",
-    image: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400",
-    quote: "I started Wipely so others wouldn't have to struggle the way I did. We clean with care, as if it were our own home.",
-    story: "After struggling to find trustworthy cleaners while caring for my elderly parents, I realized Melbourne families deserved better. What started as a personal mission has grown into a passion for serving our entire community with the care and reliability every home deserves."
-  };
 
   const values = [
     {
@@ -88,7 +81,7 @@ const About: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              More Than Just Cleaning —
+              More Than Just Cleaning, 
               <span className="block text-emerald-600">It's Care You Can Count On</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
@@ -113,80 +106,6 @@ const About: React.FC = () => {
           >
             <Heart className="w-full h-full" />
           </motion.div>
-        </div>
-      </section>
-
-      {/* Founder's Story */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
-              <img
-                src={founderInfo.image}
-                alt={founderInfo.name}
-                className="rounded-2xl shadow-2xl w-full"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                    <Users className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{founderInfo.name}</div>
-                    <div className="text-gray-600">{founderInfo.title}</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                Our Founder's Journey
-              </h2>
-              
-              <blockquote className="text-xl font-medium text-emerald-600 italic mb-8 border-l-4 border-emerald-600 pl-6">
-                "{founderInfo.quote}"
-              </blockquote>
-              
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                {founderInfo.story}
-              </p>
-
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { icon: Heart, label: "Family-First Approach" },
-                  { icon: Shield, label: "Trusted & Reliable" },
-                  { icon: Award, label: "Quality Guaranteed" },
-                  { icon: Users, label: "Community Focused" }
-                ].map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{ y: 30, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="flex items-center space-x-3"
-                  >
-                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <item.icon className="w-5 h-5 text-emerald-600" />
-                    </div>
-                    <span className="font-medium text-gray-900">{item.label}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
         </div>
       </section>
 
@@ -238,7 +157,7 @@ const About: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
               <p className="text-lg text-gray-600 leading-relaxed">
-                To be Melbourne's most trusted and loved cleaning service — where quality meets heart. 
+                To be Melbourne's most trusted and loved cleaning service ,  where quality meets heart. 
                 We envision a community where families have more time for what matters most, supported by cleaning partners they can truly rely on.
               </p>
             </motion.div>
@@ -328,54 +247,6 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Meet Our Team
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The dedicated professionals who make Wipely possible
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg text-center card-hover"
-              >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-24 h-24 rounded-full object-cover mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {member.name}
-                </h3>
-                <p className="text-emerald-600 font-medium mb-3">
-                  {member.role}
-                </p>
-                <p className="text-gray-600">
-                  {member.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Service Area */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
@@ -396,13 +267,13 @@ const About: React.FC = () => {
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-5 h-5 text-emerald-600" />
                     <div>
-                      <p className="text-gray-900">Level 4, 567 Collins St</p>
-                      <p className="text-gray-900">Melbourne VIC 3000</p>
+                      
+                      <p className="text-gray-900">Melbourne, VIC, Australia</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Phone className="w-5 h-5 text-emerald-600" />
-                    <p className="text-gray-900">1300 947 359</p>
+                    <p className="text-gray-900">+61 435 137 936</p>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-emerald-600" />

@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
     <span className="text-2xl font-bold text-white">Wipely</span>
   </div>
   <p className="text-sm leading-relaxed text-gray-300">
-    Melbourne’s trusted cleaning experts. We deliver spotless homes, offices, and peace of mind — every time.
+    Melbourne’s trusted cleaning experts. We deliver spotless homes, offices, and peace of mind every time.
   </p>
 </div>
     {/* Quick Links */}
@@ -24,12 +24,14 @@ const Footer: React.FC = () => {
       <h4 className="text-lg font-semibold mb-3">Quick Links</h4>
 <div className="w-12 h-1 bg-emerald-500 mb-3"></div>
       <ul className="space-y-2 text-sm text-gray-300">
-        <li><a href="#home" className="hover:text-white">Home</a></li>
-        <li><a href="#about" className="hover:text-white">About Us</a></li>
-        <li><a href="#services" className="hover:text-white">Our Services</a></li>
+        <li><a href="/" className="hover:text-white">Home</a></li>
+        <li><a href="/services" className="hover:text-white">Our Services</a></li>
+        <li><a href="/reviews" className="hover:text-white">Reviews</a></li>
         <li><a href="/blog" className="hover:text-white">Blog</a></li>
-        <li><a href="#contact" className="hover:text-white">Contact</a></li>
-        <li><a href="#faq" className="hover:text-white">FAQ</a></li>
+        <li><a href="/about" className="hover:text-white">About Us</a></li>
+        <li><a href="/faq" className="hover:text-white">FAQ</a></li>
+        <li><a href="/contact" className="hover:text-white">Contact</a></li>
+
       </ul>
     </div>
 
@@ -60,7 +62,7 @@ const Footer: React.FC = () => {
       <ul className="space-y-2 text-sm text-gray-300">
         <li>📍 Melbourne, VIC, Australia</li>
         <li>📞 <a href="tel:+61435137936" className="hover:text-white">+61 435 137 936</a></li>
-        <li>✉️ <a href="mailto:info@wipely.com.au" className="hover:text-white">info@wipely.com.au</a></li>
+        <li>✉️ <a href="mailto:hello@wipely.au" className="hover:text-white">hello@wipely.au</a></li>
         <li>🕒 Mon - Sat: 8am - 6pm</li>
       </ul>
     </div>

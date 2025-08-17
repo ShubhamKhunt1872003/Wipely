@@ -90,7 +90,7 @@ const EndOfLease: React.FC = () => {
               <span className="block text-emerald-600">Cleaning</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Move out stress-free — we clean so you don't lose your bond
+              Move out stress-free ,  we clean so you don't lose your bond
             </p>
           </motion.div>
         </div>
@@ -382,7 +382,7 @@ const EndOfLease: React.FC = () => {
               Optional Add-On Services
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Enhance your bond clean with these additional services — add them during checkout
+              Enhance your bond clean with these additional services ,  add them during checkout
             </p>
           </motion.div>
 

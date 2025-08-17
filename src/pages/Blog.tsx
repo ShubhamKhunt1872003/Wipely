@@ -15,21 +15,9 @@ import {
 import blogData from '../data/blog.json';
 
 const Blog: React.FC = () => {
-  const founderStory = {
-    name: "Rohit Desai",
-    title: "Founder & CEO",
-    image: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400",
-    quote: "Clean spaces create clear minds.",
-    story: [
-      "Starting Wipely wasn't just a business decision — it was personal. After watching my elderly parents struggle to maintain their home while dealing with unreliable cleaning services, I knew Melbourne families deserved better.",
-      "The cleaning industry was filled with companies that treated homes like just another job. I wanted to create something different — a service that understood that your home is your sanctuary, and it deserves to be treated with care and respect.",
-      "What began as a mission to help my own family has grown into a passion for serving the entire Melbourne community. Every home we clean, every family we help, reminds me why we started this journey.",
-      "At Wipely, we don't just clean homes — we give families their time back, reduce their stress, and create spaces where life's best moments can happen. That's the difference between a cleaning service and a cleaning partner."
-    ]
-  };
 
   const testimonial = {
-    text: "Wipely didn't just clean our home — they gave us our weekends back. As working parents, having that extra time with our kids is priceless.",
+    text: "Wipely didn't just clean our home ,  they gave us our weekends back. As working parents, having that extra time with our kids is priceless.",
     author: "Sarah & Michael Thompson",
     location: "Carlton North",
     rating: 5
@@ -100,73 +88,6 @@ const Blog: React.FC = () => {
         </div>
       </section>
 
-      {/* Founder's Story Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
-              <div className="relative">
-                <img
-                  src={founderStory.image}
-                  alt={founderStory.name}
-                  className="rounded-2xl shadow-2xl w-full"
-                />
-                <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-emerald-600" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">{founderStory.name}</div>
-                      <div className="text-gray-600">{founderStory.title}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="mb-8">
-                <div className="flex items-center space-x-3 mb-6">
-                  <Quote className="w-8 h-8 text-emerald-600" />
-                  <h2 className="text-3xl font-bold text-gray-900">Our Founder's Journey</h2>
-                </div>
-                
-                <blockquote className="text-2xl font-medium text-emerald-600 italic mb-8 border-l-4 border-emerald-600 pl-6">
-                  "{founderStory.quote}"
-                </blockquote>
-              </div>
-
-              <div className="space-y-6">
-                {founderStory.story.map((paragraph, index) => (
-                  <motion.p
-                    key={index}
-                    initial={{ y: 30, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="text-lg text-gray-600 leading-relaxed"
-                  >
-                    {paragraph}
-                  </motion.p>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Mission & Values */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
@@ -215,7 +136,7 @@ const Blog: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
               <p className="text-lg text-gray-600 leading-relaxed">
-                To be Melbourne's most trusted and loved cleaning service — where quality meets heart. 
+                To be Melbourne's most trusted and loved cleaning service ,  where quality meets heart. 
                 We envision a community where families have more time for what matters most, supported by cleaning partners they can truly rely on.
               </p>
             </motion.div>

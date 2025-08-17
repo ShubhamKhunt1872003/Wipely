@@ -95,7 +95,7 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center">
@@ -323,7 +323,7 @@ const Services: React.FC = () => {
       <div className="border p-6 rounded-lg shadow hover:shadow-md transition">
         <div className="text-emerald-500 text-3xl mb-3">⏱️</div>
         <h4 className="text-lg font-semibold mb-2">Flexible Scheduling</h4>
-        <p className="text-sm text-gray-600">We adapt to your timing — early morning or late evening, we clean when it suits you.</p>
+        <p className="text-sm text-gray-600">We adapt to your timing ,  early morning or late evening, we clean when it suits you.</p>
       </div>
     </div>
   </div>

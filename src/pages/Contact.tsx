@@ -31,8 +31,8 @@ const Contact: React.FC = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: "1300 947 359",
-      description: "Call us for immediate assistance"
+      details: "+61 435 137 936",
+      description: "Call us for assistance"
     },
     {
       icon: Mail,
@@ -43,7 +43,7 @@ const Contact: React.FC = () => {
     {
       icon: Clock,
       title: "Hours",
-      details: "Mon–Sat: 9 AM – 6 PM",
+      details: "Mon–Sat: 8 AM – 6 PM",
       description: "Sunday: Emergency only"
     },
     {
@@ -133,7 +133,7 @@ const Contact: React.FC = () => {
               <span className="block text-emerald-600">Hear From You</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Whether it's a question, a custom request, or a compliment — our team is always happy to chat.
+              Whether it's a question, a custom request, or a compliment ,  our team is always happy to chat.
             </p>
           </motion.div>
         </div>
@@ -159,7 +159,7 @@ const Contact: React.FC = () => {
               Get in Touch
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Multiple ways to reach us — choose what works best for you
+              Multiple ways to reach us ,  choose what works best for you
             </p>
           </motion.div>
 
@@ -204,114 +204,6 @@ const Contact: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  Send Us a Message
-                </h3>
-                
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      {...register('name', { required: 'Name is required' })}
-                      className="form-input"
-                      placeholder="Your full name"
-                    />
-                    {errors.name && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.name.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      {...register('email', { 
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^\S+@\S+$/i,
-                          message: 'Invalid email address'
-                        }
-                      })}
-                      className="form-input"
-                      placeholder="your.email@example.com"
-                    />
-                    {errors.email && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.email.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone (Optional)
-                    </label>
-                    <input
-                      type="tel"
-                      {...register('phone')}
-                      className="form-input"
-                      placeholder="Your phone number"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Subject *
-                    </label>
-                    <select
-                      {...register('subject', { required: 'Please select a subject' })}
-                      className="form-input"
-                    >
-                      <option value="">Select a subject</option>
-                      {subjectOptions.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                    {errors.subject && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.subject.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      {...register('message', { required: 'Message is required' })}
-                      rows={5}
-                      className="form-input"
-                      placeholder="Tell us how we can help you..."
-                    />
-                    {errors.message && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.message.message}</p>
-                    )}
-                  </div>
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    className="w-full btn-primary"
-                  >
-                    Send Message
-                    <Send className="w-4 h-4 ml-2" />
-                  </motion.button>
-                </form>
-              </div>
-            </motion.div>
-
-            {/* Business Info & Map */}
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-8"
-            >
               {/* Business Address */}
               <div className="bg-white rounded-2xl p-8 shadow-lg">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
@@ -323,8 +215,7 @@ const Contact: React.FC = () => {
                     <div>
                       <h4 className="font-semibold text-gray-900">Wipely HQ</h4>
                       <p className="text-gray-600">
-                        Level 4, 567 Collins St<br />
-                        Melbourne VIC 3000
+                        Melbourne, VIC, Australia
                       </p>
                     </div>
                   </div>
@@ -332,7 +223,7 @@ const Contact: React.FC = () => {
                     <Phone className="w-6 h-6 text-emerald-600 mt-1" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Phone</h4>
-                      <p className="text-gray-600">1300 947 359</p>
+                      <p className="text-gray-600">+61 435 137 936</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
@@ -344,6 +235,16 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </motion.div>
+
+            {/* Business Info & Map */}
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-8"
+            >
 
               {/* Map Placeholder */}
               <div className="bg-white rounded-2xl p-8 shadow-lg">
@@ -391,7 +292,7 @@ const Contact: React.FC = () => {
                   className="btn-primary"
                 >
                   Read Our FAQs
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className=" inline-block w-4 h-4 ml-2" />
                 </motion.button>
               </Link>
             </div>

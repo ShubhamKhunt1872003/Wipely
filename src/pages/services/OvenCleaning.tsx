@@ -102,7 +102,7 @@ const OvenCleaning: React.FC = () => {
               <span className="block text-emerald-600">Cleaning</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Deep cleaning that removes grease, grime, and burnt-on food — leaving your oven sparkling clean
+              Deep cleaning that removes grease, grime, and burnt-on food ,  leaving your oven sparkling clean
             </p>
           </motion.div>
         </div>
@@ -481,7 +481,7 @@ const OvenCleaning: React.FC = () => {
             Ready for a Spotless Oven?
           </h2>
           <p className="text-lg mb-6 max-w-2xl mx-auto">
-            Professional oven cleaning that removes grease, grime, and burnt-on food — book your service today!
+            Professional oven cleaning that removes grease, grime, and burnt-on food ,  book your service today!
           </p>
           <Link to="/book">
             <button className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300">

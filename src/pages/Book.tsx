@@ -201,29 +201,27 @@ const Book: React.FC = () => {
 
   const calculatePrice = () => {
     const serviceType = watchedValues.serviceType as keyof typeof pricing;
-    const bedrooms = watchedValues.bedrooms || 2;
-    const bathrooms = watchedValues.bathrooms || 1;
+    const bedrooms = watchedValues.bedrooms || 0;
+    const bathrooms = watchedValues.bathrooms || 0;
 
     const servicePricing = pricing[serviceType];
 
-    // Type guard to check if servicePricing has base_price, per_bedroom, and per_bathroom
-    function isStandardPricing(obj: any): obj is { base_price: number; per_bedroom: number; per_bathroom: number } {
-      return (
-        obj &&
-        typeof obj.base_price === 'number' &&
-        typeof obj.per_bedroom === 'number' &&
-        typeof obj.per_bathroom === 'number'
-      );
+    // Base price calculation differs for custom cleaning
+    let basePrice = servicePricing.base_price;
+
+    if (serviceType === 'custom_cleaning') {
+      // For custom cleaning, use the custom per-room rates
+      basePrice +=
+        (bedrooms * servicePricing.per_bedroom) +
+        (bathrooms * servicePricing.per_bathroom);
+    } else {
+      // For standard services
+      basePrice +=
+        (bedrooms * servicePricing.per_bedroom) +
+        (bathrooms * servicePricing.per_bathroom);
     }
 
-    if (!isStandardPricing(servicePricing)) {
-      return 0;
-    }
-
-    const basePrice = servicePricing.base_price +
-      (bedrooms * servicePricing.per_bedroom) +
-      (bathrooms * servicePricing.per_bathroom);
-
+    // Add extras price
     const extrasPrice = selectedExtras.reduce((total, extraId) => {
       const extra = extras.find(e => e.id === extraId);
       return total + (extra?.price || 0);
@@ -364,7 +362,7 @@ const Book: React.FC = () => {
             Book Your Clean
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Get a personalized quote for your cleaning needs. No payment required — just tell us what you need!
+            Get a personalized quote for your cleaning needs. No payment required ,  just tell us what you need!
           </p>
         </motion.div>
 

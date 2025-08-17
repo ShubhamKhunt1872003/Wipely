@@ -42,13 +42,13 @@ const FAQ: React.FC = () => {
     {
       id: '3',
       question: 'How can I book a cleaning service?',
-      answer: 'Just head to our Book Page, select your service type, fill in a few details about your home and preferences, and submit your request — no payment needed upfront. We\'ll contact you within 24 hours to confirm details and schedule your clean.',
+      answer: 'Just head to our Book Page, select your service type, fill in a few details about your home and preferences, and submit your request ,  no payment needed upfront. We\'ll contact you within 24 hours to confirm details and schedule your clean.',
       category: 'Booking'
     },
     {
       id: '4',
       question: 'What if I\'m not happy with the service?',
-      answer: 'Your satisfaction is our top priority. If something\'s not right, contact us within 24 hours and we\'ll make it right — no fuss. We offer a satisfaction guarantee and will return to re-clean any areas that don\'t meet your expectations.',
+      answer: 'Your satisfaction is our top priority. If something\'s not right, contact us within 24 hours and we\'ll make it right ,  no fuss. We offer a satisfaction guarantee and will return to re-clean any areas that don\'t meet your expectations.',
       category: 'Quality Guarantee'
     },
     {
@@ -330,10 +330,9 @@ const FAQ: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="btn-primary"
+                    className="btn-primary flex items-center"
                   >
-                    Contact Us
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    Contact Us <ArrowRight className="w-4 h-4 ml-2" />
                   </motion.button>
                 </Link>
                 <Link to="/book">

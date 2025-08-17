@@ -15,12 +15,15 @@
     "base_price": 120
   },
   "custom_cleaning": {
+    "per_bedroom": 40,
+    "per_bathroom": 50,
     "carpet_steam": 80,
     "upholstery": 60,
     "mattress": 50,
     "oven": 70,
     "bbq": 65,
     "stairs": 40,
-    "commercial": 150
+    "commercial": 150,
+    "base_price": 0
   }
 }

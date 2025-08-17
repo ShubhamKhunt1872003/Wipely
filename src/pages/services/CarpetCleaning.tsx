@@ -191,7 +191,7 @@ const CarpetCleaning: React.FC = () => {
               <span className="block text-emerald-600">Cleaning</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Deep steam cleaning that removes dirt, stains, and allergens — leaving your carpets fresh, clean, and healthy
+              Deep steam cleaning that removes dirt, stains, and allergens ,  leaving your carpets fresh, clean, and healthy
             </p>
           </motion.div>
         </div>
@@ -739,7 +739,7 @@ const CarpetCleaning: React.FC = () => {
             Ready for Cleaner, Healthier Carpets?
           </h2>
           <p className="text-lg mb-6 max-w-2xl mx-auto">
-            Professional carpet cleaning that removes dirt, stains, and allergens — book your service today!
+            Professional carpet cleaning that removes dirt, stains, and allergens ,  book your service today!
           </p>
           <Link to="/book">
             <button className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300">
