@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import regularHouseImg from "../images/regularHouseImg.jpg";
+import endOfLeaseImg from "../images/endOfLeaseImg.jpg";
+import oneOfSpringImg from "../images/oneOfSpringImg.jpg";
+import customCleaning from "../images/customCleaning.jpg";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
@@ -20,6 +24,8 @@ import {
   ChevronRight
 } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
+import kitchenBeforeImg from "../images/kitchenBefore.jpg";
+import kitchenAfterImg from "../images/kitchenAfter.jpg";
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -31,28 +37,28 @@ const Home: React.FC = () => {
       title: "Regular House Cleaning",
       description: "Weekly or bi-weekly cleaning to keep your home spotless",
       icon: HomeIcon,
-      image: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600",
+      image: regularHouseImg,
       href: "/services/regular-cleaning"
     },
     {
       title: "End of Lease Cleaning",
       description: "Bond-back guarantee cleaning for peace of mind",
       icon: CheckCircle,
-      image: "https://images.pexels.com/photos/4239033/pexels-photo-4239033.jpeg?auto=compress&cs=tinysrgb&w=600",
+      image: endOfLeaseImg,
       href: "/services/end-of-lease"
     },
     {
       title: "One-off Spring Cleaning",
       description: "Deep seasonal clean to refresh your entire home",
       icon: Sparkles,
-      image: "https://images.pexels.com/photos/4239034/pexels-photo-4239034.jpeg?auto=compress&cs=tinysrgb&w=600",
+      image: oneOfSpringImg,
       href: "/services/spring-cleaning"
     },
     {
       title: "Custom Cleaning",
       description: "Carpet, upholstery, oven, and commercial cleaning",
       icon: Shield,
-      image: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600",
+      image: customCleaning,
       href: "/services/custom-cleaning"
     }
   ];
@@ -246,7 +252,7 @@ const toggleFAQ = (index:any) => {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="md:w-1/2">
               <img
-                src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src="../../src/images/banner2.jpg"
                 alt="Professional Cleaning"
                 className="rounded-lg shadow-md w-full object-cover"
               />
@@ -423,8 +429,8 @@ const toggleFAQ = (index:any) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                before: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600",
-                after: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600",
+                before: kitchenBeforeImg,
+                after: kitchenAfterImg,
                 title: "Kitchen Deep Clean"
               },
               {

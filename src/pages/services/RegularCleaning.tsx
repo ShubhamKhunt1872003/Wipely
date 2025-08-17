@@ -17,13 +17,23 @@ import {
   Baby,
   Star
 } from 'lucide-react';
-
+import regularHouseImg from "../../images/regularHouseImg.jpg";
+import regularHouseSectionImg from "../../images/regularCLImg.jpg";
+import bedRoomInmg from "../../images/bedroom.jpg";
+import bathroomImg from "../../images/bathroomImg.jpg";
+import livingroomImg from "../../images/livingroom.jpg";
+import kitchenImg from "../../images/kitchenImg.jpg";
+import binImg from "../../images/bin.jpg";
+import laundryroomImg from "../../images/laundryRoomImg.jpg";
 // Using Pexels stock photos
-const kitchenImg = 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600';
+const kitchen = kitchenImg;
 const cleaningImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200';
 const claningImgSec = 'https://images.pexels.com/photos/4107063/pexels-photo-4107063.jpeg?auto=compress&cs=tinysrgb&w=800';
-const binImg = 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600';
-const bedImg = 'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=600';
+const bin = binImg;
+const bedImg = bedRoomInmg;
+const bathroom = bathroomImg;
+const livingroom = livingroomImg;
+const laundryRoomImg = laundryroomImg;
 
 const RegularCleaning: React.FC = () => {
  const includedServices = [
@@ -40,7 +50,7 @@ const RegularCleaning: React.FC = () => {
   },
   {
     title: 'Bathroom',
-    image: bedImg,
+    image: bathroom,
     items: [
       'Scrub and disinfect toilet, shower, and sink',
       'Clean mirrors, tiles, and splashbacks',
@@ -52,7 +62,7 @@ const RegularCleaning: React.FC = () => {
   },
     {
     title: 'Livingroom',
-    image: bedImg,
+    image: livingroom,
     items: [
       'Dust all surfaces & furniture',
       'Vacuum carpets & rugs',
@@ -63,7 +73,7 @@ const RegularCleaning: React.FC = () => {
   },
     {
     title: 'Kitchen',
-    image: bedImg,
+    image: kitchen,
     items: [
       'Wipe cabinet doors and handles',
       'Scrub sink and polish fixtures',
@@ -74,7 +84,7 @@ const RegularCleaning: React.FC = () => {
   },
   {
     title: 'Trash Removal',
-    image: binImg,
+    image: bin,
     items: [
       'Empty all indoor bins',
       'Replace bin liners',
@@ -85,7 +95,7 @@ const RegularCleaning: React.FC = () => {
   },
   {
     title: 'Laundry',
-    image: kitchenImg,
+    image: laundryRoomImg,
     items: [
       'Wipe appliances',
       'Sink cleaned',
@@ -203,7 +213,7 @@ const [activeIndex, setActiveIndex] = useState(null);
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
   <img
-    src="https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    src= {regularHouseImg}
     alt="Regular House Cleaning"
     className="w-full h-full object-cover object-bottom"
   />
@@ -250,7 +260,7 @@ const [activeIndex, setActiveIndex] = useState(null);
             >
               <div className="relative">
                 <img
-                  src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src= {regularHouseSectionImg}
                   alt="Professional cleaner doing regular cleaning"
                   className="rounded-2xl shadow-2xl w-full"
                 />

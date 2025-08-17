@@ -16,7 +16,7 @@ import {
   Heart,
   Home as HomeIcon
 } from 'lucide-react';
-
+import ovenBanner from "../../images/ovenBanner.jpg";
 const OvenCleaning: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -92,7 +92,7 @@ const OvenCleaning: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
         <img
-          src="https://images.pexels.com/photos/434213/pexels-photo-434213.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          src={ovenBanner}
           alt="Professional Oven Cleaning"
           className="w-full h-full object-cover object-center"
         />

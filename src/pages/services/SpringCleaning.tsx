@@ -16,7 +16,8 @@ import {
   Gift,
   Baby
 } from 'lucide-react';
-
+import oneOfSpringCleaningImg from "../../images/oneOfSpringImg.jpg";
+import oneOfSpringCLImg from "../../images/oneOfSpringCLImg.jpg";
 const SpringCleaning: React.FC = () => {
   const includedServices = [
     { task: "Deep Kitchen Clean", description: "Sinks, splashbacks, stovetops, cupboards inside and out" },
@@ -139,7 +140,7 @@ const SpringCleaning: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
         <img
-          src="https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          src={oneOfSpringCleaningImg}
           alt="One-off Spring Cleaning"
           className="w-full h-full object-cover object-bottom"
         />
@@ -196,7 +197,7 @@ const SpringCleaning: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <img
-                src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src={oneOfSpringCLImg}
                 alt="Professional cleaner doing deep cleaning"
                 className="rounded-2xl shadow-xl"
               />

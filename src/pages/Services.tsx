@@ -12,13 +12,27 @@ import {
   Clock,
   Award
 } from 'lucide-react';
-
+import regularHouseImg from "../images/regularHouseImg.jpg";
+import endOfLeaseImg from "../images/endOfLeaseImg.jpg";
+import oneOfSpringImg from "../images/oneOfSpringImg.jpg";
+import customCleaning from "../images/customCleaning.jpg";
+import carpetSteamCleaning from "../images/carpetSteamCleaning.jpg";
+import upholsteryImg from "../images/upholsteryImg.jpg";
+import ovenImg from "../images/ovenImg.jpg";
+import bbqImg from "../images/bbqImg.jpg";
+import staircaseImg from "../images/staircaseImg.jpg";
+import commercialImg from "../images/commercialImg.jpg";
 // Using Pexels stock photos
-const ResidentalImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=600';
-const DeepImg = 'https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600';
-const OfficeImg = 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=600';
-const WindowImg = 'https://images.pexels.com/photos/5824901/pexels-photo-5824901.jpeg?auto=compress&cs=tinysrgb&w=600';
-const EndofleaseImg = 'https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600';
+const RegularHouseImg = regularHouseImg;
+const EndofleaseImg = endOfLeaseImg;
+const OneOfSpringImg = oneOfSpringImg;
+const CommercialImg = commercialImg;
+const StaircaseImg = staircaseImg;
+const CustomCleaning = customCleaning;
+const CarpetSteamCleaning = carpetSteamCleaning;
+const UpholsteryImg = upholsteryImg;
+const OvenImg = ovenImg;
+const BBQImg = bbqImg;
 const KitchenImg = 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600';
 
 const Services: React.FC = () => {
@@ -85,7 +99,7 @@ const Services: React.FC = () => {
       {/* Hero Section */}
       <section
         className="relative h-[300px] md:h-[400px] bg-cover bg-center -mt-16"
-        style={{ backgroundImage: `url(../../src/images/Service.jpg)` }}
+        style={{ backgroundImage: `url(../../src/images/servicesBanner.jpg)` }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
@@ -114,7 +128,7 @@ const Services: React.FC = () => {
         {
           title: "Regular House Cleaning",
           icon: "🏠",
-          img: WindowImg,
+          img: RegularHouseImg,
           includes: [
             "Bedroom & Living area dusting",
             "Mopping & vacuuming floors",
@@ -136,7 +150,7 @@ const Services: React.FC = () => {
         {
           title: "One-off Spring Cleaning",
           icon: "✨",
-          img: DeepImg,
+          img: OneOfSpringImg,
           includes: [
             "Deep cleaning all rooms",
             "Hard-to-reach areas",
@@ -147,7 +161,7 @@ const Services: React.FC = () => {
         {
           title: "Custom Cleaning",
           icon: "🛠️",
-          img: OfficeImg,
+          img: CustomCleaning,
           includes: [
             "Specialized cleaning services",
             "Flexible service options",
@@ -158,7 +172,7 @@ const Services: React.FC = () => {
         {
           title: "Carpet Steam Cleaning",
           icon: "🧽",
-          img: ResidentalImg,
+          img:CarpetSteamCleaning,
           includes: [
             "Deep stain removal",
             "Allergen elimination",
@@ -169,7 +183,7 @@ const Services: React.FC = () => {
         {
           title: "Upholstery Cleaning",
           icon: "🛋️",
-          img: DeepImg,
+          img: UpholsteryImg,
           includes: [
             "Fabric care treatment",
             "Stain removal",
@@ -180,7 +194,7 @@ const Services: React.FC = () => {
         {
           title: "Oven Cleaning",
           icon: "🔥",
-          img: WindowImg,
+          img: OvenImg,
           includes: [
             "Non-toxic products",
             "Full disassembly",
@@ -191,7 +205,7 @@ const Services: React.FC = () => {
         {
           title: "BBQ Cleaning",
           icon: "🍖",
-          img: EndofleaseImg,
+          img: BBQImg,
           includes: [
             "Complete disassembly",
             "Grease trap cleaning",
@@ -202,7 +216,7 @@ const Services: React.FC = () => {
         {
           title: "Staircase Cleaning",
           icon: "🪜",
-          img: KitchenImg,
+          img: StaircaseImg,
           includes: [
             "Balustrade cleaning",
             "Step deep clean",
@@ -213,7 +227,7 @@ const Services: React.FC = () => {
         {
           title: "Commercial Spaces",
           icon: "🏢",
-          img: OfficeImg,
+          img: CommercialImg,
           includes: [
             "Desk & electronics wiped",
             "Trash disposal & restocking",

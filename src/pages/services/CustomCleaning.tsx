@@ -13,7 +13,7 @@ import {
   Users,
   ThumbsUp
 } from 'lucide-react';
-
+import customCleaningImg from "../../images/customCleaningImg.jpg";
 const CustomCleaning: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const toggleFAQ = (index: number) => {
@@ -40,11 +40,6 @@ const CustomCleaning: React.FC = () => {
       title: "Carpet & Upholstery",
       description: "Deep cleaning and stain removal for carpets and furniture",
       icon: "🛋️"
-    },
-    {
-      title: "Post-Construction Cleanup",
-      description: "Specialized cleaning after renovations or construction work",
-      icon: "🏗️"
     },
     {
       title: "Garage & Storage Areas",
@@ -140,7 +135,7 @@ const CustomCleaning: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
         <img
-          src="https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          src={customCleaningImg}
           alt="Custom Cleaning Services"
           className="w-full h-full object-cover object-bottom"
         />

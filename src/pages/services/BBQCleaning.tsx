@@ -11,6 +11,8 @@ import {
   Wind,
   Star
 } from 'lucide-react';
+import bbqImg from "../../images/bbqImg.jpg";
+import bbqSecImg from "../../images/bbqSecImg.jpg";
 const BBQCleaning: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -96,7 +98,7 @@ const BBQCleaning: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
         <img
-          src="https://images.pexels.com/photos/6740101/pexels-photo-6740101.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          src={bbqImg}
           alt="Professional BBQ Cleaning"
           className="w-full h-full object-cover object-center"
         />
@@ -140,7 +142,7 @@ const BBQCleaning: React.FC = () => {
       >
         <div className="relative">
           <img
-                  src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src={bbqSecImg}
                   alt="Professional carpet cleaning in action"
                   className="rounded-2xl shadow-2xl w-full"
                 />

@@ -16,6 +16,8 @@ import {
   Heart,
   Home as HomeIcon
 } from 'lucide-react';
+import carpetSteamCleaningImg from "../../images/carpetSteamCleaning.jpg";
+import carpetCleaningSecImg from "../../images/carpetCleaningSecImg.jpg";
 
 const CarpetCleaning: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -179,7 +181,7 @@ const CarpetCleaning: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
         <img
-          src="https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          src={carpetSteamCleaningImg}
           alt="Professional Carpet Cleaning"
           className="w-full h-full object-cover object-bottom"
         />
@@ -224,7 +226,7 @@ const CarpetCleaning: React.FC = () => {
             >
               <div className="relative">
                 <img
-                  src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src={carpetCleaningSecImg}
                   alt="Professional carpet cleaning in action"
                   className="rounded-2xl shadow-2xl w-full"
                 />

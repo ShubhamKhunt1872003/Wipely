@@ -13,7 +13,9 @@ import {
   Heart,
   Users,
 } from "lucide-react";
-
+import upholsteryBeforeImg from "../../images/upholsteryBefore.jpg";
+import upholsteryAfterImg from "../../images/upholsteryAfter.jpg";
+import upholsterySecImg from "../../images/upholsterySecImg.jpg";
 const UpholsteryCleaning: React.FC = () => {
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
 
@@ -101,7 +103,7 @@ const UpholsteryCleaning: React.FC = () => {
       {/* Hero */}
       <section className="relative h-[300px] md:h-[400px] w-full">
         <img
-          src="https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          src={upholsterySecImg}
           alt="Professional Upholstery Cleaning"
           className="w-full h-full object-cover object-center"
         />
@@ -263,7 +265,7 @@ const UpholsteryCleaning: React.FC = () => {
       {/* Before */}
       <div className="rounded-2xl overflow-hidden shadow-lg">
         <img
-          src="/images/upholstery-before.jpg"
+          src={upholsteryBeforeImg}
           alt="Upholstery before cleaning"
           className="w-full h-72 object-cover"
         />
@@ -275,7 +277,7 @@ const UpholsteryCleaning: React.FC = () => {
       {/* After */}
       <div className="rounded-2xl overflow-hidden shadow-lg">
         <img
-          src="/images/upholstery-after.jpg"
+          src={upholsteryAfterImg}
           alt="Upholstery after cleaning"
           className="w-full h-72 object-cover"
         />

@@ -15,7 +15,8 @@ import {
   Leaf,
   Star
 } from 'lucide-react';
-
+import endOfLeaseImg from "../../images/endOfLeaseImg.jpg";
+import eolSectionImg from "../../images/eolSectionImg.jpg";
 const EndOfLease: React.FC = () => {
   const includedServices = [
     { task: "Full Kitchen Degreasing", description: "Oven, stovetop, splashbacks, and all surfaces" },
@@ -30,9 +31,7 @@ const EndOfLease: React.FC = () => {
     { name: "Carpet Steam Cleaning", price: "$80", icon: "🧽" },
     { name: "Balcony/Garage Cleaning", price: "$60", icon: "🏠" },
     { name: "Upholstery Cleaning", price: "$60", icon: "🛋️" },
-    { name: "Curtain Cleaning", price: "$45", icon: "🪟" },
-    { name: "Pressure Washing", price: "$85", icon: "🚿" },
-    { name: "Interior Painting Touch-ups", price: "$120", icon: "🎨" }
+    { name: "Curtain Cleaning", price: "$45", icon: "🪟" }
   ];
 
   const whyChooseWipely = [
@@ -81,7 +80,7 @@ const EndOfLease: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full">
         <img
-          src="https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          src={endOfLeaseImg}
           alt="End of Lease Cleaning"
           className="w-full h-full object-cover object-bottom"
         />
@@ -108,7 +107,7 @@ const EndOfLease: React.FC = () => {
               transition={{ duration: 0.6 }}
             >
               <img
-                src="https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src={eolSectionImg}
                 alt="Professional bond cleaning checklist"
                 className="rounded-2xl shadow-xl"
               />
