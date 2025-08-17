@@ -20,7 +20,8 @@ import CarpetCleaning from './pages/services/CarpetCleaning';
 import UpholsteryCleaning from './pages/services/UpholsteryCleaning';
 import OvenCleaning from './pages/services/OvenCleaning';
 import BBQCleaning from './pages/services/BBQCleaning';
-
+import StairCaseCleaning from './pages/services/StaircaseCleaning';
+import CommercialSpacesCleaning from './pages/services/CommercialSpacesCleaning';
 function App() {
   return (
     <Router>
@@ -36,6 +37,9 @@ function App() {
           <Route path="/services/upholstery-cleaning" element={<UpholsteryCleaning />} />
           <Route path="/services/oven-cleaning" element={<OvenCleaning />} />
           <Route path="/services/bbq-cleaning" element={<BBQCleaning />} />
+          <Route path="/services/staircase-cleaning" element={<StairCaseCleaning />} />
+          <Route path="/services/commercialspaces-cleaning" element={<CommercialSpacesCleaning />} />
+
 
 
           <Route path="/book" element={<Book />} />

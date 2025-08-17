@@ -47,8 +47,8 @@ const Footer: React.FC = () => {
         <li>🛋️ <a href="/services/upholstery-cleaning" className="hover:text-white">Upholstery Cleaning</a></li>
         <li>🔥 <a href="/services/oven-cleaning" className="hover:text-white">Oven Cleaning</a></li>
         <li>🍖 <a href="/services/bbq-cleaning" className="hover:text-white">BBQ Cleaning</a></li>
-        <li>🪜 <a href="/services/custom-cleaning" className="hover:text-white">Staircase Cleaning</a></li>
-        <li>🏢 <a href="/services/custom-cleaning" className="hover:text-white">Commercial Spaces</a></li>
+        <li>🪜 <a href="/services/staircase-cleaning" className="hover:text-white">Staircase Cleaning</a></li>
+        <li>🏢 <a href="/services/commercialspaces-cleaning" className="hover:text-white">Commercial Spaces</a></li>
       </ul>
     </div>
 

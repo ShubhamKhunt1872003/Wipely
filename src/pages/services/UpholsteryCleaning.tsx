@@ -119,6 +119,105 @@ const UpholsteryCleaning: React.FC = () => {
         </div>
       </section>
 
+      {/* Why Section - Upholstery (like BBQ page) */}
+<section className="py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+  <div className="max-w-7xl mx-auto px-4">
+    <motion.div
+      initial={{ y: 50, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Why Professional Upholstery Cleaning?
+      </h2>
+      <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
+      <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        Extend fabric life, remove allergens and oils, and keep your lounge looking and feeling fresh.
+      </p>
+    </motion.div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Image Side with Testimonial Bubble */}
+      <motion.div
+        initial={{ x: -50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="relative"
+      >
+        <div className="relative">
+          <img
+            src={upholsterySecImg} // Replace with your main upholstery image
+            alt="Professional Upholstery Cleaning"
+            className="rounded-2xl shadow-2xl w-full"
+          />
+
+          {/* Testimonial Bubble */}
+          <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-sm">
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-emerald-600" />
+              </div>
+              <div>
+                <div className="font-semibold text-gray-900 text-sm">Elise P.</div>
+                <div className="text-gray-600 text-xs">Port Melbourne</div>
+              </div>
+            </div>
+            <blockquote className="text-gray-700 italic text-sm leading-relaxed">
+              "Our linen sofa looks amazing again. Friendly techs, careful testing, and fast dry time."
+            </blockquote>
+            <div className="flex items-center mt-2">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Text & Benefits Side */}
+      <motion.div
+        initial={{ x: 50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="relative"
+      >
+        <div className="bg-white rounded-2xl p-8 relative overflow-hidden shadow-lg">
+          <div className="relative z-10">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">The Wipely Difference</h3>
+            <p className="text-gray-700 mb-4">
+              Our professional upholstery cleaning uses safe, eco-friendly solutions and advanced techniques to remove allergens, oils, and stains that regular cleaning can't reach.
+            </p>
+            <p className="text-gray-700 mb-6">
+              Unlike DIY methods, our trained experts ensure thorough cleaning while protecting your fabrics for long-lasting performance.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: Zap, text: "Hot Water Extraction" },
+                { icon: Shield, text: "Eco-Safe Solutions" },
+                { icon: Wind, text: "Faster Drying" },
+                { icon: Award, text: "Satisfaction First" },
+              ].map((benefit) => (
+                <div key={benefit.text} className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <benefit.icon className="w-4 h-4 text-emerald-600" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">{benefit.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
+
       {/* Why Section */}
       <section className="py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4">
@@ -130,7 +229,7 @@ const UpholsteryCleaning: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Why Professional Upholstery Cleaning?
+              Professional Care for Your Fabrics
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -138,22 +237,7 @@ const UpholsteryCleaning: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Feature Ribbon */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            {[
-              { icon: Zap, text: "Hot Water Extraction" },
-              { icon: Shield, text: "Eco-Safe Solutions" },
-              { icon: Wind, text: "Faster Drying" },
-              { icon: Award, text: "Satisfaction First" },
-            ].map((b, i) => (
-              <div key={i} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center gap-3">
-                <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                  <b.icon className="w-5 h-5 text-emerald-600" />
-                </div>
-                <span className="font-medium text-gray-800">{b.text}</span>
-              </div>
-            ))}
-          </div>
+          
 
           {/* Services */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
