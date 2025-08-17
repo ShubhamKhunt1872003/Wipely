@@ -133,30 +133,46 @@ const CustomCleaning: React.FC = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[300px] md:h-[400px] w-full">
-        <img
-          src={customCleaningImg}
-          alt="Custom Cleaning Services"
-          className="w-full h-full object-cover object-bottom"
-        />
-        <div className="absolute inset-0 bg-black/40 flex flex-col justify-center">
-          <div className="max-w-7xl mx-auto px-4 w-full">
-            <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
-              Custom Cleaning Services
+      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+              Custom Cleaning
+              <span className="block text-emerald-600">Services</span>
             </h1>
-            <p className="text-white text-base md:text-lg max-w-2xl">
-              Tailored cleaning for every surface, appliance, and space — on your terms.
+            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Specialized cleaning solutions tailored to your unique needs and requirements
             </p>
-          </div>
+          </motion.div>
         </div>
         
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
-            Custom Cleaning Services
-          </h1>
-          <p className="text-white text-base md:text-lg max-w-2xl mx-auto">
-            Specialized cleaning solutions tailored to your unique needs and requirements
-          </p>
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-20 left-10 w-6 h-6 text-emerald-400 opacity-60"
+          >
+            <Sparkles className="w-full h-full animate-float" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, -30, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute top-32 right-20 w-4 h-4 text-blue-400 opacity-60"
+          >
+            <Sparkles className="w-full h-full animate-float" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, -25, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            className="absolute bottom-32 left-1/4 w-5 h-5 text-emerald-300 opacity-60"
+          >
+            <Sparkles className="w-full h-full animate-float" />
+          </motion.div>
         </div>
       </section>
 
