@@ -122,7 +122,7 @@ const Contact: React.FC = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-sage-50">
+      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-sage-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -147,7 +147,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -195,7 +195,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Contact Form & Map */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
@@ -260,7 +260,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* FAQ Teaser */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -294,7 +294,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="py-20 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white">
+      <section className="py-20 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}

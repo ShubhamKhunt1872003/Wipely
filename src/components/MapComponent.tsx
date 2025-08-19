@@ -21,11 +21,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ height = "300px", showPopup
   const melbournePosition: [number, number] = [-37.8136, 144.9631];
 
   return (
-    <div style={{ height, width: '100%' }} className="rounded-lg overflow-hidden shadow-lg">
+    <div style={{ height, width: '100%', maxWidth: '100%' }} className="rounded-lg overflow-hidden shadow-lg">
       <MapContainer
         center={melbournePosition}
         zoom={12}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: '100%', width: '100%', maxWidth: '100%' }}
         scrollWheelZoom={false}
       >
         <TileLayer
