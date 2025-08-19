@@ -75,7 +75,7 @@ const Book: React.FC = () => {
     mode: 'onChange',
     defaultValues: {
       serviceType: 'regular_cleaning',
-      frequency: 'bi-weekly',
+      frequency: 'bi-weekly', // This will be overridden for non-regular services
       bedrooms: 2,
       bathrooms: 1,
       hasPets: false,
@@ -95,6 +95,14 @@ const Book: React.FC = () => {
       // For non-custom services, ensure at least one is not 0
       setValue('bedrooms', 2);
       setValue('bathrooms', 1);
+    }
+    
+    // Set frequency based on service type
+    if (watchedValues.serviceType === 'regular_cleaning') {
+      setValue('frequency', 'bi-weekly');
+    } else {
+      // For all other service types, set frequency to one-time
+      setValue('frequency', 'one-time');
     }
   }, [watchedValues.serviceType, setValue]);
 
@@ -465,6 +473,14 @@ const Book: React.FC = () => {
                   </div>
                 )}
 
+                {/* Hidden frequency field for non-regular services */}
+                {watchedValues.serviceType !== 'regular_cleaning' && (
+                  <input
+                    type="hidden"
+                    {...register('frequency')}
+                    value="one-time"
+                  />
+                )}
                 {/* Bedrooms & Bathrooms */}
                 <div className="grid grid-cols-2 gap-6">
                   <CustomDropdown
