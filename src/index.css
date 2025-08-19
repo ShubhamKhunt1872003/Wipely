@@ -12,7 +12,18 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
+
+body {
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
