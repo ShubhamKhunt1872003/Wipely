@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import MapComponent from '../components/MapComponent';
 import { 
   Heart, 
   Shield, 
@@ -295,15 +296,7 @@ const About: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600 text-lg">
-                    Melbourne Service Area Map<br />
-                    <span className="text-sm">Interactive map showing our coverage area</span>
-                  </p>
-                </div>
-              </div>
+              <MapComponent height="400px" showPopup={true} />
             </motion.div>
           </div>
         </div>

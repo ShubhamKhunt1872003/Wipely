@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import MapComponent from '../components/MapComponent';
 import { 
   Phone, 
   Mail, 
@@ -251,15 +252,7 @@ const Contact: React.FC = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                   Our Location
                 </h3>
-                <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">
-                      Interactive map would be embedded here<br />
-                      showing our Melbourne location
-                    </p>
-                  </div>
-                </div>
+                <MapComponent height="300px" showPopup={true} />
               </div>
             </motion.div>
           </div>
