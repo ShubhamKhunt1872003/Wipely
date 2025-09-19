@@ -22,16 +22,23 @@ const EndOfLease: React.FC = () => {
     { task: "Full Kitchen Degreasing", description: "Oven, stovetop, splashbacks, and all surfaces" },
     { task: "Complete Bathroom Sanitation", description: "Tiles, glass, fixtures, and deep scrubbing" },
     { task: "Floor Care", description: "Vacuuming, mopping, and detailed cleaning" },
-    { task: "Wall Spot-Cleaning", description: "Marks, scuffs, and stains removed" },
+    { task: "Bedroom Dusting & Surfaces", description: "All bedroom furniture, shelves, and surfaces dusted and wiped for a fresh look" },
     { task: "Window Cleaning", description: "Internal window cleaning and polishing" },
-    { task: "Detail Work", description: "Cobwebs, dust removal, light fittings, and fans" }
+    { task: "Detail Work", description: "Cobwebs, dust removal, light fittings, and fans" },
+    {task: "Laundry Sink & Taps", description: "Scrub and polish laundry sink, taps, and fixtures for a spotless finish."},
   ];
 
   const addOns = [
-    { name: "Carpet Steam Cleaning", price: "$80", icon: "🧽" },
-    { name: "Balcony/Garage Cleaning", price: "$60", icon: "🏠" },
-    { name: "Upholstery Cleaning", price: "$60", icon: "🛋️" },
-    { name: "Curtain Cleaning", price: "$45", icon: "🪟" }
+    { name: "Carpet Steam Cleaning", icon: "🧽" },
+    { name: "Balcony/Garage Cleaning",  icon: "🏠" },
+    { name: "Exterior Window Cleaning",  icon: "🌟" },
+    { name: "Inside Fridge Cleaning",  icon: "🧊" },
+    { name: "Inside Washing Machine Cleaning",  icon: "🌀" },
+    { name: "Inside Dryer Cleaning",  icon: "🔥" },
+    { name: "Upholstery Cleaning",  icon: "🛋️" },
+    { name: "Wall Spot Cleaning", icon: "🧽"},
+    { name: "Blind Cleaning", icon: "🪟"},
+    { name: "Flight of Stairs", icon: "🪜"},
   ];
 
   const whyChooseWipely = [
@@ -401,7 +408,7 @@ const EndOfLease: React.FC = () => {
                     <span className="text-2xl">{addon.icon}</span>
                     <h3 className="font-semibold text-gray-900">{addon.name}</h3>
                   </div>
-                  <span className="text-emerald-600 font-bold">{addon.price}</span>
+                  {/* <span className="text-emerald-600 font-bold">{addon.price}</span> */}
                 </div>
               </motion.div>
             ))}

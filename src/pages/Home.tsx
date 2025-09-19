@@ -187,7 +187,7 @@ const toggleFAQ = (index:any) => {
                 </a>
 
                 {/* Book Your Clean Now Button */}
-                <Link to="/services">
+                <Link to="/book">
                   <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-base font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center">
                     Book Now
                     <ArrowRight className="inline-block ml-2 w-5 h-5" />
@@ -571,7 +571,7 @@ const toggleFAQ = (index:any) => {
       Get sparkling results with Wipely ,  trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
     </p>
     <a
-      href="#contact" // or use your booking route
+      href="#book" // or use your booking route
       className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
     >
       Book Now

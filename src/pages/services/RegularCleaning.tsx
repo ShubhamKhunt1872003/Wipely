@@ -83,17 +83,6 @@ const RegularCleaning: React.FC = () => {
     ],
   },
   {
-    title: 'Trash Removal',
-    image: bin,
-    items: [
-      'Empty all indoor bins',
-      'Replace bin liners',
-      'Sanitize bin interiors',
-      'Remove outdoor trash bags (optional)',
-      'Tidy trash area',
-    ],
-  },
-  {
     title: 'Laundry',
     image: laundryRoomImg,
     items: [
@@ -108,12 +97,12 @@ const RegularCleaning: React.FC = () => {
 
 
   const optionalExtras = [
-    { name: "Interior Windows", price: "$30", icon: "🪟" },
-    { name: "Fridge Cleanout", price: "$40", icon: "🧊" },
-    { name: "Inside Oven", price: "$50", icon: "🔥" },
-    { name: "Laundry Service", price: "$60", icon: "👕" },
-    { name: "Organizing", price: "$45", icon: "🗄️" },
-    { name: "Deep Clean Add-on", price: "$75", icon: "✨" }
+    { name: "Interior & Exterior Window", icon: "🪟" },
+    { name: "Fridge Cleanout",  icon: "🧊" },
+    { name: "BBQ & Oven Deep Cleaning", icon: "🔥" },
+    { name: "Gas Stove Top & Rangehood", icon: "🧽" },
+    { name: "Organizing", icon: "🗄️" },
+    { name: "Deep Clean Add-on", icon: "✨" }
   ];
 
   const whenToBook = [
@@ -131,11 +120,6 @@ const RegularCleaning: React.FC = () => {
       icon: HomeIcon,
       title: "Monthly Service",
       description: "Great for smaller spaces or those who clean between visits"
-    },
-    {
-      icon: RefreshCw,
-      title: "Move-In/Move-Out",
-      description: "Regular cleaning during transitions between homes"
     },
     {
       icon: Baby,
@@ -491,7 +475,7 @@ const [activeIndex, setActiveIndex] = useState(null);
                     <span className="text-2xl">{extra.icon}</span>
                     <h3 className="font-semibold text-gray-900">{extra.name}</h3>
                   </div>
-                  <span className="text-emerald-600 font-bold">{extra.price}</span>
+                  {/* <span className="text-emerald-600 font-bold">{extra.price}</span> */}
                 </div>
               </motion.div>
             ))}
@@ -758,7 +742,7 @@ const [activeIndex, setActiveIndex] = useState(null);
       Get sparkling results with Wipely ,  trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
     </p>
     <a
-      href="#contact" // or use your booking route
+      href="/book" // or use your booking route
       className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
     >
       Book Now

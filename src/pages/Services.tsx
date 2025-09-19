@@ -152,6 +152,7 @@ const Services: React.FC = () => {
           title: "Regular House Cleaning",
           icon: "🏠",
           img: RegularHouseImg,
+          href: "/services/regular-cleaning",
           includes: [
             "Bedroom & Living area dusting",
             "Mopping & vacuuming floors",
@@ -163,6 +164,7 @@ const Services: React.FC = () => {
           title: "End of Lease Cleaning",
           icon: "🚪",
           img: EndofleaseImg,
+          href: "/services/end-of-lease",
           includes: [
             "Full property deep clean",
             "Oven, range hood & exhaust",
@@ -174,6 +176,7 @@ const Services: React.FC = () => {
           title: "One-off Spring Cleaning",
           icon: "✨",
           img: OneOfSpringImg,
+          href: "/services/spring-cleaning",
           includes: [
             "Deep cleaning all rooms",
             "Hard-to-reach areas",
@@ -185,6 +188,7 @@ const Services: React.FC = () => {
           title: "Custom Cleaning",
           icon: "🛠️",
           img: CustomCleaning,
+          href: "/services/custom-cleaning",
           includes: [
             "Specialized cleaning services",
             "Flexible service options",
@@ -196,6 +200,7 @@ const Services: React.FC = () => {
           title: "Carpet Steam Cleaning",
           icon: "🧽",
           img:CarpetSteamCleaning,
+          href: "/services/carpet-steam-cleaning",
           includes: [
             "Deep stain removal",
             "Allergen elimination",
@@ -207,6 +212,7 @@ const Services: React.FC = () => {
           title: "Upholstery Cleaning",
           icon: "🛋️",
           img: UpholsteryImg,
+          href: "/services/upholstery-cleaning",
           includes: [
             "Fabric care treatment",
             "Stain removal",
@@ -218,6 +224,7 @@ const Services: React.FC = () => {
           title: "Oven Cleaning",
           icon: "🔥",
           img: OvenImg,
+          href: "/services/oven-cleaning",
           includes: [
             "Non-toxic products",
             "Full disassembly",
@@ -229,6 +236,7 @@ const Services: React.FC = () => {
           title: "BBQ Cleaning",
           icon: "🍖",
           img: BBQImg,
+          href: "/services/bbq-cleaning",
           includes: [
             "Complete disassembly",
             "Grease trap cleaning",
@@ -240,6 +248,7 @@ const Services: React.FC = () => {
           title: "Staircase Cleaning",
           icon: "🪜",
           img: StaircaseImg,
+          href: "/services/staircase-cleaning",
           includes: [
             "Balustrade cleaning",
             "Step deep clean",
@@ -251,6 +260,7 @@ const Services: React.FC = () => {
           title: "Commercial Spaces",
           icon: "🏢",
           img: CommercialImg,
+          href: "/services/commercial-cleaning",
           includes: [
             "Desk & electronics wiped",
             "Trash disposal & restocking",
@@ -284,9 +294,12 @@ const Services: React.FC = () => {
                 <li key={i}>{item}</li>
               ))}
             </ul>
-           <button className="bg-emerald-500 text-white px-6 py-3 rounded-full hover:bg-emerald-600 shadow-md transition w-full">
-  📋 Book Now
-</button>
+            <Link
+          to={service.href}
+          className="block text-center bg-emerald-500 text-white px-6 py-3 rounded-full hover:bg-emerald-600 shadow-md transition"
+        >
+          📋 View More
+        </Link>
           </div>
         </div>
       ))}
@@ -354,7 +367,7 @@ const Services: React.FC = () => {
 
       {/* Book Button */}
       <a
-        href="#contact"
+        href="book"
         className="bg-white text-emerald-600 font-medium px-6 py-3 rounded-full shadow-md hover:bg-emerald-100 transition duration-300"
       >
         📋 Book Online

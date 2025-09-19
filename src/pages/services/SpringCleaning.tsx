@@ -20,21 +20,25 @@ import oneOfSpringCleaningImg from "../../images/oneOfSpringImg.jpg";
 import oneOfSpringCLImg from "../../images/oneOfSpringCLImg.jpg";
 const SpringCleaning: React.FC = () => {
   const includedServices = [
-    { task: "Deep Kitchen Clean", description: "Sinks, splashbacks, stovetops, cupboards inside and out" },
+    { task: "Full Kitchen Wipe Down", description: "Sinks, splashbacks, stovetops, cupboards" },
     { task: "Bathroom Refresh", description: "Tile scrubbing, toilet sanitation, mirrors, and fixtures" },
     { task: "Top-to-Bottom Dusting", description: "Skirting boards, light fixtures, fans, and ceiling corners" },
     { task: "Floor Deep Clean", description: "Mopping, vacuuming, and detailed cleaning of all floor types" },
-    { task: "Window Polishing", description: "Internal windows cleaned and polished to sparkle" },
-    { task: "Hard-to-Reach Areas", description: "Behind furniture, corners, and neglected spaces" }
+    { task: "Exterior Appliance Cleaning", description: "Wipe fridge, oven, washing machine, dryer, and more" },
+    { task: "Laundry Cleaning", description: "Wipe, clean, and sanitize all laundry surfaces and appliances" }
   ];
 
   const optionalExtras = [
-    { name: "Oven Deep Clean", price: "$70", icon: "🔥" },
-    { name: "Carpet Steam Clean", price: "$80", icon: "🧽" },
-    { name: "Upholstery Care", price: "$60", icon: "🛋️" },
-    { name: "Mattress Sanitization", price: "$50", icon: "🛏️" },
-    { name: "Curtain Cleaning", price: "$45", icon: "🪟" },
-    { name: "Appliance Deep Clean", price: "$40", icon: "📺" }
+    { name: "Oven Deep Clean",  icon: "🔥" },
+    { name: "Carpet Steam Clean",  icon: "🧽" },
+    { name: "Upholstery Care",  icon: "🛋️" },
+    { name: "Mattress Cleaning",  icon: "🛏️" },
+    { name: "Window Cleaning", icon: "🪟" },
+    { name: "Inside Fridge Clean", icon: "📺" },
+    { name: "Gas Stove Tops & Rangehoods", icon: "🔥"},
+    { name: "Blinds Cleaning", icon: "🪟"},
+    { name: "Wall Spot Cleaning", icon: "🧽"}
+
   ];
 
   const whenToBook = [
@@ -47,11 +51,6 @@ const SpringCleaning: React.FC = () => {
       icon: Users,
       title: "Hosting Guests",
       description: "Impress visitors with a spotless, welcoming home"
-    },
-    {
-      icon: HomeIcon,
-      title: "Moving In/Out",
-      description: "Start fresh in your new space or prepare for handover"
     },
     {
       icon: RefreshCw,
@@ -113,7 +112,7 @@ const SpringCleaning: React.FC = () => {
 
   const faqs = [
     {
-      question: "How long does a one-off spring clean take?",
+      question: "How long does a Hourly spring clean take?",
       answer: "Typically 3-6 hours depending on the size of your home and level of cleaning required. We'll provide an accurate estimate when you book."
     },
     {
@@ -146,8 +145,8 @@ const SpringCleaning: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              One-Off Spring
-              <span className="block text-emerald-600">Cleaning</span>
+              Hourly Spring Cleaning 
+              <span className="block text-emerald-600">Service</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
               Revive your home with a comprehensive deep clean ,  no contracts, just a fresh start
@@ -192,7 +191,7 @@ const SpringCleaning: React.FC = () => {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                What is a One-Off Spring Clean?
+                What is a Hourly Spring Clean?
               </h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Perfect for post-party cleanups, seasonal refreshes, guests arriving, or just because. 
@@ -201,6 +200,11 @@ const SpringCleaning: React.FC = () => {
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 Unlike regular cleaning, our spring clean targets areas that are often overlooked, 
                 providing a comprehensive refresh that makes your home feel brand new again.
+              </p>
+               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+
+                Charged by the hour, our Hourly spring clean lets you choose the time you need. 
+                Extra services like appliance wipe-downs and window cleaning can be added as required.
               </p>
               
               <div className="bg-emerald-50 rounded-lg p-6">
@@ -242,7 +246,7 @@ const SpringCleaning: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Included in This Deep Clean
+              Included in Hourly Spring Cleaning
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Every corner, surface, and detail receives our professional attention
@@ -356,7 +360,7 @@ const SpringCleaning: React.FC = () => {
                     <span className="text-2xl">{extra.icon}</span>
                     <h3 className="font-semibold text-gray-900">{extra.name}</h3>
                   </div>
-                  <span className="text-emerald-600 font-bold">{extra.price}</span>
+                  {/* <span className="text-emerald-600 font-bold">{extra.price}</span> */}
                 </div>
               </motion.div>
             ))}
@@ -378,7 +382,7 @@ const SpringCleaning: React.FC = () => {
               <Sparkles className="w-8 h-8 text-emerald-600" />
             </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Why Book a One-Off with Wipely?
+              Why Book a Hourly cleaning with Wipely?
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -425,7 +429,7 @@ const SpringCleaning: React.FC = () => {
             className="bg-white rounded-2xl p-8 border border-gray-100"
           >
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">More Reasons to Love One-Off Cleaning</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">More Reasons to Love Spring Cleaning</h3>
               <p className="text-gray-600">Additional benefits that make spring cleaning the smart choice</p>
             </div>
             
@@ -547,7 +551,7 @@ const SpringCleaning: React.FC = () => {
               Ready to love your home again?
             </h2>
             <p className="text-xl md:text-2xl mb-8 text-emerald-100">
-              Book your one-off spring clean today and experience the transformation
+              Book your Hourly spring clean today and experience the transformation
             </p>
             <Link to="/book">
               <motion.button

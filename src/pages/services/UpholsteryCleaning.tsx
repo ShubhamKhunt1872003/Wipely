@@ -45,19 +45,7 @@ const UpholsteryCleaning: React.FC = () => {
       desc: "Sanitising clean to reduce dust mites, odors, and allergens.",
       points: ["Low-moisture method", "Hygienic treatment", "Neutralise odors", "Drying guidance"],
       icon: "🛏️",
-    },
-    {
-      title: "Delicate Fabrics (Dry Safe)",
-      desc: "Low-moisture clean for linen, viscose, rayon, and blends.",
-      points: ["Fibre test", "pH-safe solutions", "Low-moisture pass", "Colour-safe process"],
-      icon: "🧵",
-    },
-    {
-      title: "Protector (Add-on)",
-      desc: "Fabric protection to resist spills and extend fabric life.",
-      points: ["After-clean application", "Repels liquids", "Easier spot removal", "Lasting care"],
-      icon: "🛡️",
-    },
+    }
   ];
 
   const process = [
@@ -324,9 +312,7 @@ const UpholsteryCleaning: React.FC = () => {
                   ["Dining Chair (seat & back)", "$18"],
                   ["Ottoman", "$25"],
                   ["Mattress – Single/Double", "$75 / $95"],
-                  ["Mattress – Queen/King", "$115 / $135"],
-                  ["Protector (add-on, per seat)", "$15"],
-                ].map(([item, price], idx) => (
+                  ["Mattress – Queen/King", "$115 / $135"],                ].map(([item, price], idx) => (
                   <tr key={idx} className={`${idx % 2 ? "bg-gray-50" : "bg-white"} hover:bg-emerald-50 transition-colors`}>
                     <td className="py-4 px-6 border-b border-gray-200">{item}</td>
                     <td className="py-4 px-6 border-b border-gray-200">
