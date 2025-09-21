@@ -589,27 +589,30 @@ const Book: React.FC = () => {
                 )}
 
                 {/* Bedrooms & Bathrooms */}
-                <div className="grid grid-cols-2 gap-6">
-                  <CustomDropdown
-                    label="Bedrooms"
-                    value={watchedValues.bedrooms}
-                    onChange={(value) => setValue('bedrooms', value)}
-                    options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                    isOpen={bedroomDropdownOpen}
-                    setIsOpen={setBedroomDropdownOpen}
-                  />
-                  <CustomDropdown
-                    label="Bathrooms"
-                    value={watchedValues.bathrooms}
-                    onChange={(value) => setValue('bathrooms', value)}
-                    options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                    isOpen={bathroomDropdownOpen}
-                    setIsOpen={setBathroomDropdownOpen}
-                  />
-                </div>
+                {/* Bedrooms & Bathrooms - Hidden for Spring Cleaning */}
+                {watchedValues.serviceType !== 'spring_cleaning' && (
+                  <div className="grid grid-cols-2 gap-6">
+                    <CustomDropdown
+                      label="Bedrooms"
+                      value={watchedValues.bedrooms}
+                      onChange={(value) => setValue('bedrooms', value)}
+                      options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                      isOpen={bedroomDropdownOpen}
+                      setIsOpen={setBedroomDropdownOpen}
+                    />
+                    <CustomDropdown
+                      label="Bathrooms"
+                      value={watchedValues.bathrooms}
+                      onChange={(value) => setValue('bathrooms', value)}
+                      options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                      isOpen={bathroomDropdownOpen}
+                      setIsOpen={setBathroomDropdownOpen}
+                    />
+                  </div>
+                )}
 
                 {/* Validation message for non-custom services */}
-                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && (
+                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && (
                   <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-red-600 text-sm">
                       For this service type, at least one bedroom or bathroom must be selected.
@@ -839,12 +842,12 @@ const Book: React.FC = () => {
               </div>
 
               <div className="text-center">
-                {watchedValues.serviceType && (watchedValues.serviceType === 'custom_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
+                {watchedValues.serviceType && (watchedValues.serviceType === 'custom_cleaning' || watchedValues.serviceType === 'spring_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
                   <div className="text-sm text-gray-600 mb-2">
                     Estimated Price
                   </div>
                 )}
-                {(watchedValues.serviceType === 'custom_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
+                {(watchedValues.serviceType === 'custom_cleaning' || watchedValues.serviceType === 'spring_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
                   <div className="text-2xl font-bold text-emerald-600">
                     ${calculatePrice()}
                   </div>
@@ -858,7 +861,7 @@ const Book: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     type="button"
                     onClick={nextStep}
-                    disabled={currentStep === 2 && postalCodeValid !== true}
+                    disabled={(currentStep === 1 && watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) || (currentStep === 2 && postalCodeValid !== true)}
                     className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                   >
                     Next
