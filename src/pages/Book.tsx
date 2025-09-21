@@ -9,6 +9,42 @@ import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar,
 import postalCodes from '../data/postalcode.json';
 import pricing from '../data/pricing.json';
 import extras from '../data/extras.json';
+
+// Import service-specific extras
+const regularCleaningExtras = [
+  { id: "interior_exterior_window", name: "Interior & Exterior Window", price: 45, icon: "Window", description: "Complete window cleaning inside and out" },
+  { id: "fridge_cleanout", name: "Fridge Cleanout", price: 40, icon: "Microwave", description: "Deep clean and organize your refrigerator" },
+  { id: "bbq_oven_deep", name: "BBQ & Oven Deep Cleaning", price: 120, icon: "Flame", description: "Professional deep cleaning for BBQ and oven" },
+  { id: "gas_stove_rangehood", name: "Gas Stove Top & Rangehood", price: 60, icon: "Layers", description: "Thorough cleaning of gas appliances" },
+  { id: "organizing", name: "Organizing", price: 50, icon: "Square", description: "Professional organizing services" },
+  { id: "deep_clean_addon", name: "Deep Clean Add-on", price: 80, icon: "Sparkles", description: "Extra deep cleaning attention" }
+];
+
+const endOfLeaseExtras = [
+  { id: "carpet_steam", name: "Carpet Steam Cleaning", price: 80, icon: "Layers", description: "Professional carpet deep cleaning" },
+  { id: "balcony_garage", name: "Balcony/Garage Cleaning", price: 60, icon: "Building", description: "Additional outdoor space cleaning" },
+  { id: "exterior_window", name: "Exterior Window Cleaning", price: 50, icon: "Window", description: "Outside window cleaning service" },
+  { id: "inside_fridge", name: "Inside Fridge Cleaning", price: 40, icon: "Microwave", description: "Complete refrigerator interior cleaning" },
+  { id: "washing_machine", name: "Inside Washing Machine Cleaning", price: 35, icon: "Layers", description: "Deep clean washing machine interior" },
+  { id: "dryer_cleaning", name: "Inside Dryer Cleaning", price: 35, icon: "Flame", description: "Professional dryer interior cleaning" },
+  { id: "upholstery_clean", name: "Upholstery Cleaning", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
+  { id: "wall_spot", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove marks and spots from walls" },
+  { id: "blind_cleaning", name: "Blind Cleaning", price: 25, icon: "Window", description: "Professional blind cleaning service" },
+  { id: "flight_stairs", name: "Flight of Stairs", price: 35, icon: "Stairs", description: "Complete staircase cleaning" }
+];
+
+const springCleaningExtras = [
+  { id: "oven_deep_clean", name: "Oven Deep Clean", price: 70, icon: "Flame", description: "Complete oven degreasing and sanitization" },
+  { id: "carpet_steam_clean", name: "Carpet Steam Clean", price: 80, icon: "Layers", description: "Professional carpet deep cleaning" },
+  { id: "upholstery_care", name: "Upholstery Care", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
+  { id: "mattress_cleaning", name: "Mattress Cleaning", price: 50, icon: "Bed", description: "Deep mattress cleaning and sanitization" },
+  { id: "window_cleaning_spring", name: "Window Cleaning", price: 45, icon: "Window", description: "Internal window cleaning and polishing" },
+  { id: "inside_fridge_spring", name: "Inside Fridge Clean", price: 40, icon: "Microwave", description: "Complete refrigerator cleaning" },
+  { id: "gas_stove_spring", name: "Gas Stove Tops & Rangehoods", price: 60, icon: "Flame", description: "Professional appliance cleaning" },
+  { id: "blinds_cleaning_spring", name: "Blinds Cleaning", price: 25, icon: "Window", description: "Professional blind cleaning" },
+  { id: "wall_spot_spring", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove wall marks and spots" }
+];
+
 const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbywwStiIeAeJDyHugeyFbQn2mMWmMOK29-RfGF9T1a0ycNwKsWj948qZpiNbHeCTKSd/exec`;
 
 interface FormData {
@@ -131,6 +167,31 @@ const Book: React.FC = () => {
     iconComponent: getIconComponent(extra.icon)
   }));
 
+  // Get service-specific extras
+  const getServiceExtras = () => {
+    switch (watchedValues.serviceType) {
+      case 'regular_cleaning':
+        return regularCleaningExtras.map(extra => ({
+          ...extra,
+          iconComponent: getIconComponent(extra.icon)
+        }));
+      case 'end_of_lease':
+        return endOfLeaseExtras.map(extra => ({
+          ...extra,
+          iconComponent: getIconComponent(extra.icon)
+        }));
+      case 'spring_cleaning':
+        return springCleaningExtras.map(extra => ({
+          ...extra,
+          iconComponent: getIconComponent(extra.icon)
+        }));
+      default:
+        return extrasWithIcons;
+    }
+  };
+
+  const currentServiceExtras = getServiceExtras();
+
   function getIconComponent(iconName: string) {
     const iconMap: { [key: string]: any } = {
       Flame: Flame,
@@ -231,7 +292,7 @@ const Book: React.FC = () => {
 
     // Add extras price
     const extrasPrice = selectedExtras.reduce((total, extraId) => {
-      const extra = extras.find(e => e.id === extraId);
+      const extra = currentServiceExtras.find(e => e.id === extraId);
       return total + (extra?.price || 0);
     }, 0);
 
@@ -591,11 +652,14 @@ const Book: React.FC = () => {
               >
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Optional Add-ons</h2>
                 <p className="text-gray-600 mb-6">
-                  Select any additional services you'd like to include:
+                  {watchedValues.serviceType === 'regular_cleaning' && "Customize your regular cleaning at checkout:"}
+                  {watchedValues.serviceType === 'end_of_lease' && "Enhance your bond clean with these additional services:"}
+                  {watchedValues.serviceType === 'spring_cleaning' && "Customize your spring clean at checkout:"}
+                  {watchedValues.serviceType === 'custom_cleaning' && "Select any additional services you'd like to include:"}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {extrasWithIcons.map((extra) => (
+                  {currentServiceExtras.map((extra) => (
                     <label key={extra.id} className="cursor-pointer">
                       <input
                         type="checkbox"
