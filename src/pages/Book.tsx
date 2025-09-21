@@ -276,8 +276,8 @@ const Book: React.FC = () => {
 
     // Special pricing for spring cleaning (hourly)
     if (serviceType === 'spring_cleaning') {
-      const hourlyRates = { 1: 50, 2: 80, 3: 120 };
-      const basePrice = hourlyRates[selectedHours as keyof typeof hourlyRates] || 80;
+      // First hour is $50, additional hours are $30 each
+      const basePrice = selectedHours === 1 ? 50 : 50 + ((selectedHours - 1) * 30);
       
       // Add extras price
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -561,36 +561,27 @@ const Book: React.FC = () => {
                 {watchedValues.serviceType === 'spring_cleaning' && (
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      For One-Off Spring Cleaning, our service is charged on an hourly basis. Please select the number of hours you would like a cleaner:
+                      How many hours would you like a cleaner?
                     </label>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {[
-                        { hours: 1, price: 50, label: "1 hour – $50" },
-                        { hours: 2, price: 80, label: "2 hours – $80" },
-                        { hours: 3, price: 120, label: "3 hours – $120" }
-                      ].map((option) => (
-                        <label key={option.hours} className="cursor-pointer">
-                          <input
-                            type="radio"
-                            name="hours"
-                            value={option.hours}
-                            checked={selectedHours === option.hours}
-                            onChange={() => setSelectedHours(option.hours)}
-                            className="hidden"
-                          />
-                          <div className={`p-4 border-2 rounded-lg text-center transition-all duration-200 ${
-                            selectedHours === option.hours
-                              ? 'border-emerald-500 bg-emerald-50'
-                              : 'border-gray-200 hover:border-emerald-300'
-                          }`}>
-                            <div className="font-medium text-gray-900">{option.label}</div>
-                            {option.hours === 2 && (
-                              <span className="block text-xs text-emerald-600 mt-1">Most Popular</span>
-                            )}
-                          </div>
-                        </label>
-                      ))}
+                    <div className="relative">
+                      <select
+                        value={selectedHours}
+                        onChange={(e) => setSelectedHours(Number(e.target.value))}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200 bg-white"
+                      >
+                        <option value={1}>1 hour</option>
+                        <option value={2}>2 hours</option>
+                        <option value={3}>3 hours</option>
+                        <option value={4}>4 hours</option>
+                        <option value={5}>5 hours</option>
+                        <option value={6}>6 hours</option>
+                        <option value={7}>7 hours</option>
+                        <option value={8}>8 hours</option>
+                      </select>
                     </div>
+                    <p className="mt-2 text-sm text-gray-600">
+                      One-Off Spring Cleaning is charged at $50/hour for the first hour, then $30/hour for additional hours.
+                    </p>
                   </div>
                 )}
 
