@@ -45,7 +45,7 @@ const springCleaningExtras = [
   { id: "wall_spot_spring", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove wall marks and spots" }
 ];
 
-const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbywwStiIeAeJDyHugeyFbQn2mMWmMOK29-RfGF9T1a0ycNwKsWj948qZpiNbHeCTKSd/exec`;
+const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbyFbdI8ATphbbINJiLHfPeX0a5GniO7V845aiA-_0orRr2BUYuDlS_NUFC5qozZKYqR/exec`;
 
 interface FormData {
   serviceType: string;
