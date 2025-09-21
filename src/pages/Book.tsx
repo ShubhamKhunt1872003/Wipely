@@ -298,7 +298,7 @@ const Book: React.FC = () => {
       // Calculate extras price with special carpet pricing
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
         const extra = currentServiceExtras.find(e => e.id === extraId);
-        if (extraId === 'carpet_steam' && extra) {
+        if (extraId === 'carpet_steam') {
           // Custom carpet pricing: 1 carpet = $80, 2 carpets = $150, 3+ carpets = $200
           const carpetPrice = selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200;
           return total + carpetPrice;
@@ -741,7 +741,7 @@ const Book: React.FC = () => {
                               </div>
                             </div>
                             <div className="text-emerald-600 font-bold">
-                              {extra.id === 'carpet_steam' && watchedValues.serviceType === 'custom_cleaning' && selectedExtras.includes(extra.id)
+                              {extra.id === 'carpet_steam' && selectedExtras.includes(extra.id)
                                 ? `$${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}`
                                 : `$${extra.price}`
                               }
@@ -752,7 +752,6 @@ const Book: React.FC = () => {
                       
                       {/* Carpet Quantity Selection - Appears directly below carpet add-on */}
                       {extra.id === 'carpet_steam' && 
-                       watchedValues.serviceType === 'custom_cleaning' && 
                        selectedExtras.includes('carpet_steam') && (
                         <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
                           <h3 className="text-lg font-semibold text-gray-900 mb-4">
