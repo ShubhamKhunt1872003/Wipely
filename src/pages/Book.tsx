@@ -107,6 +107,7 @@ const Book: React.FC = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success')
   const [selectedHours, setSelectedHours] = useState(2); // Default to 2 hours
+  const [selectedCarpets, setSelectedCarpets] = useState(1); // Default to 1 carpet
   const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
@@ -287,22 +288,32 @@ const Book: React.FC = () => {
 
       return basePrice + extrasPrice;
     }
+
+    // Special pricing for custom cleaning with carpet steam cleaning
+    if (serviceType === 'custom_cleaning') {
+      const servicePricing = pricing[serviceType];
+      let basePrice = servicePricing.base_price;
+      basePrice += (bedrooms * servicePricing.per_bedroom) + (bathrooms * servicePricing.per_bathroom);
+
+      // Calculate extras price with special carpet pricing
+      const extrasPrice = selectedExtras.reduce((total, extraId) => {
+        const extra = currentServiceExtras.find(e => e.id === extraId);
+        if (extraId === 'carpet_steam' && extra) {
+          // Custom carpet pricing: 1 carpet = $80, 2 carpets = $150, 3+ carpets = $200
+          const carpetPrice = selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200;
+          return total + carpetPrice;
+        }
+        return total + (extra?.price || 0);
+      }, 0);
+
+      return basePrice + extrasPrice;
+    }
+
     const servicePricing = pricing[serviceType];
 
-    // Base price calculation differs for custom cleaning
+    // Base price calculation for other services
     let basePrice = servicePricing.base_price;
-
-    if (serviceType === 'custom_cleaning') {
-      // For custom cleaning, use the custom per-room rates
-      basePrice +=
-        (bedrooms * servicePricing.per_bedroom) +
-        (bathrooms * servicePricing.per_bathroom);
-    } else {
-      // For standard services
-      basePrice +=
-        (bedrooms * servicePricing.per_bedroom) +
-        (bathrooms * servicePricing.per_bathroom);
-    }
+    basePrice += (bedrooms * servicePricing.per_bedroom) + (bathrooms * servicePricing.per_bathroom);
 
     // Add extras price
     const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -709,31 +720,64 @@ const Book: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {currentServiceExtras.map((extra) => (
-                    <label key={extra.id} className="cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={selectedExtras.includes(extra.id)}
-                        onChange={() => handleExtraToggle(extra.id)}
-                        className="hidden"
-                      />
-                      <div className={`p-4 border-2 rounded-lg transition-all duration-200 ${selectedExtras.includes(extra.id)
-                        ? 'border-emerald-500 bg-emerald-50'
-                        : 'border-gray-200 hover:border-emerald-300'
-                        }`}>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <extra.iconComponent className="w-5 h-5 text-emerald-600" />
-                            <div>
-                              <div className="font-medium text-gray-900">{extra.name}</div>
-                              <div className="text-sm text-gray-600">{extra.description}</div>
+                    <div key={extra.id}>
+                      <label className="cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedExtras.includes(extra.id)}
+                          onChange={() => handleExtraToggle(extra.id)}
+                          className="hidden"
+                        />
+                        <div className={`p-4 border-2 rounded-lg transition-all duration-200 ${selectedExtras.includes(extra.id)
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-200 hover:border-emerald-300'
+                          }`}>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <extra.iconComponent className="w-5 h-5 text-emerald-600" />
+                              <div>
+                                <div className="font-medium text-gray-900">{extra.name}</div>
+                                <div className="text-sm text-gray-600">{extra.description}</div>
+                              </div>
+                            </div>
+                            <div className="text-emerald-600 font-bold">
+                              {extra.id === 'carpet_steam' && watchedValues.serviceType === 'custom_cleaning' && selectedExtras.includes(extra.id)
+                                ? `$${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}`
+                                : `$${extra.price}`
+                              }
                             </div>
                           </div>
-                          <div className="text-emerald-600 font-bold">
-                            ${extra.price}
-                          </div>
                         </div>
-                      </div>
-                    </label>
+                      </label>
+
+                      {/* Carpet Quantity Selection for Custom Cleaning */}
+                      {extra.id === 'carpet_steam' && 
+                       watchedValues.serviceType === 'custom_cleaning' && 
+                       selectedExtras.includes(extra.id) && (
+                        <div className="mt-4 ml-8">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            How many carpets would you like cleaned?
+                          </label>
+                          <div className="relative">
+                            <select
+                              value={selectedCarpets}
+                              onChange={(e) => setSelectedCarpets(Number(e.target.value))}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200 bg-white"
+                            >
+                              <option value={1}>1 carpet</option>
+                              <option value={2}>2 carpets</option>
+                              <option value={3}>3+ carpets</option>
+                            </select>
+                          </div>
+                          <p className="mt-2 text-sm text-gray-600">
+                            Carpet Steam Cleaning: 1 carpet - $80, 2 carpets - $150, 3+ carpets - $200
+                          </p>
+                          <p className="mt-1 text-sm font-semibold text-emerald-600">
+                            {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </motion.div>
