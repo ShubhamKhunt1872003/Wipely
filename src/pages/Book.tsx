@@ -754,7 +754,7 @@ const Book: React.FC = () => {
                       {extra.id === 'carpet_steam' && 
                        watchedValues.serviceType === 'custom_cleaning' && 
                        selectedExtras.includes(extra.id) && (
-                        <div className="mt-4 ml-8">
+                        <div className="mt-6 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
                           <label className="block text-sm font-medium text-gray-700 mb-2">
                             How many carpets would you like cleaned?
                           </label>
@@ -766,7 +766,9 @@ const Book: React.FC = () => {
                             >
                               <option value={1}>1 carpet</option>
                               <option value={2}>2 carpets</option>
-                              <option value={3}>3+ carpets</option>
+                              <option value={3}>3 carpets</option>
+                              <option value={4}>4 carpets</option>
+                              <option value={5}>5 carpets</option>
                             </select>
                           </div>
                           <p className="mt-2 text-sm text-gray-600">
