@@ -106,6 +106,7 @@ const Book: React.FC = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success')
+  const [selectedHours, setSelectedHours] = useState(2); // Default to 2 hours
   const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
@@ -273,6 +274,19 @@ const Book: React.FC = () => {
     const bedrooms = watchedValues.bedrooms || 0;
     const bathrooms = watchedValues.bathrooms || 0;
 
+    // Special pricing for spring cleaning (hourly)
+    if (serviceType === 'spring_cleaning') {
+      const hourlyRates = { 1: 50, 2: 80, 3: 120 };
+      const basePrice = hourlyRates[selectedHours as keyof typeof hourlyRates] || 80;
+      
+      // Add extras price
+      const extrasPrice = selectedExtras.reduce((total, extraId) => {
+        const extra = currentServiceExtras.find(e => e.id === extraId);
+        return total + (extra?.price || 0);
+      }, 0);
+
+      return basePrice + extrasPrice;
+    }
     const servicePricing = pricing[serviceType];
 
     // Base price calculation differs for custom cleaning
@@ -542,6 +556,44 @@ const Book: React.FC = () => {
                     value="one-time"
                   />
                 )}
+
+                {/* Hourly Selection for Spring Cleaning */}
+                {watchedValues.serviceType === 'spring_cleaning' && (
+                  <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      For One-Off Spring Cleaning, our service is charged on an hourly basis. Please select the number of hours you would like a cleaner:
+                    </label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {[
+                        { hours: 1, price: 50, label: "1 hour – $50" },
+                        { hours: 2, price: 80, label: "2 hours – $80" },
+                        { hours: 3, price: 120, label: "3 hours – $120" }
+                      ].map((option) => (
+                        <label key={option.hours} className="cursor-pointer">
+                          <input
+                            type="radio"
+                            name="hours"
+                            value={option.hours}
+                            checked={selectedHours === option.hours}
+                            onChange={() => setSelectedHours(option.hours)}
+                            className="hidden"
+                          />
+                          <div className={`p-4 border-2 rounded-lg text-center transition-all duration-200 ${
+                            selectedHours === option.hours
+                              ? 'border-emerald-500 bg-emerald-50'
+                              : 'border-gray-200 hover:border-emerald-300'
+                          }`}>
+                            <div className="font-medium text-gray-900">{option.label}</div>
+                            {option.hours === 2 && (
+                              <span className="block text-xs text-emerald-600 mt-1">Most Popular</span>
+                            )}
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Bedrooms & Bathrooms */}
                 <div className="grid grid-cols-2 gap-6">
                   <CustomDropdown
