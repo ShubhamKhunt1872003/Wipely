@@ -582,6 +582,9 @@ const Book: React.FC = () => {
                     <p className="mt-2 text-sm text-gray-600">
                       One-Off Spring Cleaning is charged at $50/hour for the first hour, then $30/hour for additional hours.
                     </p>
+                    <p className="mt-2 text-sm font-semibold text-emerald-600">
+                      {selectedHours} hour{selectedHours > 1 ? 's' : ''}: Your rate is ${selectedHours === 1 ? 50 : 50 + ((selectedHours - 1) * 30)}
+                    </p>
                   </div>
                 )}
 
