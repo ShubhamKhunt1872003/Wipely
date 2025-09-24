@@ -47,6 +47,9 @@ const springCleaningExtras = [
 
 const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbyFbdI8ATphbbINJiLHfPeX0a5GniO7V845aiA-_0orRr2BUYuDlS_NUFC5qozZKYqR/exec`;
 
+// Email configuration
+const ENQUIRY_EMAIL = 'wipelycleaning25@gmail.com';
+
 interface FormData {
   serviceType: string;
   frequency: string;
@@ -342,7 +345,8 @@ const Book: React.FC = () => {
       extras: selectedExtras,
       estimatedPrice: calculatePrice(),
       submittedAt: new Date().toISOString(),
-      source: 'wipely-booking'
+      source: 'wipely-booking',
+      enquiryEmail: ENQUIRY_EMAIL
     };
 
     try {
