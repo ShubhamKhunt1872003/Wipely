@@ -352,7 +352,9 @@ const Book: React.FC = () => {
       submittedAt: new Date().toISOString(),
       source: 'wipely-booking',
       enquiryEmail: ENQUIRY_EMAIL,
-      propertyAddress: data.address
+      propertyAddress: data.address,
+      customerAddress: data.address,
+      serviceAddress: data.address
     };
 
     try {
