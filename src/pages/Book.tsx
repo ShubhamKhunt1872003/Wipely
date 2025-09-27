@@ -347,9 +347,12 @@ const Book: React.FC = () => {
 
     const formData = {
       ...data,
-      address: data.address,
-      propertyAddress: data.address,
-      serviceLocation: data.address,
+      // Address fields - multiple formats for compatibility
+      address: data.address || '',
+      propertyAddress: data.address || '',
+      serviceLocation: data.address || '',
+      customerAddress: data.address || '',
+      cleaningAddress: data.address || '',
       extras: selectedExtras,
       selectedExtras: selectedExtras,
       carpetQuantity: selectedCarpets,
@@ -357,10 +360,17 @@ const Book: React.FC = () => {
       estimatedPrice: calculatePrice(),
       submittedAt: new Date().toISOString(),
       source: 'wipely-booking-form',
-      enquiryEmail: ENQUIRY_EMAIL
+      enquiryEmail: ENQUIRY_EMAIL,
+      // Additional debugging fields
+      formType: 'booking-request',
+      addressProvided: data.address ? 'yes' : 'no'
     };
 
-    console.log('Form data being submitted:', formData);
+    console.log('=== FORM SUBMISSION DEBUG ===');
+    console.log('Raw form data:', data);
+    console.log('Address value:', data.address);
+    console.log('Complete form data being submitted:', formData);
+    console.log('=== END DEBUG ===');
 
     try {
       const fd = new FormData();
@@ -372,10 +382,11 @@ const Book: React.FC = () => {
         }
       });
 
-      console.log('FormData entries:');
+      console.log('=== FORMDATA ENTRIES ===');
       for (let [key, value] of fd.entries()) {
-        console.log(key, value);
+        console.log(`${key}: ${value}`);
       }
+      console.log('=== END FORMDATA ===');
 
       const res = await fetch(WEB_APP_URL, {
         method: 'POST',
@@ -383,7 +394,9 @@ const Book: React.FC = () => {
       });
 
       const response = await res.json();
-      console.log('Response from server:', response);
+      console.log('=== SERVER RESPONSE ===');
+      console.log('Response:', response);
+      console.log('=== END RESPONSE ===');
       if (response.success) {
         setIsSubmitted(true);
       } else {
