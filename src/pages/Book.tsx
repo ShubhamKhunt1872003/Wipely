@@ -347,15 +347,20 @@ const Book: React.FC = () => {
 
     const formData = {
       ...data,
+      address: data.address,
+      propertyAddress: data.address,
+      serviceLocation: data.address,
       extras: selectedExtras,
+      selectedExtras: selectedExtras,
+      carpetQuantity: selectedCarpets,
+      springCleaningHours: selectedHours,
       estimatedPrice: calculatePrice(),
       submittedAt: new Date().toISOString(),
-      source: 'wipely-booking',
-      enquiryEmail: ENQUIRY_EMAIL,
-      propertyAddress: data.address,
-      customerAddress: data.address,
-      serviceAddress: data.address
+      source: 'wipely-booking-form',
+      enquiryEmail: ENQUIRY_EMAIL
     };
+
+    console.log('Form data being submitted:', formData);
 
     try {
       const fd = new FormData();
@@ -366,6 +371,11 @@ const Book: React.FC = () => {
           fd.append(k, String(v ?? ''));
         }
       });
+
+      console.log('FormData entries:');
+      for (let [key, value] of fd.entries()) {
+        console.log(key, value);
+      }
 
       const res = await fetch(WEB_APP_URL, {
         method: 'POST',
