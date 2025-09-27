@@ -37,7 +37,7 @@
   {
     "id": "appliance_clean",
     "name": "Appliance Cleaning",
-    "price": 40,
+    "price": 60,
     "icon": "Microwave",
     "description": "Microwave, fridge and dishwasher cleaning"
   },
