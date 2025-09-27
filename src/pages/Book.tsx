@@ -118,7 +118,7 @@ const Book: React.FC = () => {
   const [selectedCarpets, setSelectedCarpets] = useState(1); // Default to 1 carpet
   const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       serviceType: 'regular_cleaning',
       frequency: 'bi-weekly', // This will be overridden for non-regular services
@@ -947,7 +947,7 @@ const Book: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     type="button"
                     onClick={nextStep}
-                    disabled={(currentStep === 1 && watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) || (currentStep === 2 && postalCodeValid !== true)}
+                    disabled={false}
                     className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                   >
                     Next
@@ -958,7 +958,7 @@ const Book: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    disabled={!isValid || submitting}
+                    disabled={submitting}
                     className={`btn-primary flex items-center ${(!isValid || submitting) ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
                     {submitting ? 'Submitting…' : 'Submit Request'}
