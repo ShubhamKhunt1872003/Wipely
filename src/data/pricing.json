@@ -5,9 +5,9 @@
     "base_price": 80
   },
   "end_of_lease": {
-    "per_bedroom": 40,
+    "per_bedroom": 60,
     "per_bathroom": 50,
-    "base_price": 150
+    "base_price": 0
   },
   "spring_cleaning": {
     "per_bedroom": 35,
