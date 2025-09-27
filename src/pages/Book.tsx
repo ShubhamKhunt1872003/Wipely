@@ -285,8 +285,8 @@ const Book: React.FC = () => {
 
     // Special pricing for spring cleaning (hourly)
     if (serviceType === 'spring_cleaning') {
-      // First hour is $50, additional hours are $30 each
-      const basePrice = selectedHours === 1 ? 50 : 50 + ((selectedHours - 1) * 30);
+      // All hours are $50 each
+      const basePrice = selectedHours * 50;
       
       // Add extras price
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -626,10 +626,10 @@ const Book: React.FC = () => {
                       </select>
                     </div>
                     <p className="mt-2 text-sm text-gray-600">
-                      One-Off Spring Cleaning is charged at $50/hour for the first hour, then $30/hour for additional hours.
+                      One-Off Spring Cleaning is charged at $50/hour.
                     </p>
                     <p className="mt-2 text-sm font-semibold text-emerald-600">
-                      {selectedHours} hour{selectedHours > 1 ? 's' : ''}: Your rate is ${selectedHours === 1 ? 50 : 50 + ((selectedHours - 1) * 30)}
+                      {selectedHours} hour{selectedHours > 1 ? 's' : ''}: Your rate is ${selectedHours * 50}
                     </p>
                   </div>
                 )}
