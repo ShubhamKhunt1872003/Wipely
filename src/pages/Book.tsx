@@ -45,6 +45,17 @@ const springCleaningExtras = [
   { id: "wall_spot_spring", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove wall marks and spots" }
 ];
 
+const customCleaningExtras = [
+  { id: "oven_deep_clean_custom", name: "Oven Deep Clean", price: 70, icon: "Flame", description: "Complete oven degreasing and sanitization" },
+  { id: "carpet_steam_custom", name: "Carpet Steam Cleaning", price: 80, icon: "Layers", description: "Professional carpet deep cleaning" },
+  { id: "upholstery_custom", name: "Upholstery Cleaning", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
+  { id: "window_cleaning_custom", name: "Window Cleaning", price: 45, icon: "Window", description: "Internal window cleaning and polishing" },
+  { id: "bbq_cleaning_custom", name: "BBQ Deep Clean", price: 65, icon: "Flame", description: "Complete BBQ restoration and cleaning" },
+  { id: "appliance_clean_custom", name: "Appliance Cleaning", price: 60, icon: "Microwave", description: "Microwave, fridge and dishwasher cleaning" },
+  { id: "staircase_with_carpet", name: "Staircase with Carpet", price: 35, icon: "Stairs", description: "Complete staircase cleaning including carpet" },
+  { id: "staircase_without_carpet", name: "Staircase without Carpet", price: 20, icon: "Stairs", description: "Staircase cleaning for hard surfaces only" },
+  { id: "commercial_specs_custom", name: "Commercial Specs", price: 120, icon: "Building2", description: "Specialized commercial space cleaning" }
+];
 const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbyFbdI8ATphbbINJiLHfPeX0a5GniO7V845aiA-_0orRr2BUYuDlS_NUFC5qozZKYqR/exec`;
 
 // Email configuration
@@ -192,6 +203,11 @@ const Book: React.FC = () => {
         }));
       case 'spring_cleaning':
         return springCleaningExtras.map(extra => ({
+          ...extra,
+          iconComponent: getIconComponent(extra.icon)
+        }));
+      case 'custom_cleaning':
+        return customCleaningExtras.map(extra => ({
           ...extra,
           iconComponent: getIconComponent(extra.icon)
         }));
