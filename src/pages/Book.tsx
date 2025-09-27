@@ -351,7 +351,8 @@ const Book: React.FC = () => {
       estimatedPrice: calculatePrice(),
       submittedAt: new Date().toISOString(),
       source: 'wipely-booking',
-      enquiryEmail: ENQUIRY_EMAIL
+      enquiryEmail: ENQUIRY_EMAIL,
+      propertyAddress: data.address
     };
 
     try {
