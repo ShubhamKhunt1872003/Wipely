@@ -60,6 +60,7 @@ interface FormData {
   lastName: string;
   email: string;
   phone: string;
+  address: string;
   hasPets: boolean;
   hasParking: boolean;
   notes: string;
@@ -92,6 +93,10 @@ const validationSchema = yup.object().shape({
       /^(\+61|0)[2-9]\d{8}$/,
       'Please enter a valid Australian phone number (e.g., 0412345678 or +61412345678)'
     ),
+  address: yup
+    .string()
+    .required('Address is required')
+    .min(10, 'Please enter a complete address'),
   hasPets: yup.boolean(),
   hasParking: yup.boolean(),
   notes: yup.string(),
@@ -861,6 +866,21 @@ const Book: React.FC = () => {
                       <p className="mt-1 text-red-600 text-sm">{errors.phone.message}</p>
                     )}
                   </div>
+                </div>
+
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Property Address
+                  </label>
+                  <input
+                    type="text"
+                    {...register('address')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                    placeholder="Enter your full address (e.g., 123 Collins Street, Melbourne VIC 3000)"
+                  />
+                  {errors.address && touchedFields.address && (
+                    <p className="mt-1 text-red-600 text-sm">{errors.address.message}</p>
+                  )}
                 </div>
 
                 <div className="mb-6">
