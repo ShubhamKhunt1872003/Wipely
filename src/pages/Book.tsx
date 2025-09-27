@@ -66,6 +66,8 @@ interface FormData {
   frequency: string;
   bedrooms: number;
   bathrooms: number;
+  kitchens: number;
+  livingrooms: number;
   postalCode: string;
   firstName: string;
   lastName: string;
@@ -84,6 +86,8 @@ const validationSchema = yup.object().shape({
   frequency: yup.string().required('Frequency is required'),
   bedrooms: yup.number().min(0, 'Bedrooms must be 0 or more').required('Bedrooms is required'),
   bathrooms: yup.number().min(0, 'Bathrooms must be 0 or more').required('Bathrooms is required'),
+  kitchens: yup.number().min(0, 'Kitchens must be 0 or more').required('Kitchens is required'),
+  livingrooms: yup.number().min(0, 'Living rooms must be 0 or more').required('Living rooms is required'),
   postalCode: yup.string().required('Postal code is required'),
   firstName: yup
     .string()
@@ -121,6 +125,8 @@ const Book: React.FC = () => {
   const [postalCodeValid, setPostalCodeValid] = useState<boolean | null>(null);
   const [bedroomDropdownOpen, setBedroomDropdownOpen] = useState(false);
   const [bathroomDropdownOpen, setBathroomDropdownOpen] = useState(false);
+  const [kitchenDropdownOpen, setKitchenDropdownOpen] = useState(false);
+  const [livingroomDropdownOpen, setLivingroomDropdownOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -135,6 +141,8 @@ const Book: React.FC = () => {
       frequency: 'bi-weekly', // This will be overridden for non-regular services
       bedrooms: 2,
       bathrooms: 1,
+      kitchens: 1,
+      livingrooms: 1,
       hasPets: false,
       hasParking: true,
       extras: []
@@ -148,10 +156,14 @@ const Book: React.FC = () => {
     if (watchedValues.serviceType === 'custom_cleaning') {
       setValue('bedrooms', 0);
       setValue('bathrooms', 0);
+      setValue('kitchens', 0);
+      setValue('livingrooms', 0);
     } else if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
       // For non-custom services, ensure at least one is not 0
       setValue('bedrooms', 2);
       setValue('bathrooms', 1);
+      setValue('kitchens', 1);
+      setValue('livingrooms', 1);
     }
     
     // Set frequency based on service type
@@ -298,6 +310,8 @@ const Book: React.FC = () => {
     const serviceType = watchedValues.serviceType as keyof typeof pricing;
     const bedrooms = watchedValues.bedrooms || 0;
     const bathrooms = watchedValues.bathrooms || 0;
+    const kitchens = watchedValues.kitchens || 0;
+    const livingrooms = watchedValues.livingrooms || 0;
 
     // Special pricing for spring cleaning (hourly)
     if (serviceType === 'spring_cleaning') {
@@ -317,7 +331,10 @@ const Book: React.FC = () => {
     if (serviceType === 'custom_cleaning') {
       const servicePricing = pricing[serviceType];
       let basePrice = servicePricing.base_price;
-      basePrice += (bedrooms * servicePricing.per_bedroom) + (bathrooms * servicePricing.per_bathroom);
+      basePrice += (bedrooms * servicePricing.per_bedroom) + 
+                   (bathrooms * servicePricing.per_bathroom) + 
+                   (kitchens * servicePricing.per_kitchen) + 
+                   (livingrooms * servicePricing.per_livingroom);
 
       // Calculate extras price with special carpet pricing
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -337,7 +354,10 @@ const Book: React.FC = () => {
 
     // Base price calculation for other services
     let basePrice = servicePricing.base_price;
-    basePrice += (bedrooms * servicePricing.per_bedroom) + (bathrooms * servicePricing.per_bathroom);
+    basePrice += (bedrooms * servicePricing.per_bedroom) + 
+                 (bathrooms * servicePricing.per_bathroom) + 
+                 (kitchens * servicePricing.per_kitchen) + 
+                 (livingrooms * servicePricing.per_livingroom);
 
     // Add extras price
     const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -653,7 +673,7 @@ const Book: React.FC = () => {
                 {/* Bedrooms & Bathrooms */}
                 {/* Bedrooms & Bathrooms - Hidden for Spring Cleaning */}
                 {watchedValues.serviceType !== 'spring_cleaning' && (
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <CustomDropdown
                       label="Bedrooms"
                       value={watchedValues.bedrooms}
@@ -670,14 +690,31 @@ const Book: React.FC = () => {
                       isOpen={bathroomDropdownOpen}
                       setIsOpen={setBathroomDropdownOpen}
                     />
+                    <CustomDropdown
+                      label="Kitchens"
+                      value={watchedValues.kitchens}
+                      onChange={(value) => setValue('kitchens', value)}
+                      options={[0, 1, 2, 3, 4, 5]}
+                      isOpen={kitchenDropdownOpen}
+                      setIsOpen={setKitchenDropdownOpen}
+                    />
+                    <CustomDropdown
+                      label="Living Rooms"
+                      value={watchedValues.livingrooms}
+                      onChange={(value) => setValue('livingrooms', value)}
+                      options={[0, 1, 2, 3, 4, 5]}
+                      isOpen={livingroomDropdownOpen}
+                      setIsOpen={setLivingroomDropdownOpen}
+                    />
                   </div>
                 )}
 
                 {/* Validation message for non-custom services */}
-                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && (
+                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && 
+                 watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && watchedValues.kitchens === 0 && watchedValues.livingrooms === 0 && (
                   <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-red-600 text-sm">
-                      For this service type, at least one bedroom or bathroom must be selected.
+                      For this service type, at least one room must be selected.
                     </p>
                   </div>
                 )}

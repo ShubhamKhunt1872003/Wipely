@@ -17,6 +17,8 @@
   "custom_cleaning": {
     "per_bedroom": 40,
     "per_bathroom": 50,
+    "per_kitchen": 60,
+    "per_livingroom": 60,
     "carpet_steam": 80,
     "upholstery": 60,
     "mattress": 50,
