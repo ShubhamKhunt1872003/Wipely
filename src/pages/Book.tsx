@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useEffect } from 'react';
 import { Snackbar, Alert } from '@mui/material';
-import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react';
+import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Star as Stairs } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
 import pricing from '../data/pricing.json';
 import extras from '../data/extras.json';
