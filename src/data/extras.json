@@ -2,7 +2,7 @@
   {
     "id": "oven_cleaning",
     "name": "Oven Deep Clean",
-    "price": 70,
+    "price": 50,
     "icon": "Flame",
     "description": "Complete oven degreasing and sanitization"
   },
@@ -23,31 +23,30 @@
   {
     "id": "window_cleaning",
     "name": "Window Cleaning",
-    "price": 45,
+    "price": 50,
     "icon": "Window",
     "description": "Internal window cleaning and polishing"
   },
   {
-    "id": "bbq_cleaning",
-    "name": "BBQ Deep Clean",
-    "price": 65,
-    "icon": "Grill",
-    "description": "Complete BBQ restoration and cleaning"
-  },
-  {
     "id": "appliance_clean",
     "name": "Appliance Cleaning",
-    "price": 40,
+    "price": 60,
     "icon": "Microwave",
     "description": "Microwave, fridge and dishwasher cleaning"
   },
   {
     "id": "stair_case",
     "name": "Stair Case",
-    "price": 35,
+    "price": 20,
     "icon": "Stairs",
     "description": "Complete staircase cleaning and maintenance"
   },
+   {
+     "id": "staircase_with_carpet",
+      "name": "Staircase with Carpet", 
+      "price": 35,
+       "icon": "Stairs",
+        "description": "Complete staircase cleaning including carpet" },
   {
     "id": "commercial_specs",
     "name": "Commercial Specs",

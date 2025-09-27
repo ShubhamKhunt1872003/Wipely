@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useEffect } from 'react';
 import { Snackbar, Alert } from '@mui/material';
-import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Stars as Stairs } from 'lucide-react';
+import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Star as Stairs } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
 import pricing from '../data/pricing.json';
 import extras from '../data/extras.json';
@@ -34,15 +34,15 @@ const endOfLeaseExtras = [
 ];
 
 const springCleaningExtras = [
-  { id: "oven_deep_clean", name: "Oven Deep Clean", price: 70, icon: "Flame", description: "Complete oven degreasing and sanitization" },
+  { id: "oven_deep_clean", name: "Oven Deep Clean", price: 50, icon: "Flame", description: "Complete oven degreasing and sanitization" },
   { id: "carpet_steam_clean", name: "Carpet Steam Clean", price: 80, icon: "Layers", description: "Professional carpet deep cleaning" },
   { id: "upholstery_care", name: "Upholstery Care", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
   { id: "mattress_cleaning", name: "Mattress Cleaning", price: 50, icon: "Bed", description: "Deep mattress cleaning and sanitization" },
-  { id: "window_cleaning_spring", name: "Window Cleaning", price: 45, icon: "Window", description: "Internal window cleaning and polishing" },
-  { id: "inside_fridge_spring", name: "Inside Fridge Clean", price: 40, icon: "Microwave", description: "Complete refrigerator cleaning" },
+  { id: "window_cleaning_spring", name: "Window Cleaning", price: 50, icon: "Window", description: "Internal window cleaning and polishing" },
+  { id: "inside_fridge_spring", name: "Inside Fridge Clean", price: 60, icon: "Microwave", description: "Complete refrigerator cleaning" },
   { id: "gas_stove_spring", name: "Gas Stove Tops & Rangehoods", price: 60, icon: "Flame", description: "Professional appliance cleaning" },
   { id: "blinds_cleaning_spring", name: "Blinds Cleaning", price: 25, icon: "Window", description: "Professional blind cleaning" },
-  { id: "wall_spot_spring", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove wall marks and spots" }
+  { id: "wall_spot_spring", name: "Wall Spot Cleaning", price: 40, icon: "Layers", description: "Remove wall marks and spots" }
 ];
 
 const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbyFbdI8ATphbbINJiLHfPeX0a5GniO7V845aiA-_0orRr2BUYuDlS_NUFC5qozZKYqR/exec`;
@@ -60,6 +60,7 @@ interface FormData {
   lastName: string;
   email: string;
   phone: string;
+  address: string;
   hasPets: boolean;
   hasParking: boolean;
   notes: string;
@@ -92,6 +93,10 @@ const validationSchema = yup.object().shape({
       /^(\+61|0)[2-9]\d{8}$/,
       'Please enter a valid Australian phone number (e.g., 0412345678 or +61412345678)'
     ),
+  address: yup
+    .string()
+    .required('Address is required')
+    .min(10, 'Please enter a complete address'),
   hasPets: yup.boolean(),
   hasParking: yup.boolean(),
   notes: yup.string(),
@@ -113,7 +118,7 @@ const Book: React.FC = () => {
   const [selectedCarpets, setSelectedCarpets] = useState(1); // Default to 1 carpet
   const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       serviceType: 'regular_cleaning',
       frequency: 'bi-weekly', // This will be overridden for non-regular services
@@ -280,8 +285,8 @@ const Book: React.FC = () => {
 
     // Special pricing for spring cleaning (hourly)
     if (serviceType === 'spring_cleaning') {
-      // First hour is $50, additional hours are $30 each
-      const basePrice = selectedHours === 1 ? 50 : 50 + ((selectedHours - 1) * 30);
+      // All hours are $50 each
+      const basePrice = selectedHours * 50;
       
       // Add extras price
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -342,12 +347,30 @@ const Book: React.FC = () => {
 
     const formData = {
       ...data,
+      // Address fields - multiple formats for compatibility
+      address: data.address || '',
+      propertyAddress: data.address || '',
+      serviceLocation: data.address || '',
+      customerAddress: data.address || '',
+      cleaningAddress: data.address || '',
       extras: selectedExtras,
+      selectedExtras: selectedExtras,
+      carpetQuantity: selectedCarpets,
+      springCleaningHours: selectedHours,
       estimatedPrice: calculatePrice(),
       submittedAt: new Date().toISOString(),
-      source: 'wipely-booking',
-      enquiryEmail: ENQUIRY_EMAIL
+      source: 'wipely-booking-form',
+      enquiryEmail: ENQUIRY_EMAIL,
+      // Additional debugging fields
+      formType: 'booking-request',
+      addressProvided: data.address ? 'yes' : 'no'
     };
+
+    console.log('=== FORM SUBMISSION DEBUG ===');
+    console.log('Raw form data:', data);
+    console.log('Address value:', data.address);
+    console.log('Complete form data being submitted:', formData);
+    console.log('=== END DEBUG ===');
 
     try {
       const fd = new FormData();
@@ -359,13 +382,21 @@ const Book: React.FC = () => {
         }
       });
 
+      console.log('=== FORMDATA ENTRIES ===');
+      for (let [key, value] of fd.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+      console.log('=== END FORMDATA ===');
+
       const res = await fetch(WEB_APP_URL, {
         method: 'POST',
         body: fd,
       });
 
       const response = await res.json();
-      console.log('Response from server:', response);
+      console.log('=== SERVER RESPONSE ===');
+      console.log('Response:', response);
+      console.log('=== END RESPONSE ===');
       if (response.success) {
         setIsSubmitted(true);
       } else {
@@ -595,10 +626,10 @@ const Book: React.FC = () => {
                       </select>
                     </div>
                     <p className="mt-2 text-sm text-gray-600">
-                      One-Off Spring Cleaning is charged at $50/hour for the first hour, then $30/hour for additional hours.
+                      One-Off Spring Cleaning is charged at $50/hour.
                     </p>
                     <p className="mt-2 text-sm font-semibold text-emerald-600">
-                      {selectedHours} hour{selectedHours > 1 ? 's' : ''}: Your rate is ${selectedHours === 1 ? 50 : 50 + ((selectedHours - 1) * 30)}
+                      {selectedHours} hour{selectedHours > 1 ? 's' : ''}: Your rate is ${selectedHours * 50}
                     </p>
                   </div>
                 )}
@@ -865,6 +896,21 @@ const Book: React.FC = () => {
 
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Property Address
+                  </label>
+                  <input
+                    type="text"
+                    {...register('address')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                    placeholder="Enter your full address (e.g., 123 Collins Street, Melbourne VIC 3000)"
+                  />
+                  {errors.address && touchedFields.address && (
+                    <p className="mt-1 text-red-600 text-sm">{errors.address.message}</p>
+                  )}
+                </div>
+
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Additional Notes (Optional)
                   </label>
                   <textarea
@@ -914,7 +960,7 @@ const Book: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     type="button"
                     onClick={nextStep}
-                    disabled={(currentStep === 1 && watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) || (currentStep === 2 && postalCodeValid !== true)}
+                    disabled={false}
                     className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                   >
                     Next
@@ -925,7 +971,7 @@ const Book: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    disabled={!isValid || submitting}
+                    disabled={submitting}
                     className={`btn-primary flex items-center ${(!isValid || submitting) ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
                     {submitting ? 'Submitting…' : 'Submit Request'}
