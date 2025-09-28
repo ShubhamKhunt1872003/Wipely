@@ -455,6 +455,13 @@ const Book: React.FC = () => {
 
   const nextStep = () => {
     if (currentStep < 4) {
+      // Validation for step 2 - require valid postal code
+      if (currentStep === 2) {
+        if (!watchedValues.postalCode || postalCodeValid !== true) {
+          return; // Don't proceed if postal code is invalid or empty
+        }
+      }
+      
       // Validation for step 1 - ensure bedrooms and bathrooms are not both 0 for non-custom services
       if (currentStep === 1 && watchedValues.serviceType !== 'custom_cleaning') {
         if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
@@ -1042,8 +1049,12 @@ const Book: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     type="button"
                     onClick={nextStep}
-                    disabled={false}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                    disabled={currentStep === 2 && postalCodeValid !== true}
+                    className={`btn-primary flex items-center ${
+                      currentStep === 2 && postalCodeValid !== true 
+                        ? 'opacity-50 cursor-not-allowed' 
+                        : ''
+                    }`}
                   >
                     Next
                     <ArrowRight className="w-4 h-4 ml-2" />
