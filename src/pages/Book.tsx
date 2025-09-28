@@ -139,10 +139,10 @@ const Book: React.FC = () => {
     defaultValues: {
       serviceType: 'regular_cleaning',
       frequency: 'bi-weekly', // This will be overridden for non-regular services
-      bedrooms: 2,
-      bathrooms: 1,
-      kitchens: 1,
-      livingrooms: 1,
+      bedrooms: 0,
+      bathrooms: 0,
+      kitchens: 0,
+      livingrooms: 0,
       hasPets: false,
       hasParking: true,
       extras: []
@@ -158,12 +158,6 @@ const Book: React.FC = () => {
       setValue('bathrooms', 0);
       setValue('kitchens', 0);
       setValue('livingrooms', 0);
-    } else if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
-      // For non-custom services, ensure at least one is not 0
-      setValue('bedrooms', 2);
-      setValue('bathrooms', 1);
-      setValue('kitchens', 1);
-      setValue('livingrooms', 1);
     }
     
     // Set frequency based on service type
@@ -1026,12 +1020,12 @@ const Book: React.FC = () => {
               </div>
 
               <div className="text-center">
-                {watchedValues.serviceType && (watchedValues.serviceType === 'custom_cleaning' || watchedValues.serviceType === 'spring_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
+                {watchedValues.serviceType && (
                   <div className="text-sm text-gray-600 mb-2">
                     Estimated Price
                   </div>
                 )}
-                {(watchedValues.serviceType === 'custom_cleaning' || watchedValues.serviceType === 'spring_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
+                {watchedValues.serviceType && (
                   <div className="text-2xl font-bold text-emerald-600">
                     ${calculatePrice()}
                   </div>
