@@ -302,10 +302,10 @@ const Book: React.FC = () => {
 
   const calculatePrice = () => {
     const serviceType = watchedValues.serviceType as keyof typeof pricing;
-    const bedrooms = watchedValues.bedrooms || 0;
-    const bathrooms = watchedValues.bathrooms || 0;
-    const kitchens = watchedValues.kitchens || 0;
-    const livingrooms = watchedValues.livingrooms || 0;
+    const bedrooms = Number(watchedValues.bedrooms) || 0;
+    const bathrooms = Number(watchedValues.bathrooms) || 0;
+    const kitchens = Number(watchedValues.kitchens) || 0;
+    const livingrooms = Number(watchedValues.livingrooms) || 0;
 
     // Special pricing for spring cleaning (hourly)
     if (serviceType === 'spring_cleaning') {
@@ -324,6 +324,8 @@ const Book: React.FC = () => {
     // Special pricing for custom cleaning with carpet steam cleaning
     if (serviceType === 'custom_cleaning') {
       const servicePricing = pricing[serviceType];
+      if (!servicePricing) return 0;
+      
       let basePrice = servicePricing.base_price;
       basePrice += (bedrooms * servicePricing.per_bedroom) + 
                    (bathrooms * servicePricing.per_bathroom) + 
@@ -345,6 +347,7 @@ const Book: React.FC = () => {
     }
 
     const servicePricing = pricing[serviceType];
+    if (!servicePricing) return 0;
 
     // Base price calculation for other services
     let basePrice = servicePricing.base_price;
