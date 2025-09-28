@@ -339,7 +339,7 @@ const Book: React.FC = () => {
       // Calculate extras price with special carpet pricing
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
         const extra = currentServiceExtras.find(e => e.id === extraId);
-        if (extraId === 'carpet_steam') {
+        if (extraId === 'carpet_steam' || extraId === 'carpet_steam_custom') {
           // Custom carpet pricing: 1 carpet = $80, 2 carpets = $150, 3+ carpets = $200
           const carpetPrice = selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200;
           return total + carpetPrice;
@@ -841,6 +841,38 @@ const Book: React.FC = () => {
                       {/* Carpet Quantity Selection - Appears directly below carpet add-on */}
                       {extra.id === 'carpet_steam' && 
                        selectedExtras.includes('carpet_steam') && (
+                        <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                            Carpet Steam Cleaning Details
+                          </h3>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            How many carpets would you like cleaned?
+                          </label>
+                          <div className="relative mb-4">
+                            <select
+                              value={selectedCarpets}
+                              onChange={(e) => setSelectedCarpets(Number(e.target.value))}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200 bg-white"
+                            >
+                              <option value={1}>1 carpet</option>
+                              <option value={2}>2 carpets</option>
+                              <option value={3}>3 carpets</option>
+                              <option value={4}>4 carpets</option>
+                              <option value={5}>5 carpets</option>
+                            </select>
+                          </div>
+                          <p className="text-sm text-gray-600 mb-2">
+                            Carpet Steam Cleaning: 1 carpet - $80, 2 carpets - $150, 3+ carpets - $200
+                          </p>
+                          <p className="text-sm font-semibold text-emerald-600">
+                            {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}
+                          </p>
+                        </div>
+                      )}
+                      
+                      {/* Carpet Quantity Selection for Custom Cleaning */}
+                      {extra.id === 'carpet_steam_custom' && 
+                       selectedExtras.includes('carpet_steam_custom') && (
                         <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
                           <h3 className="text-lg font-semibold text-gray-900 mb-4">
                             Carpet Steam Cleaning Details
