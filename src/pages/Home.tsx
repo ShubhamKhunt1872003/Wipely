@@ -142,7 +142,7 @@ const toggleFAQ = (index:any) => {
       <section className="relative h-screen overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="../../src/images/Service.jpg"
+            src="./src/images/Service.jpg"
             alt="Professional Kitchen Cleaning"
             className="w-full h-full object-cover"
           />
@@ -252,7 +252,7 @@ const toggleFAQ = (index:any) => {
           <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="md:w-1/2">
               <img
-                src="../../src/images/banner2.jpg"
+                src="./src/images/banner2.jpg"
                 alt="Professional Cleaning"
                 className="rounded-lg shadow-md w-full object-cover"
               />
