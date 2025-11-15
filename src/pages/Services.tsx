@@ -366,12 +366,12 @@ const Services: React.FC = () => {
       </a>
 
       {/* Book Button */}
-      <a
-        href="book"
-        className="bg-white text-emerald-600 font-medium px-6 py-3 rounded-full shadow-md hover:bg-emerald-100 transition duration-300"
-      >
-        📋 Book Online
-      </a>
+     <Link
+  to="/book"
+  className="bg-white text-emerald-600 font-medium px-6 py-3 rounded-full shadow-md hover:bg-emerald-100 transition duration-300"
+>
+  📋 Book Online
+</Link>
     </div>
   </div>
 </section>
