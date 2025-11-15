@@ -25,6 +25,8 @@ import livingroomImg from "../../images/livingroom.jpg";
 import kitchenImg from "../../images/kitchenImg.jpg";
 import binImg from "../../images/bin.jpg";
 import laundryroomImg from "../../images/laundryRoomImg.jpg";
+import kitchenBeforeImg from "../../images/kitchenBefore.jpg";
+import kitchenAfterImg from "../../images/kitchenAfter.jpg";
 // Using Pexels stock photos
 const kitchen = kitchenImg;
 const cleaningImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200';
@@ -506,8 +508,8 @@ const [activeIndex, setActiveIndex] = useState(null);
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                before: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600",
-                after: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600",
+                before: kitchenBeforeImg,
+                after: kitchenAfterImg,
                 title: "Kitchen Deep Clean"
               },
               {
