@@ -38,7 +38,7 @@ function App() {
           <Route path="/services/oven-cleaning" element={<OvenCleaning />} />
           <Route path="/services/bbq-cleaning" element={<BBQCleaning />} />
           <Route path="/services/staircase-cleaning" element={<StairCaseCleaning />} />
-          <Route path="/services/commercialspaces-cleaning" element={<CommercialSpacesCleaning />} />
+          <Route path="/services/commercial-cleaning" element={<CommercialSpacesCleaning />} />
 
 
 
