@@ -30,6 +30,8 @@ import {
 import postalCodes from '../data/postalcode.json';
 import kitchenBeforeImg from "../images/kitchenBefore.jpg";
 import kitchenAfterImg from "../images/kitchenAfter.jpg";
+import btathroomAfterImg from "../images/bathroomAfter.jpeg";
+import bathroomBeforeImg from "../images/bathroomBefore.jpeg";
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -446,8 +448,8 @@ const toggleFAQ = (index:any) => {
                 title: "Kitchen Deep Clean"
               },
               {
-                before: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600",
-                after: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600",
+                before: bathroomBeforeImg,
+                after: btathroomAfterImg,
                 title: "Bathroom Restoration"
               },
               {

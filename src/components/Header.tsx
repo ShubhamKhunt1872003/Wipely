@@ -51,7 +51,7 @@ const Header: React.FC = () => {
         { name: 'Upholstery Cleaning', href: '/services/upholstery-cleaning' },
         { name: 'Oven Cleaning', href: '/services/oven-cleaning' },
         { name: 'BBQ Cleaning', href: '/services/bbq-cleaning' },
-        { name: 'Commercial Spaces', href: '/services/commercialspaces-cleaning' }
+        { name: 'Commercial Spaces', href: '/services/commercial-cleaning' }
         
 
       ]
