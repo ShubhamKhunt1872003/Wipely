@@ -34,17 +34,28 @@ const endOfLeaseExtras = [
 ];
 
 const springCleaningExtras = [
-  { id: "oven_deep_clean", name: "Oven Deep Clean", price: 50, icon: "Flame", description: "Complete oven degreasing and sanitization" },
+  { id: "oven_deep_clean", name: "Oven Deep Clean", price: 70, icon: "Flame", description: "Complete oven degreasing and sanitization" },
   { id: "carpet_steam_clean", name: "Carpet Steam Clean", price: 80, icon: "Layers", description: "Professional carpet deep cleaning" },
   { id: "upholstery_care", name: "Upholstery Care", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
   { id: "mattress_cleaning", name: "Mattress Cleaning", price: 50, icon: "Bed", description: "Deep mattress cleaning and sanitization" },
-  { id: "window_cleaning_spring", name: "Window Cleaning", price: 50, icon: "Window", description: "Internal window cleaning and polishing" },
-  { id: "inside_fridge_spring", name: "Inside Fridge Clean", price: 60, icon: "Microwave", description: "Complete refrigerator cleaning" },
+  { id: "window_cleaning_spring", name: "Window Cleaning", price: 45, icon: "Window", description: "Internal window cleaning and polishing" },
+  { id: "inside_fridge_spring", name: "Inside Fridge Clean", price: 40, icon: "Microwave", description: "Complete refrigerator cleaning" },
   { id: "gas_stove_spring", name: "Gas Stove Tops & Rangehoods", price: 60, icon: "Flame", description: "Professional appliance cleaning" },
   { id: "blinds_cleaning_spring", name: "Blinds Cleaning", price: 25, icon: "Window", description: "Professional blind cleaning" },
-  { id: "wall_spot_spring", name: "Wall Spot Cleaning", price: 40, icon: "Layers", description: "Remove wall marks and spots" }
+  { id: "wall_spot_spring", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove wall marks and spots" }
 ];
 
+const customCleaningExtras = [
+  { id: "oven_deep_clean_custom", name: "Oven Deep Clean", price: 70, icon: "Flame", description: "Complete oven degreasing and sanitization" },
+  { id: "carpet_steam_custom", name: "Carpet Steam Cleaning", price: 80, icon: "Layers", description: "Professional carpet deep cleaning" },
+  { id: "upholstery_custom", name: "Upholstery Cleaning", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
+  { id: "window_cleaning_custom", name: "Window Cleaning", price: 45, icon: "Window", description: "Internal window cleaning and polishing" },
+  { id: "bbq_cleaning_custom", name: "BBQ Deep Clean", price: 65, icon: "Flame", description: "Complete BBQ restoration and cleaning" },
+  { id: "appliance_clean_custom", name: "Appliance Cleaning", price: 60, icon: "Microwave", description: "Microwave, fridge and dishwasher cleaning" },
+  { id: "staircase_with_carpet", name: "Staircase with Carpet", price: 35, icon: "Stairs", description: "Complete staircase cleaning including carpet" },
+  { id: "staircase_without_carpet", name: "Staircase without Carpet", price: 20, icon: "Stairs", description: "Staircase cleaning for hard surfaces only" },
+  { id: "commercial_specs_custom", name: "Commercial Specs", price: 120, icon: "Building2", description: "Specialized commercial space cleaning" }
+];
 const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbyFbdI8ATphbbINJiLHfPeX0a5GniO7V845aiA-_0orRr2BUYuDlS_NUFC5qozZKYqR/exec`;
 
 // Email configuration
@@ -55,6 +66,8 @@ interface FormData {
   frequency: string;
   bedrooms: number;
   bathrooms: number;
+  kitchens: number;
+  livingrooms: number;
   postalCode: string;
   firstName: string;
   lastName: string;
@@ -73,6 +86,8 @@ const validationSchema = yup.object().shape({
   frequency: yup.string().required('Frequency is required'),
   bedrooms: yup.number().min(0, 'Bedrooms must be 0 or more').required('Bedrooms is required'),
   bathrooms: yup.number().min(0, 'Bathrooms must be 0 or more').required('Bathrooms is required'),
+  kitchens: yup.number().min(0, 'Kitchens must be 0 or more').required('Kitchens is required'),
+  livingrooms: yup.number().min(0, 'Living rooms must be 0 or more').required('Living rooms is required'),
   postalCode: yup.string().required('Postal code is required'),
   firstName: yup
     .string()
@@ -110,6 +125,8 @@ const Book: React.FC = () => {
   const [postalCodeValid, setPostalCodeValid] = useState<boolean | null>(null);
   const [bedroomDropdownOpen, setBedroomDropdownOpen] = useState(false);
   const [bathroomDropdownOpen, setBathroomDropdownOpen] = useState(false);
+  const [kitchenDropdownOpen, setKitchenDropdownOpen] = useState(false);
+  const [livingroomDropdownOpen, setLivingroomDropdownOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -122,8 +139,10 @@ const Book: React.FC = () => {
     defaultValues: {
       serviceType: 'regular_cleaning',
       frequency: 'bi-weekly', // This will be overridden for non-regular services
-      bedrooms: 2,
-      bathrooms: 1,
+      bedrooms: 0,
+      bathrooms: 0,
+      kitchens: 0,
+      livingrooms: 0,
       hasPets: false,
       hasParking: true,
       extras: []
@@ -137,10 +156,8 @@ const Book: React.FC = () => {
     if (watchedValues.serviceType === 'custom_cleaning') {
       setValue('bedrooms', 0);
       setValue('bathrooms', 0);
-    } else if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
-      // For non-custom services, ensure at least one is not 0
-      setValue('bedrooms', 2);
-      setValue('bathrooms', 1);
+      setValue('kitchens', 0);
+      setValue('livingrooms', 0);
     }
     
     // Set frequency based on service type
@@ -192,6 +209,11 @@ const Book: React.FC = () => {
         }));
       case 'spring_cleaning':
         return springCleaningExtras.map(extra => ({
+          ...extra,
+          iconComponent: getIconComponent(extra.icon)
+        }));
+      case 'custom_cleaning':
+        return customCleaningExtras.map(extra => ({
           ...extra,
           iconComponent: getIconComponent(extra.icon)
         }));
@@ -280,8 +302,10 @@ const Book: React.FC = () => {
 
   const calculatePrice = () => {
     const serviceType = watchedValues.serviceType as keyof typeof pricing;
-    const bedrooms = watchedValues.bedrooms || 0;
-    const bathrooms = watchedValues.bathrooms || 0;
+    const bedrooms = Number(watchedValues.bedrooms) || 0;
+    const bathrooms = Number(watchedValues.bathrooms) || 0;
+    const kitchens = Number(watchedValues.kitchens) || 0;
+    const livingrooms = Number(watchedValues.livingrooms) || 0;
 
     // Special pricing for spring cleaning (hourly)
     if (serviceType === 'spring_cleaning') {
@@ -300,13 +324,18 @@ const Book: React.FC = () => {
     // Special pricing for custom cleaning with carpet steam cleaning
     if (serviceType === 'custom_cleaning') {
       const servicePricing = pricing[serviceType];
+      if (!servicePricing) return 0;
+      
       let basePrice = servicePricing.base_price;
-      basePrice += (bedrooms * servicePricing.per_bedroom) + (bathrooms * servicePricing.per_bathroom);
+      basePrice += (bedrooms * servicePricing.per_bedroom) + 
+                   (bathrooms * servicePricing.per_bathroom) + 
+                   (kitchens * servicePricing.per_kitchen) + 
+                   (livingrooms * servicePricing.per_livingroom);
 
       // Calculate extras price with special carpet pricing
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
         const extra = currentServiceExtras.find(e => e.id === extraId);
-        if (extraId === 'carpet_steam') {
+        if (extraId === 'carpet_steam' || extraId === 'carpet_steam_custom') {
           // Custom carpet pricing: 1 carpet = $80, 2 carpets = $150, 3+ carpets = $200
           const carpetPrice = selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200;
           return total + carpetPrice;
@@ -318,10 +347,14 @@ const Book: React.FC = () => {
     }
 
     const servicePricing = pricing[serviceType];
+    if (!servicePricing) return 0;
 
     // Base price calculation for other services
     let basePrice = servicePricing.base_price;
-    basePrice += (bedrooms * servicePricing.per_bedroom) + (bathrooms * servicePricing.per_bathroom);
+    basePrice += (bedrooms * servicePricing.per_bedroom) + 
+                 (bathrooms * servicePricing.per_bathroom) + 
+                 (kitchens * servicePricing.per_kitchen) + 
+                 (livingrooms * servicePricing.per_livingroom);
 
     // Add extras price
     const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -422,6 +455,13 @@ const Book: React.FC = () => {
 
   const nextStep = () => {
     if (currentStep < 4) {
+      // Validation for step 2 - require valid postal code
+      if (currentStep === 2) {
+        if (!watchedValues.postalCode || postalCodeValid !== true) {
+          return; // Don't proceed if postal code is invalid or empty
+        }
+      }
+      
       // Validation for step 1 - ensure bedrooms and bathrooms are not both 0 for non-custom services
       if (currentStep === 1 && watchedValues.serviceType !== 'custom_cleaning') {
         if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
@@ -637,7 +677,7 @@ const Book: React.FC = () => {
                 {/* Bedrooms & Bathrooms */}
                 {/* Bedrooms & Bathrooms - Hidden for Spring Cleaning */}
                 {watchedValues.serviceType !== 'spring_cleaning' && (
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <CustomDropdown
                       label="Bedrooms"
                       value={watchedValues.bedrooms}
@@ -654,14 +694,31 @@ const Book: React.FC = () => {
                       isOpen={bathroomDropdownOpen}
                       setIsOpen={setBathroomDropdownOpen}
                     />
+                    <CustomDropdown
+                      label="Kitchens"
+                      value={watchedValues.kitchens}
+                      onChange={(value) => setValue('kitchens', value)}
+                      options={[0, 1, 2, 3, 4, 5]}
+                      isOpen={kitchenDropdownOpen}
+                      setIsOpen={setKitchenDropdownOpen}
+                    />
+                    <CustomDropdown
+                      label="Living Rooms"
+                      value={watchedValues.livingrooms}
+                      onChange={(value) => setValue('livingrooms', value)}
+                      options={[0, 1, 2, 3, 4, 5]}
+                      isOpen={livingroomDropdownOpen}
+                      setIsOpen={setLivingroomDropdownOpen}
+                    />
                   </div>
                 )}
 
                 {/* Validation message for non-custom services */}
-                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && (
+                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && 
+                 watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && watchedValues.kitchens === 0 && watchedValues.livingrooms === 0 && (
                   <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-red-600 text-sm">
-                      For this service type, at least one bedroom or bathroom must be selected.
+                      For this service type, at least one room must be selected.
                     </p>
                   </div>
                 )}
@@ -816,6 +873,38 @@ const Book: React.FC = () => {
                           </p>
                         </div>
                       )}
+                      
+                      {/* Carpet Quantity Selection for Custom Cleaning */}
+                      {extra.id === 'carpet_steam_custom' && 
+                       selectedExtras.includes('carpet_steam_custom') && (
+                        <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                            Carpet Steam Cleaning Details
+                          </h3>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            How many carpets would you like cleaned?
+                          </label>
+                          <div className="relative mb-4">
+                            <select
+                              value={selectedCarpets}
+                              onChange={(e) => setSelectedCarpets(Number(e.target.value))}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200 bg-white"
+                            >
+                              <option value={1}>1 carpet</option>
+                              <option value={2}>2 carpets</option>
+                              <option value={3}>3 carpets</option>
+                              <option value={4}>4 carpets</option>
+                              <option value={5}>5 carpets</option>
+                            </select>
+                          </div>
+                          <p className="text-sm text-gray-600 mb-2">
+                            Carpet Steam Cleaning: 1 carpet - $80, 2 carpets - $150, 3+ carpets - $200
+                          </p>
+                          <p className="text-sm font-semibold text-emerald-600">
+                            {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -941,12 +1030,12 @@ const Book: React.FC = () => {
               </div>
 
               <div className="text-center">
-                {watchedValues.serviceType && (watchedValues.serviceType === 'custom_cleaning' || watchedValues.serviceType === 'spring_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
+                {watchedValues.serviceType && (
                   <div className="text-sm text-gray-600 mb-2">
                     Estimated Price
                   </div>
                 )}
-                {(watchedValues.serviceType === 'custom_cleaning' || watchedValues.serviceType === 'spring_cleaning' || (watchedValues.bedrooms > 0 || watchedValues.bathrooms > 0)) && (
+                {watchedValues.serviceType && (
                   <div className="text-2xl font-bold text-emerald-600">
                     ${calculatePrice()}
                   </div>
@@ -960,8 +1049,12 @@ const Book: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     type="button"
                     onClick={nextStep}
-                    disabled={false}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                    disabled={currentStep === 2 && postalCodeValid !== true}
+                    className={`btn-primary flex items-center ${
+                      currentStep === 2 && postalCodeValid !== true 
+                        ? 'opacity-50 cursor-not-allowed' 
+                        : ''
+                    }`}
                   >
                     Next
                     <ArrowRight className="w-4 h-4 ml-2" />
