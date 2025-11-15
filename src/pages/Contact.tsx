@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       title: "Email",
-      details: "wipelycleaning25@gmail.com",
+      details: "info@wipely.au",
       description: "Send us a message anytime"
     },
     {
@@ -231,7 +231,7 @@ const Contact: React.FC = () => {
                     <Mail className="w-6 h-6 text-emerald-600 mt-1" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Email</h4>
-                      <p className="text-gray-600">wipelycleaning25@gmail.com</p>
+                      <p className="text-gray-600">info@wipely.au</p>
                     </div>
                   </div>
                 </div>

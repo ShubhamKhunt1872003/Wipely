@@ -278,7 +278,7 @@ const About: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-emerald-600" />
-                    <p className="text-gray-900">wipelycleaning25@gmail.com</p>
+                    <p className="text-gray-900">info@wipely.au</p>
                   </div>
                 </div>
               </div>

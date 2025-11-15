@@ -1,8 +1,10 @@
 {
   "regular_cleaning": {
-    "per_bedroom": 25,
-    "per_bathroom": 30,
-    "base_price": 80
+    "per_bedroom": 50,
+    "per_bathroom": 20,
+    "per_kitchen": 80,
+    "per_livingroom": 30,
+    "base_price": 0
   },
   "end_of_lease": {
     "per_bedroom": 60,
@@ -10,15 +12,15 @@
     "base_price": 0
   },
   "spring_cleaning": {
-    "per_bedroom": 35,
+    "per_bedroom": 60,
     "per_bathroom": 45,
+    "per_kitchen": 120,
+    "per_livingroom": 20,
     "base_price": 120
   },
   "custom_cleaning": {
     "per_bedroom": 40,
     "per_bathroom": 50,
-    "per_kitchen": 60,
-    "per_livingroom": 60,
     "carpet_steam": 80,
     "upholstery": 60,
     "mattress": 50,

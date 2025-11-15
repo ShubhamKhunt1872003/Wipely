@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
       <ul className="space-y-2 text-sm text-gray-300">
         <li>📍 Melbourne, VIC, Australia</li>
         <li>📞 <a href="tel:+61435137936" className="hover:text-white">+61 435 137 936</a></li>
-        <li>✉️ <a href="mailto:hello@wipely.au" className="hover:text-white">wipelycleaning25@gmail.com</a></li>
+        <li>✉️ <a href="mailto:hello@wipely.au" className="hover:text-white">info@wipely.au</a></li>
         <li>🕒 Mon - Sat: 8am - 6pm</li>
       </ul>
     </div>
