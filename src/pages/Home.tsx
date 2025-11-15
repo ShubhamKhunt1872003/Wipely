@@ -574,7 +574,7 @@ const toggleFAQ = (index:any) => {
       Get sparkling results with Wipely ,  trusted by hundreds of happy customers across Melbourne. Fast, eco-friendly, and professional cleaning at your fingertips.
     </p>
     <a
-      href="book" // or use your booking route
+      href="/book" // or use your booking route
       className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
     >
       Book Now
