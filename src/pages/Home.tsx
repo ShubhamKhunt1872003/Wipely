@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -34,7 +35,7 @@ const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [postalCode, setPostalCode] = useState('');
   const [availabilityMessage, setAvailabilityMessage] = useState('');
-
+const navigate = useNavigate();
   const services = [
     {
       title: "Regular House Cleaning",
@@ -102,15 +103,23 @@ const Home: React.FC = () => {
 
   const handleAvailabilityCheck = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (postalCodes.includes(postalCode)) {
-      setAvailabilityMessage("Great news! Wipely services your area. Let's get you booked!");
+      setAvailabilityMessage(
+        "Great news! Wipely services your area. Let's get you booked!"
+      );
+
       setTimeout(() => {
-        window.location.href = '/services';
+        navigate('/services');   // <--- React router navigation
       }, 1500);
     } else {
-      setAvailabilityMessage("Sorry, Wipely isn't available in your area yet! We're expanding soon.");
+      setAvailabilityMessage(
+        "Sorry, Wipely isn't available in your area yet! We're expanding soon."
+      );
     }
   };
+  
+
   const faqs = [
   {
     question: "What services does Wipely offer?",
