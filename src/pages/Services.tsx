@@ -200,7 +200,7 @@ const Services: React.FC = () => {
           title: "Carpet Steam Cleaning",
           icon: "🧽",
           img:CarpetSteamCleaning,
-          href: "/services/carpet-steam-cleaning",
+          href: "/services/carpet-cleaning",
           includes: [
             "Deep stain removal",
             "Allergen elimination",
