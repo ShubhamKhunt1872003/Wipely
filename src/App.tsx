@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Book from './pages/Book';
 import Reviews from './pages/Reviews';
+import Rating from './pages/Rating';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import About from './pages/About';
@@ -25,8 +26,9 @@ import CommercialSpacesCleaning from './pages/services/CommercialSpacesCleaning'
 function App() {
   return (
     <Router>
-      <Layout>
-        <Routes>
+      <Routes>
+        <Route path="/review" element={<Rating />} />
+        <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/regular-cleaning" element={<RegularCleaning />} />
@@ -40,16 +42,14 @@ function App() {
           <Route path="/services/staircase-cleaning" element={<StairCaseCleaning />} />
           <Route path="/services/commercial-cleaning" element={<CommercialSpacesCleaning />} />
 
-
-
           <Route path="/book" element={<Book />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </Layout>
+        </Route>
+      </Routes>
     </Router>
   );
 }

@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { Outlet } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Header from './Header';
 import Footer from './Footer';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -18,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         transition={{ duration: 0.3 }}
         className="relative z-10"
       >
-        {children}
+        {children ?? <Outlet />}
       </motion.main>
       <Footer />
     </div>
