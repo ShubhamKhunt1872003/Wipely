@@ -391,7 +391,7 @@ const toggleFAQ = (index:any) => {
             className="text-center mb-10"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              Why Customers Love Us
+              Why Customers Love Us Me
             </h2>
             <div className="w-20 h-1 bg-emerald-400 rounded mx-auto mt-1.5 mb-4"></div>
             <p className="text-lg text-gray-300">
