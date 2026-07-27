@@ -27,6 +27,8 @@ import binImg from "../../images/bin.jpg";
 import laundryroomImg from "../../images/laundryRoomImg.jpg";
 import kitchenBeforeImg from "../../images/kitchenBefore.jpg";
 import kitchenAfterImg from "../../images/kitchenAfter.jpg";
+import bathroomBeforeImg from "../../images/bathroomRegBefore.jpeg";
+import bathroomAfterImg from "../../images/bathroomRegAfter.jpeg";
 // Using Pexels stock photos
 const kitchen = kitchenImg;
 const cleaningImg = 'https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=1200';
@@ -513,8 +515,8 @@ const [activeIndex, setActiveIndex] = useState(null);
                 title: "Kitchen Deep Clean"
               },
               {
-                before: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=600",
-                after: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=600",
+                before: bathroomBeforeImg,
+                after: bathroomAfterImg,
                 title: "Bathroom Restoration"
               },
               {

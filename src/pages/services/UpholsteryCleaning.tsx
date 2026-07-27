@@ -32,14 +32,9 @@ const UpholsteryCleaning: React.FC = () => {
       title: "Armchairs & Recliners",
       desc: "Gentle clean for frequently used seating with quick dry times.",
       points: ["Targeted pre-treat", "Detailing on arms/headrest", "Fast extraction", "Care advice"],
-      icon: "🪑",
+      icon: "💺",
     },
-    {
-      title: "Dining Chairs & Ottomans",
-      desc: "Food spill and spot removal for dining seats and ottomans.",
-      points: ["Fabric-safe formulas", "Spot removal", "Deodorise", "Optional protection"],
-      icon: "🍽️",
-    },
+   
     {
       title: "Mattress Refresh",
       desc: "Sanitising clean to reduce dust mites, odors, and allergens.",

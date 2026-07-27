@@ -24,8 +24,15 @@ const endOfLeaseExtras = [
   { id: "carpet_steam", name: "Carpet Steam Cleaning", price: 80, icon: "Layers", description: "Professional carpet deep cleaning" },
   { id: "balcony_garage", name: "Balcony/Garage Cleaning", price: 60, icon: "Building", description: "Additional outdoor space cleaning" },
   { id: "exterior_window", name: "Exterior Window Cleaning", price: 50, icon: "Window", description: "Outside window cleaning service" },
-  { id: "inside_fridge", name: "Inside Fridge Cleaning", price: 40, icon: "Microwave", description: "Complete refrigerator interior cleaning" },
+  { id: "inside_fridge", name: "Inside Fridge Cleaning", price: 50, icon: "Microwave", description: "Complete refrigerator interior cleaning" },
   { id: "washing_machine", name: "Inside Washing Machine Cleaning", price: 35, icon: "Layers", description: "Deep clean washing machine interior" },
+  {
+  id: "dishwasher_cleaning",
+  name: "Inside Dishwasher Cleaning",
+  price: 35,
+  icon: "ScanLine",
+  description: "Deep clean dishwasher interior"
+},
   { id: "dryer_cleaning", name: "Inside Dryer Cleaning", price: 35, icon: "Flame", description: "Professional dryer interior cleaning" },
   { id: "upholstery_clean", name: "Upholstery Cleaning", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
   { id: "wall_spot", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove marks and spots from walls" },
@@ -127,12 +134,86 @@ const Book: React.FC = () => {
   const [bathroomDropdownOpen, setBathroomDropdownOpen] = useState(false);
   const [kitchenDropdownOpen, setKitchenDropdownOpen] = useState(false);
   const [livingroomDropdownOpen, setLivingroomDropdownOpen] = useState(false);
+  const [carpetDropdownOpen, setCarpetDropdownOpen] = useState(false);
+  const [showCarpetDetails, setShowCarpetDetails] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success')
   const [selectedHours, setSelectedHours] = useState(2); // Default to 2 hours
   const [selectedCarpets, setSelectedCarpets] = useState(1); // Default to 1 carpet
+const [selectedBalconyType, setSelectedBalconyType] = useState<1 | 2>(1);
+
+  const [showBalconyDetails, setShowBalconyDetails] = useState(false);
+const [balconyDropdownOpen, setBalconyDropdownOpen] = useState(false);
+const [selectedBalconyPrice, setSelectedBalconyPrice] = useState(60);
+
+const [selectedBalconySize, setSelectedBalconySize] = useState<'small' | 'large'>('small');
+
+const [showWindowDetails, setShowWindowDetails] = useState(false);
+const [selectedWindows, setSelectedWindows] = useState(1);
+const [windowDropdownOpen, setWindowDropdownOpen] = useState(false);
+
+const [showUpholsteryDetails, setShowUpholsteryDetails] = useState(false);
+const [selectedSofaType, setSelectedSofaType] = useState<2 | 3>(2);
+
+const [showWallSpotDetails, setShowWallSpotDetails] = useState(false);
+const [selectedWallSpot, setSelectedWallSpot] = useState("per_wall");
+
+const [showBlindDetails, setShowBlindDetails] = useState(false);
+const [selectedBlinds, setSelectedBlinds] = useState(1);
+const [blindDropdownOpen, setBlindDropdownOpen] = useState(false);
+
+const [showStairsDetails, setShowStairsDetails] = useState(false);
+const [selectedStairsType, setSelectedStairsType] = useState<1 | 2>(1);
+
+
+  const getCarpetPrice = (carpets: number) => {
+  return 80 + Math.max(0, carpets - 1) * 50;
+};
+
+
+
+const getBalconyPrice = () => {
+  return selectedBalconyType === 1 ? 60 : 80;
+};  
+
+const getWindowPrice = (windows: number) => {
+  return windows * 8;
+};
+const getUpholsteryPrice = () => {
+  return selectedSofaType === 2 ? 60 : 80;
+};
+const getWallSpotPrice = () => {
+  switch (selectedWallSpot) {
+    case "per_wall":
+      return 25;
+    case "two_walls":
+      return 50;
+    case "one_bedroom":
+      return 120;
+    case "two_bedrooms":
+      return 200;
+    case "three_bedrooms":
+      return 250;
+    case "four_bedrooms":
+      return 300;
+    default:
+      return 25;
+  }
+};
+
+const getBlindPrice = (blinds: number) => {
+  if (blinds === 1) return 25;
+  if (blinds === 2) return 40;
+
+  return 60 + (blinds - 3) * 20;
+};
+
+const getStairsPrice = () => {
+  return selectedStairsType === 1 ? 35 : 60;
+};
+
   const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     mode: 'onBlur',
@@ -337,14 +418,31 @@ const Book: React.FC = () => {
         const extra = currentServiceExtras.find(e => e.id === extraId);
         if (extraId === 'carpet_steam' || extraId === 'carpet_steam_custom') {
           // Custom carpet pricing: 1 carpet = $80, 2 carpets = $150, 3+ carpets = $200
-          const carpetPrice = selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200;
-          return total + carpetPrice;
+          return total + getCarpetPrice(selectedCarpets);
         }
+         if (extraId === "balcony_garage") {
+    total += getBalconyPrice();
+  }
+  if (extraId === "exterior_window") {
+    total += getWindowPrice(selectedWindows);
+}
+if (extraId === "wall_spot") {
+    total += getWallSpotPrice();
+}
+if (extraId === "blind_cleaning") {
+    total += getBlindPrice(selectedBlinds);
+}
+if (extraId === "flight_stairs") {
+    total += getStairsPrice();
+}
         return total + (extra?.price || 0);
       }, 0);
 
+      
+
       return basePrice + extrasPrice;
     }
+  
 
     const servicePricing = pricing[serviceType];
     if (!servicePricing) return 0;
@@ -365,14 +463,115 @@ const Book: React.FC = () => {
     return basePrice + extrasPrice;
   };
 
-  const handleExtraToggle = (extraId: string) => {
-    const newExtras = selectedExtras.includes(extraId)
-      ? selectedExtras.filter(id => id !== extraId)
-      : [...selectedExtras, extraId];
+const handleExtraToggle = (extraId: string) => {
+  // Carpet
+  if (extraId === "carpet_steam" || extraId === "carpet_steam_custom") {
+    if (selectedExtras.includes(extraId)) {
+      setShowCarpetDetails(prev => !prev);
+      return;
+    }
 
+    const newExtras = [...selectedExtras, extraId];
     setSelectedExtras(newExtras);
-    setValue('extras', newExtras);
-  };
+    setValue("extras", newExtras);
+    setShowCarpetDetails(true);
+    return;
+  }
+
+  // Balcony
+ if (extraId === "balcony_garage") {
+
+  if (selectedExtras.includes(extraId)) {
+    setShowBalconyDetails(prev => !prev);
+    return;
+  }
+
+  const newExtras = [...selectedExtras, extraId];
+  setSelectedExtras(newExtras);
+  setValue("extras", newExtras);
+
+  setShowBalconyDetails(true);
+  return;
+}
+if (extraId === "exterior_window") {
+
+  if (selectedExtras.includes(extraId)) {
+    setShowWindowDetails(prev => !prev);
+    return;
+  }
+
+  
+  const newExtras = [...selectedExtras, extraId];
+  setSelectedExtras(newExtras);
+  setValue("extras", newExtras);
+
+  setShowWindowDetails(true);
+  return;
+}
+if (extraId === "upholstery_clean") {
+
+  if (selectedExtras.includes(extraId)) {
+    setShowUpholsteryDetails(prev => !prev);
+    return;
+  }
+
+  const newExtras = [...selectedExtras, extraId];
+  setSelectedExtras(newExtras);
+  setValue("extras", newExtras);
+
+  setShowUpholsteryDetails(true);
+  return;
+}
+if (extraId === "wall_spot") {
+
+  if (selectedExtras.includes(extraId)) {
+    setShowWallSpotDetails(prev => !prev);
+    return;
+  }
+
+  const newExtras = [...selectedExtras, extraId];
+  setSelectedExtras(newExtras);
+  setValue("extras", newExtras);
+
+  setShowWallSpotDetails(true);
+  return;
+}
+if (extraId === "blind_cleaning") {
+
+  if (selectedExtras.includes(extraId)) {
+    setShowBlindDetails(prev => !prev);
+    return;
+  }
+
+  const newExtras = [...selectedExtras, extraId];
+  setSelectedExtras(newExtras);
+  setValue("extras", newExtras);
+
+  setShowBlindDetails(true);
+  return;
+}
+if (extraId === "flight_stairs") {
+
+  if (selectedExtras.includes(extraId)) {
+    setShowStairsDetails(prev => !prev);
+    return;
+  }
+
+  const newExtras = [...selectedExtras, extraId];
+  setSelectedExtras(newExtras);
+  setValue("extras", newExtras);
+
+  setShowStairsDetails(true);
+  return;
+}
+  // Other add-ons
+  const newExtras = selectedExtras.includes(extraId)
+    ? selectedExtras.filter(id => id !== extraId)
+    : [...selectedExtras, extraId];
+
+  setSelectedExtras(newExtras);
+  setValue("extras", newExtras);
+};
 
   const onSubmit = async (data: FormData) => {
     setSubmitting(true);
@@ -833,18 +1032,32 @@ const Book: React.FC = () => {
                               </div>
                             </div>
                             <div className="text-emerald-600 font-bold">
-                              {extra.id === 'carpet_steam' && selectedExtras.includes(extra.id)
-                                ? `$${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}`
-                                : `$${extra.price}`
-                              }
+                           {extra.id === "carpet_steam" && selectedExtras.includes(extra.id)
+  ? `$${getCarpetPrice(selectedCarpets)}`
+  : extra.id === "balcony_garage" && selectedExtras.includes(extra.id)
+  ? `$${getBalconyPrice()}`
+  : extra.id === "exterior_window" && selectedExtras.includes(extra.id)
+  ? `$${getWindowPrice(selectedWindows)}`
+  : extra.id === "upholstery_clean" && selectedExtras.includes(extra.id)
+  ? `$${getUpholsteryPrice()}`
+  : extra.id === "wall_spot" && selectedExtras.includes(extra.id)
+? `$${getWallSpotPrice()}`
+: extra.id === "blind_cleaning" && selectedExtras.includes(extra.id)
+? `$${getBlindPrice(selectedBlinds)}`
+: extra.id === "flight_stairs" && selectedExtras.includes(extra.id)
+? `$${getStairsPrice()}`
+  : `$${extra.price}`
+}
+  
                             </div>
                           </div>
                         </div>
                       </label>
                       
                       {/* Carpet Quantity Selection - Appears directly below carpet add-on */}
-                      {extra.id === 'carpet_steam' && 
-                       selectedExtras.includes('carpet_steam') && (
+                      {extra.id === 'carpet_steam' &&
+ selectedExtras.includes('carpet_steam') &&
+ showCarpetDetails && (
                         <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
                           <h3 className="text-lg font-semibold text-gray-900 mb-4">
                             Carpet Steam Cleaning Details
@@ -853,59 +1066,341 @@ const Book: React.FC = () => {
                             How many carpets would you like cleaned?
                           </label>
                           <div className="relative mb-4">
-                            <select
-                              value={selectedCarpets}
-                              onChange={(e) => setSelectedCarpets(Number(e.target.value))}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200 bg-white"
-                            >
-                              <option value={1}>1 carpet</option>
-                              <option value={2}>2 carpets</option>
-                              <option value={3}>3 carpets</option>
-                              <option value={4}>4 carpets</option>
-                              <option value={5}>5 carpets</option>
-                            </select>
+                           <CustomDropdown
+  label="Number of Carpets"
+  value={selectedCarpets}
+ onChange={(value) => {
+    setSelectedCarpets(value);
+    setShowCarpetDetails(false);
+}}
+  options={[1, 2, 3, 4, 5]}
+  isOpen={carpetDropdownOpen}
+  setIsOpen={setCarpetDropdownOpen}
+/>
                           </div>
                           <p className="text-sm text-gray-600 mb-2">
-                            Carpet Steam Cleaning: 1 carpet - $80, 2 carpets - $150, 3+ carpets - $200
+                            Carpet Steam Cleaning:
+First carpet $80, each additional carpet +$50.
                           </p>
                           <p className="text-sm font-semibold text-emerald-600">
-                            {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}
+                            {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${getCarpetPrice(selectedCarpets)}
                           </p>
                         </div>
-                      )}
+                      )
                       
+                      
+                      }
+{extra.id === "balcony_garage" &&
+ selectedExtras.includes("balcony_garage") &&
+ showBalconyDetails && (
+
+<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+
+    <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        Balcony Cleaning Details
+    </h3>
+
+    <div className="space-y-3">
+
+        <button
+            type="button"
+            onClick={() => {
+                setSelectedBalconyType(1);
+                setShowBalconyDetails(false);
+            }}
+            className={`w-full p-4 rounded-lg border-2 text-left transition ${
+                selectedBalconyType === 1
+                    ? "border-emerald-500 bg-emerald-100"
+                    : "border-gray-300"
+            }`}
+        >
+            <div className="font-semibold">
+                Up to 12 m²
+            </div>
+            <div className="text-emerald-600 font-bold">
+                $60
+            </div>
+        </button>
+
+        <button
+            type="button"
+            onClick={() => {
+                setSelectedBalconyType(2);
+                setShowBalconyDetails(false);
+            }}
+            className={`w-full p-4 rounded-lg border-2 text-left transition ${
+                selectedBalconyType === 2
+                    ? "border-emerald-500 bg-emerald-100"
+                    : "border-gray-300"
+            }`}
+        >
+            <div className="font-semibold">
+                More than 12 m²
+            </div>
+            <div className="text-emerald-600 font-bold">
+                $80
+            </div>
+        </button>
+
+    </div>
+
+</div>
+
+)}
+{extra.id === "exterior_window" &&
+ selectedExtras.includes("exterior_window") &&
+ showWindowDetails && (
+
+<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+
+  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+    Exterior Window Cleaning Details
+  </h3>
+
+  <CustomDropdown
+    label="Number of Windows"
+    value={selectedWindows}
+    onChange={(value) => {
+      setSelectedWindows(value);
+      setShowWindowDetails(false);
+    }}
+    options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+    isOpen={windowDropdownOpen}
+    setIsOpen={setWindowDropdownOpen}
+  />
+
+  <p className="mt-3 text-sm text-gray-600">
+    $8 per window
+  </p>
+
+  <p className="mt-2 text-emerald-600 font-semibold">
+    {selectedWindows} window{selectedWindows > 1 ? "s" : ""}: ${getWindowPrice(selectedWindows)}
+  </p>
+
+</div>
+
+)}
+{extra.id === "upholstery_clean" &&
+ selectedExtras.includes("upholstery_clean") &&
+ showUpholsteryDetails && (
+
+<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+
+    <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        Upholstery Cleaning Details
+    </h3>
+
+    <div className="space-y-3">
+
+        <button
+            type="button"
+            onClick={() => {
+                setSelectedSofaType(2);
+                setShowUpholsteryDetails(false);
+            }}
+            className={`w-full p-4 rounded-lg border-2 text-left transition ${
+                selectedSofaType === 2
+                    ? "border-emerald-500 bg-emerald-100"
+                    : "border-gray-300"
+            }`}
+        >
+            <div className="font-semibold">
+                2 Seat Sofa
+            </div>
+
+            <div className="text-emerald-600 font-bold">
+                $60
+            </div>
+        </button>
+
+        <button
+            type="button"
+            onClick={() => {
+                setSelectedSofaType(3);
+                setShowUpholsteryDetails(false);
+            }}
+            className={`w-full p-4 rounded-lg border-2 text-left transition ${
+                selectedSofaType === 3
+                    ? "border-emerald-500 bg-emerald-100"
+                    : "border-gray-300"
+            }`}
+        >
+            <div className="font-semibold">
+                3 Seat Sofa
+            </div>
+
+            <div className="text-emerald-600 font-bold">
+                $80
+            </div>
+        </button>
+
+    </div>
+
+</div>
+
+)}
+                {extra.id === "wall_spot" &&
+ selectedExtras.includes("wall_spot") &&
+ showWallSpotDetails && (
+
+<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+
+<h3 className="text-lg font-semibold mb-4">
+Wall Spot Cleaning Details
+</h3>
+
+<div className="space-y-3">
+
+{[
+  { value: "per_wall", label: "Per Wall", price: 25 },
+  { value: "two_walls", label: "2 Walls", price: 50 },
+  { value: "one_bedroom", label: "1 Bedroom", price: 120 },
+  { value: "two_bedrooms", label: "2 Bedrooms", price: 200 },
+  { value: "three_bedrooms", label: "3 Bedrooms", price: 250 },
+  { value: "four_bedrooms", label: "4 Bedrooms", price: 300 },
+].map(option => (
+
+<button
+key={option.value}
+type="button"
+onClick={() => {
+setSelectedWallSpot(option.value);
+setShowWallSpotDetails(false);
+}}
+className={`w-full p-4 rounded-lg border-2 text-left transition ${
+selectedWallSpot === option.value
+? "border-emerald-500 bg-emerald-100"
+: "border-gray-300"
+}`}
+>
+
+<div className="flex justify-between">
+
+<span className="font-medium">
+{option.label}
+</span>
+
+<span className="font-bold text-emerald-600">
+${option.price}
+</span>
+
+</div>
+
+</button>
+
+))}
+
+</div>
+
+</div>
+
+)}
+{extra.id === "blind_cleaning" &&
+ selectedExtras.includes("blind_cleaning") &&
+ showBlindDetails && (
+
+<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+
+<h3 className="text-lg font-semibold text-gray-900 mb-4">
+Blind Cleaning Details
+</h3>
+
+<CustomDropdown
+label="Number of Blinds"
+value={selectedBlinds}
+onChange={(value) => {
+setSelectedBlinds(value);
+setShowBlindDetails(false);
+}}
+options={[1,2,3,4,5,6,7,8,9,10]}
+isOpen={blindDropdownOpen}
+setIsOpen={setBlindDropdownOpen}
+/>
+
+<p className="mt-4 text-sm text-gray-600">
+1 Blind = $25, 2 Blinds = $40, 3 Blinds = $60
+</p>
+
+<p className="text-sm font-semibold text-emerald-600 mt-2">
+{selectedBlinds} Blind{selectedBlinds > 1 ? "s" : ""}: ${getBlindPrice(selectedBlinds)}
+</p>
+
+<p className="mt-2 text-sm text-gray-600">
+<strong>Note:</strong> Add <span className="font-semibold text-emerald-600">$20</span> for each additional blind after the first three.
+</p>
+
+</div>
+
+)}      
+      {extra.id === "flight_stairs" &&
+ selectedExtras.includes("flight_stairs") &&
+ showStairsDetails && (
+
+<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+
+    <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        Flight of Stairs Details
+    </h3>
+
+    <div className="space-y-3">
+
+        <button
+            type="button"
+            onClick={() => {
+                setSelectedStairsType(1);
+                setShowStairsDetails(false);
+            }}
+            className={`w-full p-4 rounded-lg border-2 text-left transition ${
+                selectedStairsType === 1
+                    ? "border-emerald-500 bg-emerald-100"
+                    : "border-gray-300"
+            }`}
+        >
+            <div className="flex justify-between items-center">
+                <span className="font-semibold">
+                    Vacuum Only
+                </span>
+
+                <span className="font-bold text-emerald-600">
+                    $35
+                </span>
+            </div>
+        </button>
+
+        <button
+            type="button"
+            onClick={() => {
+                setSelectedStairsType(2);
+                setShowStairsDetails(false);
+            }}
+            className={`w-full p-4 rounded-lg border-2 text-left transition ${
+                selectedStairsType === 2
+                    ? "border-emerald-500 bg-emerald-100"
+                    : "border-gray-300"
+            }`}
+        >
+            <div className="flex justify-between items-center">
+                <span className="font-semibold">
+                    Vacuum + Carpet Steam Clean
+                </span>
+
+                <span className="font-bold text-emerald-600">
+                    $60
+                </span>
+            </div>
+        </button>
+
+    </div>
+
+</div>
+
+)}                
                       {/* Carpet Quantity Selection for Custom Cleaning */}
-                      {extra.id === 'carpet_steam_custom' && 
-                       selectedExtras.includes('carpet_steam_custom') && (
-                        <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                            Carpet Steam Cleaning Details
-                          </h3>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            How many carpets would you like cleaned?
-                          </label>
-                          <div className="relative mb-4">
-                            <select
-                              value={selectedCarpets}
-                              onChange={(e) => setSelectedCarpets(Number(e.target.value))}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200 bg-white"
-                            >
-                              <option value={1}>1 carpet</option>
-                              <option value={2}>2 carpets</option>
-                              <option value={3}>3 carpets</option>
-                              <option value={4}>4 carpets</option>
-                              <option value={5}>5 carpets</option>
-                            </select>
-                          </div>
-                          <p className="text-sm text-gray-600 mb-2">
-                            Carpet Steam Cleaning: 1 carpet - $80, 2 carpets - $150, 3+ carpets - $200
-                          </p>
-                          <p className="text-sm font-semibold text-emerald-600">
-                            {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${selectedCarpets === 1 ? 80 : selectedCarpets === 2 ? 150 : 200}
-                          </p>
-                        </div>
-                      )}
+                     
+
+                     
                     </div>
+                    
                   ))}
                 </div>
 
