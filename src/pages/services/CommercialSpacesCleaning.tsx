@@ -11,11 +11,10 @@ import {
   Sparkles,
   Star,
   Users,
+  ArrowRight,
 } from "lucide-react";
 
-import commercialImg from "../../images/commercialImg.jpg"; // Main image
-import commercialBeforeImg from "../../images/commercialBefore.jpg";
-import commercialAfterImg from "../../images/commercialAfter.jpg";
+import commercialImg from "../../images/commercialImg.jpg";
 
 const CommercialSpacesCleaning: React.FC = () => {
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
@@ -42,6 +41,36 @@ const CommercialSpacesCleaning: React.FC = () => {
     },
   ];
 
+  const benefits = [
+    { icon: Shield, text: "Eco-Friendly Solutions" },
+    { icon: Users, text: "Trained Experts" },
+    { icon: Wind, text: "Fast & Efficient" },
+    { icon: Award, text: "Guaranteed Satisfaction" },
+  ];
+
+  const whyChooseWipely = [
+    {
+      icon: Shield,
+      title: "Trusted & Insured",
+      desc: "Fully insured, background-checked cleaners you can rely on around your staff and clients.",
+    },
+    {
+      icon: Users,
+      title: "Trained Teams",
+      desc: "Cleaners trained for offices, retail and healthcare environments of any size.",
+    },
+    {
+      icon: Wind,
+      title: "Flexible Scheduling",
+      desc: "Cleaning scheduled around your business hours, including after hours.",
+    },
+    {
+      icon: Award,
+      title: "Consistent Standards",
+      desc: "The same detailed checklist on every visit, so quality never slips.",
+    },
+  ];
+
   const process = [
     { step: "1", title: "Assessment & Planning", desc: "Identify areas, frequency and cleaning requirements.", icon: CheckCircle },
     { step: "2", title: "Pre-Cleaning Setup", desc: "Remove clutter, prepare surfaces and equipment.", icon: Droplets },
@@ -53,34 +82,45 @@ const CommercialSpacesCleaning: React.FC = () => {
     { q: "Do you clean after hours?", a: "Yes, we can schedule cleaning outside business hours to avoid disruption." },
     { q: "Are your products safe for employees?", a: "Absolutely. We use eco-friendly, non-toxic cleaning products." },
     { q: "Can you handle large commercial spaces?", a: "Yes, we have teams trained for offices, retail, and healthcare facilities of any size." },
-  ];
-
-  const testimonials = [
-    { name: "James H.", location: "Melbourne CBD", rating: 5, text: "Our office has never looked better. Efficient and professional team.", service: "Office Cleaning" },
-    { name: "Sarah W.", location: "South Yarra", rating: 5, text: "Retail space sparkling clean! Customers love it.", service: "Retail Cleaning" },
-    { name: "Dr. Allen K.", location: "Fitzroy", rating: 5, text: "Clinic cleaned to perfection. Very hygienic and safe.", service: "Healthcare Cleaning" },
+    { q: "Can we set up a regular cleaning schedule?", a: "Yes, we offer flexible scheduling to match your business's needs, from daily to weekly visits." },
+    { q: "How do I get a quote for my business?", a: "Book online or contact us and we'll confirm pricing based on your space and requirements." },
   ];
 
   return (
     <div>
       {/* Hero */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
+      <section className="relative py-16 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Professional Commercial
-              <span className="block text-emerald-600">Spaces Cleaning</span>
+            <span className="inline-block bg-emerald-100 text-emerald-700 !text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+              Custom Cleaning Service
+            </span>
+            <h1 className="font-display text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+              Commercial
+              <span className="block text-emerald-600">Cleaning</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
               Expert cleaning for offices, retail stores, clinics, and all commercial environments
+              across Melbourne.
             </p>
+            <div className="flex justify-center">
+              <a href="tel:+61435137936">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="border-2 border-emerald-600 text-emerald-600 px-8 py-4 rounded-full font-semibold hover:bg-emerald-600 hover:text-white transition-all duration-300 text-base"
+                >
+                  Call +61 435 137 936
+                </motion.button>
+              </a>
+            </div>
           </motion.div>
         </div>
-        
+
         {/* Floating Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
@@ -107,8 +147,8 @@ const CommercialSpacesCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Why Section */}
-      <section className="py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+      {/* Service Overview */}
+      <section className="py-14 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ x: -50, opacity: 0 }}
@@ -116,7 +156,11 @@ const CommercialSpacesCleaning: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <img src={commercialImg} alt="Commercial Cleaning" className="rounded-2xl shadow-2xl w-full" />
+            <img
+              src={commercialImg}
+              alt="Professional commercial space cleaning"
+              className="rounded-2xl shadow-2xl w-full"
+            />
           </motion.div>
           <motion.div
             initial={{ x: 50, opacity: 0 }}
@@ -124,15 +168,20 @@ const CommercialSpacesCleaning: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Expert Cleaning for Your Commercial Spaces</h2>
-            <div className="w-24 h-1 bg-emerald-500 mb-6"></div>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              Maintain a clean, safe, and welcoming environment for employees and clients with our professional commercial cleaning services.
+            <span className="text-emerald-600 font-semibold !text-sm uppercase tracking-wide">
+              Service Overview
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mt-3 mb-6">
+              Expert Cleaning for Your Commercial Space
+            </h2>
+            <p className="text-lg text-gray-600 leading-relaxed mb-8">
+              Maintain a clean, safe, welcoming environment for employees and clients — built for
+              offices, retail stores, clinics, and other business spaces across Melbourne.
             </p>
             <div className="grid grid-cols-2 gap-4">
-              {[{ icon: Shield, text: "Eco-Friendly Solutions" }, { icon: Users, text: "Trained Experts" }, { icon: Wind, text: "Fast & Efficient" }, { icon: Award, text: "Guaranteed Satisfaction" }].map((b, i) => (
+              {benefits.map((b, i) => (
                 <div key={i} className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <b.icon className="w-4 h-4 text-emerald-600" />
                   </div>
                   <span className="text-sm font-medium text-gray-700">{b.text}</span>
@@ -143,41 +192,72 @@ const CommercialSpacesCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Services */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((s, idx) => (
-            <motion.div
-              key={s.title}
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.07 }}
-              className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow"
-            >
-              <div className="text-4xl mb-4">{s.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{s.title}</h3>
-              <p className="text-gray-600 mb-4">{s.desc}</p>
-              <ul className="space-y-2">
-                {s.points.map((p, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                    <CheckCircle className="w-4 h-4 text-emerald-500" />
-                    <span>{p}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+      {/* What We Clean */}
+      <section className="py-14 sm:py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <span className="text-emerald-600 font-semibold !text-sm uppercase tracking-wide">
+              What We Clean
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mt-3 mb-4">
+              Cleaning for Every Business Space
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              From offices to retail stores and healthcare facilities, we tailor our cleaning to
+              your space.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            {services.map((s, idx) => (
+              <motion.div
+                key={s.title}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="h-full"
+              >
+                <div className="h-full flex flex-col bg-white rounded-2xl p-8 border border-gray-100 shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="text-4xl mb-4">{s.icon}</div>
+                  <h3 className="font-display text-xl font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">
+                    {s.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 line-clamp-2">{s.desc}</p>
+                  <ul className="space-y-2 mt-auto">
+                    {s.points.map((p, i) => (
+                      <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
+                        <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Process */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-14 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 text-center mb-16">
-          <motion.h2 initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-4xl font-bold text-gray-900 mb-6">
+          <motion.h2
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="font-display text-4xl font-bold text-gray-900 mb-6"
+          >
             Our Cleaning Process
           </motion.h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">A detailed approach to ensure spotless results for every commercial space</p>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">A clear, step-by-step approach for spotless results</p>
         </div>
         <div className="relative max-w-7xl mx-auto px-4">
           <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-emerald-200 transform -translate-y-1/2"></div>
@@ -191,7 +271,7 @@ const CommercialSpacesCleaning: React.FC = () => {
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 className="relative text-center"
               >
-                <div className="relative z-10 bg-white rounded-xl p-6 shadow-lg">
+                <div className="relative z-10 bg-white rounded-xl p-6 shadow-lg h-full">
                   <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <p.icon className="w-8 h-8 text-emerald-600" />
                   </div>
@@ -205,46 +285,89 @@ const CommercialSpacesCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-14 bg-white">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">What Our Clients Say</h2>
-          <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6 mx-auto"></div>
-          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">Real reviews from Melbourne businesses</p>
+      {/* Why Choose Wipely */}
+      <section className="py-14 sm:py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Why Choose Wipely
+            </h2>
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              A cleaning partner your business can rely on, day after day.
+            </p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
+            {whyChooseWipely.map((item, index) => (
               <motion.div
-                key={t.name}
+                key={item.title}
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="bg-gray-50 rounded-xl shadow-md p-6 h-full flex flex-col justify-between"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="h-full text-center"
               >
-                <div>
-                  <div className="flex items-center mb-3 justify-center">
-                    {[...Array(t.rating)].map((_, s) => (
-                      <Star key={s} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
+                <div className="h-full flex flex-col bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <item.icon className="w-8 h-8 text-emerald-600" />
                   </div>
-                  <p className="text-gray-700 italic mb-4">"{t.text}"</p>
-                </div>
-                <div className="text-center mt-4">
-                  <div className="font-semibold text-gray-900">{t.name}</div>
-                  <div className="text-sm text-gray-600">{t.location}</div>
-                  <span className="inline-block mt-2 text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded">{t.service}</span>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">{item.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          <div className="text-center mt-12">
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-2 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors duration-300"
+            >
+              <Star className="w-4 h-4 fill-current" />
+              Read Customer Reviews
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Get a Custom Quote */}
+      <section className="py-14 bg-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-emerald-50 border border-emerald-100 rounded-2xl p-10"
+          >
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Get a Custom Quote
+            </h2>
+            <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+              Pricing depends on the size of your space, frequency, and specific requirements.
+              Book online and we'll confirm the details with you.
+            </p>
+            <Link to="/book?service=commercial-cleaning">
+              <button className="btn-primary">
+                Book Now
+              </button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* FAQs */}
       <section className="bg-emerald-50 py-14">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">Frequently Asked Questions</h2>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">Frequently Asked Questions</h2>
           <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6"></div>
 
           {faqs.map((f, i) => (
@@ -266,17 +389,33 @@ const CommercialSpacesCleaning: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-emerald-600 text-white py-12">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">Ready to Elevate Your Commercial Space?</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto">
+      <section className="py-16 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">Ready to Elevate Your Commercial Space?</h2>
+          <p className="text-lg mb-6 max-w-2xl mx-auto text-emerald-100">
             Professional cleaning for offices, retail stores, and commercial environments. Book your service today!
           </p>
-          <Link to="/book">
-            <button className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300">
-              Book Now
-            </button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/book?service=commercial-cleaning">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white text-emerald-600 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
+              >
+                Book Now
+                <ArrowRight className="inline-block ml-2 w-5 h-5" />
+              </motion.button>
+            </Link>
+            <Link to="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-emerald-600 transition-all duration-300"
+              >
+                Contact Us
+              </motion.button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

@@ -3,6 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Header from './Header';
 import Footer from './Footer';
+import MobileStickyCTA from './home/MobileStickyCTA';
+import StickyCallButton from './home/StickyCallButton';
 
 interface LayoutProps {
   children?: React.ReactNode;
@@ -22,6 +24,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {children ?? <Outlet />}
       </motion.main>
       <Footer />
+      <MobileStickyCTA />
+      <StickyCallButton />
     </div>
   );
 };

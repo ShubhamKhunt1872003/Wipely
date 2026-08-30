@@ -1,80 +1,109 @@
-import * as React from 'react'; 
 import { Link } from 'react-router-dom';
-import { Sparkles, Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
+import { Sparkles, Phone, Mail, MapPin, Clock } from 'lucide-react';
+
+const quickLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Our Services', href: '/services' },
+  { name: 'Reviews', href: '/reviews' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'About Us', href: '/about' },
+  { name: 'FAQ', href: '/faq' },
+  { name: 'Contact', href: '/contact' },
+];
+
+const services = [
+  { name: 'Regular House Cleaning', href: '/services/regular-cleaning' },
+  { name: 'End of Lease Cleaning', href: '/services/end-of-lease' },
+  { name: 'Hourly Spring Cleaning', href: '/services/spring-cleaning' },
+  { name: 'Custom Cleaning', href: '/services/custom-cleaning' },
+  { name: 'Carpet Cleaning', href: '/services/carpet-cleaning' },
+  { name: 'Upholstery Cleaning', href: '/services/upholstery-cleaning' },
+  { name: 'Oven Cleaning', href: '/services/oven-cleaning' },
+  { name: 'BBQ Cleaning', href: '/services/bbq-cleaning' },
+  { name: 'Staircase Cleaning', href: '/services/staircase-cleaning' },
+  { name: 'Commercial Cleaning', href: '/services/commercial-cleaning' },
+];
 
 const Footer: React.FC = () => {
+  // Layout renders a fixed mobile "Get a Quote / Call" bar on every page, so
+  // the footer needs extra bottom padding on small screens to avoid the bar
+  // covering the copyright line.
   return (
-    // <Sparkles className="w-8 h-8 text-emerald-400" />
-    //           <span className="text-2xl font-bold">Wipely</span>
-    <footer className="bg-gray-900 text-white py-12">
-  <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 text-white pt-16 pb-24 md:pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div>
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles className="w-7 h-7 text-emerald-400" />
+            <span className="font-display font-bold !text-xl text-white">Wipely</span>
+          </div>
+          <p className="!text-sm leading-relaxed text-gray-400">
+            Melbourne's trusted cleaning experts. We deliver spotless homes, offices, and peace of mind every time.
+          </p>
+        </div>
 
-    {/* Logo and Description */}
-   <div>
-  <div className="flex items-center gap-2 mb-4">
-    <Sparkles className="w-8 h-8 text-emerald-400" />
-    <span className="text-2xl font-bold text-white">Wipely</span>
-  </div>
-  <p className="text-sm leading-relaxed text-gray-300">
-    Melbourne’s trusted cleaning experts. We deliver spotless homes, offices, and peace of mind every time.
-  </p>
-</div>
-    {/* Quick Links */}
-   <div>
-  <h4 className="text-lg font-semibold mb-3">Quick Links</h4>
-  <div className="w-12 h-1 bg-emerald-500 mb-3"></div>
+        <div>
+          <h4 className="font-display font-bold !text-base mb-3">Quick Links</h4>
+          <div className="w-10 h-0.5 bg-emerald-500 mb-4" />
+          <ul className="space-y-2.5 !text-sm text-gray-400">
+            {quickLinks.map((link) => (
+              <li key={link.name}>
+                <Link to={link.href} className="hover:text-white transition-colors duration-200">
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-  <ul className="space-y-2 text-sm text-gray-300">
-    <li><Link to="/" className="hover:text-white">Home</Link></li>
-    <li><Link to="/services" className="hover:text-white">Our Services</Link></li>
-    <li><Link to="/reviews" className="hover:text-white">Reviews</Link></li>
-    <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
-    <li><Link to="/about" className="hover:text-white">About Us</Link></li>
-    <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
-    <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
-  </ul>
-</div>
+        <div>
+          <h4 className="font-display font-bold !text-base mb-3">Our Services</h4>
+          <div className="w-10 h-0.5 bg-emerald-500 mb-4" />
+          <ul className="space-y-2.5 !text-sm text-gray-400">
+            {services.map((service) => (
+              <li key={service.name}>
+                <Link to={service.href} className="hover:text-white transition-colors duration-200">
+                  {service.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-    {/* Services */}
-   <div>
-  <h4 className="text-lg font-semibold mb-3">Our Services</h4>
-  <div className="w-12 h-1 bg-emerald-500 mb-3"></div>
+        <div>
+          <h4 className="font-display font-bold !text-base mb-3">Contact Us</h4>
+          <div className="w-10 h-0.5 bg-emerald-500 mb-4" />
+          <ul className="space-y-3 !text-sm text-gray-400">
+            <li className="flex items-start gap-2">
+              <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-400" />
+              Melbourne, VIC, Australia
+            </li>
+            <li className="flex items-center gap-2">
+              <Phone className="w-4 h-4 flex-shrink-0 text-emerald-400" />
+              <a href="tel:+61435137936" className="hover:text-white transition-colors duration-200">
+                +61 435 137 936
+              </a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Mail className="w-4 h-4 flex-shrink-0 text-emerald-400" />
+              <a href="mailto:info@wipely.au" className="hover:text-white transition-colors duration-200">
+                info@wipely.au
+              </a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Clock className="w-4 h-4 flex-shrink-0 text-emerald-400" />
+              Mon - Sat: 8am - 6pm
+            </li>
+          </ul>
+        </div>
+      </div>
 
-  <ul className="space-y-2 text-sm text-gray-300">
-    <li>🏠 <Link to="/services/regular-cleaning" className="hover:text-white">Regular House Cleaning</Link></li>
-    <li>🚪 <Link to="/services/end-of-lease" className="hover:text-white">End of Lease Cleaning</Link></li>
-    <li>✨ <Link to="/services/spring-cleaning" className="hover:text-white">One-off Spring Cleaning</Link></li>
-    <li>🛠️ <Link to="/services/custom-cleaning" className="hover:text-white">Custom Cleaning</Link></li>
-    <li>🧽 <Link to="/services/carpet-cleaning" className="hover:text-white">Carpet Steam Cleaning</Link></li>
-    <li>🛋️ <Link to="/services/upholstery-cleaning" className="hover:text-white">Upholstery Cleaning</Link></li>
-    <li>🔥 <Link to="/services/oven-cleaning" className="hover:text-white">Oven Cleaning</Link></li>
-    <li>🍖 <Link to="/services/bbq-cleaning" className="hover:text-white">BBQ Cleaning</Link></li>
-    <li>🏢 <Link to="/services/commercial-cleaning" className="hover:text-white">Commercial Spaces</Link></li>
-  </ul>
-</div>
-
-    {/* Contact Info */}
-    <div>
-      <h4 className="text-lg font-semibold mb-3">Contact Us</h4>
-<div className="w-12 h-1 bg-emerald-500 mb-3"></div>
-
-      <ul className="space-y-2 text-sm text-gray-300">
-        <li>📍 Melbourne, VIC, Australia</li>
-        <li>📞 <a href="tel:+61435137936" className="hover:text-white">+61 435 137 936</a></li>
-        <li>✉️ <a href="mailto:hello@wipely.au" className="hover:text-white">info@wipely.au</a></li>
-        <li>🕒 Mon - Sat: 8am - 6pm</li>
-      </ul>
-    </div>
-  </div>
-
- <hr className="my-8 border-t border-gray-700" />
-
-{/* Bottom Bar */}
-<div className="text-center text-sm text-gray-500 px-4">
-  © {new Date().getFullYear()} Wipely. All rights reserved.
-</div>
-</footer>
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <hr className="my-8 border-t border-gray-800" />
+        <div className="text-center !text-sm text-gray-500">
+          © {new Date().getFullYear()} Wipely. All rights reserved.
+        </div>
+      </div>
+    </footer>
   );
 };
 

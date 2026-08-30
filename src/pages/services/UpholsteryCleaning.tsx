@@ -10,8 +10,7 @@ import {
   Wind,
   Sparkles,
   Star,
-  Heart,
-  Users,
+  ArrowRight,
 } from "lucide-react";
 import upholsteryBeforeImg from "../../images/upholsteryBefore.jpg";
 import upholsteryAfterImg from "../../images/upholsteryAfter.jpg";
@@ -57,47 +56,35 @@ const UpholsteryCleaning: React.FC = () => {
     { q: "Do you offer fabric protection?", a: "Yes. We can apply a protector after cleaning to help repel spills and make future clean-ups easier." },
   ];
 
-  const testimonials = [
-    {
-      name: "Elise P.",
-      location: "Port Melbourne",
-      rating: 5,
-      text: "Our linen sofa looks amazing again. Friendly techs, careful testing, and fast dry time.",
-      service: "Fabric Sofa Clean",
-    },
-    {
-      name: "Tom R.",
-      location: "Hawthorn",
-      rating: 5,
-      text: "Food stains on dining chairs are gone. Impressed with the detail and results.",
-      service: "Dining Chairs",
-    },
-    {
-      name: "Maya K.",
-      location: "Bentleigh",
-      rating: 5,
-      text: "Mattress feels fresh and clean. Allergies improved right away.",
-      service: "Mattress Refresh",
-    },
-  ];
-
   return (
     <div>
       {/* Hero */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
+      <section className="relative py-16 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Professional Upholstery
-              <span className="block text-emerald-600">Cleaning</span>
+            <span className="inline-block bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+              Professional Fabric Care
+            </span>
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 font-display">
+              Upholstery <span className="text-emerald-600">Cleaning</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Restore sofas, chairs and mattresses with deep, fabric-safe cleaning and fast drying
+              Restore sofas, chairs and mattresses with deep, fabric-safe cleaning and fast drying.
             </p>
+            <Link to="/book?service=upholstery-cleaning">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-full shadow-lg transition-colors duration-300"
+              >
+                Book Now
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
         
@@ -162,24 +149,14 @@ const UpholsteryCleaning: React.FC = () => {
             className="rounded-2xl shadow-2xl w-full"
           />
 
-          {/* Testimonial Bubble */}
-          <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-sm">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-emerald-600" />
-              </div>
-              <div>
-                <div className="font-semibold text-gray-900 text-sm">Elise P.</div>
-                <div className="text-gray-600 text-xs">Port Melbourne</div>
-              </div>
+          {/* Trust badge */}
+          <div className="absolute -bottom-6 -right-6 bg-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3">
+            <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <Star className="w-5 h-5 text-emerald-600 fill-current" />
             </div>
-            <blockquote className="text-gray-700 italic text-sm leading-relaxed">
-              "Our linen sofa looks amazing again. Friendly techs, careful testing, and fast dry time."
-            </blockquote>
-            <div className="flex items-center mt-2">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
-              ))}
+            <div>
+              <div className="font-semibold text-gray-900 text-sm">4.9 Google Rating</div>
+              <div className="text-gray-600 text-xs">From real Wipely customers</div>
             </div>
           </div>
         </div>
@@ -196,11 +173,8 @@ const UpholsteryCleaning: React.FC = () => {
         <div className="bg-white rounded-2xl p-8 relative overflow-hidden shadow-lg">
           <div className="relative z-10">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">The Wipely Difference</h3>
-            <p className="text-gray-700 mb-4">
-              Our professional upholstery cleaning uses safe, eco-friendly solutions and advanced techniques to remove allergens, oils, and stains that regular cleaning can't reach.
-            </p>
             <p className="text-gray-700 mb-6">
-              Unlike DIY methods, our trained experts ensure thorough cleaning while protecting your fabrics for long-lasting performance.
+              Our trained experts use safe, eco-friendly solutions and advanced techniques to remove allergens, oils, and stains that regular cleaning can't reach — while protecting your fabrics.
             </p>
 
             <div className="grid grid-cols-2 gap-4">
@@ -226,8 +200,8 @@ const UpholsteryCleaning: React.FC = () => {
 </section>
 
 
-      {/* Why Section */}
-      <section className="py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+      {/* What We Clean */}
+      <section className="py-14 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -237,18 +211,16 @@ const UpholsteryCleaning: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Professional Care for Your Fabrics
+              What We Clean
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Extend fabric life, remove allergens and oils, and keep your lounge looking and feeling fresh.
+              From everyday sofas to mattresses, we cover the fabric surfaces that see the most use.
             </p>
           </motion.div>
 
-          
-
           {/* Services */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             {services.map((s, idx) => (
               <motion.div
                 key={s.title}
@@ -256,15 +228,15 @@ const UpholsteryCleaning: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.07 }}
-                className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow"
+                className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow h-full flex flex-col"
               >
                 <div className="text-4xl mb-4">{s.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{s.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">{s.title}</h3>
                 <p className="text-gray-600 mb-4">{s.desc}</p>
-                <ul className="space-y-2">
+                <ul className="space-y-2 mt-auto">
                   {s.points.map((p, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                      <CheckCircle className="w-4 h-4 text-emerald-500" />
+                      <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>{p}</span>
                     </li>
                   ))}
@@ -276,7 +248,7 @@ const UpholsteryCleaning: React.FC = () => {
       </section>
 
       {/* Pricing (table, unique look) */}
-      <section className="py-16 bg-white">
+      <section className="py-14 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <motion.div
             initial={{ y: 40, opacity: 0 }}
@@ -323,22 +295,10 @@ const UpholsteryCleaning: React.FC = () => {
             *Prices are guide rates and may vary by fabric type, size and condition. Minimum service charge:{" "}
             <span className="font-semibold text-emerald-600">$125</span>.
           </p>
-
-         <div className="mt-8 text-center">
-               <Link to="/book">
-                 <motion.button
-                   whileHover={{ scale: 1.05 }}
-                   whileTap={{ scale: 0.95 }}
-                   className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-full font-semibold shadow-lg"
-                 >
-                   Book Online
-                 </motion.button>
-               </Link>
-             </div>
         </div>
       </section>
       
-   <section className="py-16 bg-white">
+   <section className="py-14 bg-white">
   <div className="max-w-6xl mx-auto px-4">
     {/* Heading */}
     <div className="text-center mb-12">
@@ -346,7 +306,7 @@ const UpholsteryCleaning: React.FC = () => {
         Upholstery Cleaning Results
       </h2>
       <p className="text-lg text-gray-600">
-        See the transformation our professional upholstery cleaning delivers
+        See the transformation we deliver
       </p>
     </div>
 
@@ -396,7 +356,7 @@ const UpholsteryCleaning: React.FC = () => {
   </div>
 </section>
       {/* Process */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-14 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -406,7 +366,7 @@ const UpholsteryCleaning: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Upholstery Process</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">A careful approach for beautiful, long-lasting results</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">A careful approach for long-lasting results</p>
           </motion.div>
 
           <div className="relative">
@@ -436,41 +396,32 @@ const UpholsteryCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-14 bg-white">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">What Our Customers Say</h2>
-          <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6 mx-auto"></div>
-          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">Real reviews from Melbourne customers</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="bg-gray-50 rounded-xl shadow-md p-6 h-full flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center mb-3 justify-center">
-                    {[...Array(t.rating)].map((_, s) => (
-                      <Star key={s} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 italic mb-4">"{t.text}"</p>
-                </div>
-                <div className="text-center mt-4">
-                  <div className="font-semibold text-gray-900">{t.name}</div>
-                  <div className="text-sm text-gray-600">{t.location}</div>
-                  <span className="inline-block mt-2 text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded">
-                    {t.service}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      {/* Customer Reviews */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center justify-center w-14 h-14 bg-emerald-100 rounded-full mb-4">
+              <Star className="w-7 h-7 text-emerald-600 fill-current" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Loved by Homes &amp; Businesses Across Melbourne
+            </h2>
+            <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+              See genuine feedback from customers who've booked with us.
+            </p>
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300"
+            >
+              Read Customer Reviews
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
@@ -499,13 +450,13 @@ const UpholsteryCleaning: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-emerald-600 text-white py-12">
+      <section className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">Ready to Refresh Your Upholstery?</h2>
           <p className="text-lg mb-6 max-w-2xl mx-auto">
             Professional, fabric-safe cleaning for sofas, chairs and mattresses. Book your service today!
           </p>
-          <Link to="/book">
+          <Link to="/book?service=upholstery-cleaning">
             <button className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300">
               Book Now
             </button>

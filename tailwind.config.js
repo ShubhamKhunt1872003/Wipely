@@ -43,6 +43,7 @@ export default {
       },
       fontFamily: {
         'eina': ['Eina01', 'Inter', 'sans-serif'],
+        'display': ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
       },
       animation: {
         'wave': 'wave 3s ease-in-out infinite',

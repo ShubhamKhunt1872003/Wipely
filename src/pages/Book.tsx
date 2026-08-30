@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useEffect } from 'react';
 import { Snackbar, Alert } from '@mui/material';
-import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, Phone, Mail, MessageSquare, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Star as Stairs } from 'lucide-react';
+import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Home as HomeIcon, Calendar, User, PawPrint, Car, Sparkles, Flame, Layers, Bed, Shirt, Microwave, Square, ChevronDown, Sofa, Building2, Star as Stairs } from 'lucide-react';
 import postalCodes from '../data/postalcode.json';
 import pricing from '../data/pricing.json';
 import extras from '../data/extras.json';
+import AddonCard from '../components/booking/AddonCard';
 
 // Import service-specific extras
 const regularCleaningExtras = [
@@ -27,12 +29,12 @@ const endOfLeaseExtras = [
   { id: "inside_fridge", name: "Inside Fridge Cleaning", price: 50, icon: "Microwave", description: "Complete refrigerator interior cleaning" },
   { id: "washing_machine", name: "Inside Washing Machine Cleaning", price: 35, icon: "Layers", description: "Deep clean washing machine interior" },
   {
-  id: "dishwasher_cleaning",
-  name: "Inside Dishwasher Cleaning",
-  price: 35,
-  icon: "ScanLine",
-  description: "Deep clean dishwasher interior"
-},
+    id: "dishwasher_cleaning",
+    name: "Inside Dishwasher Cleaning",
+    price: 35,
+    icon: "ScanLine",
+    description: "Deep clean dishwasher interior"
+  },
   { id: "dryer_cleaning", name: "Inside Dryer Cleaning", price: 35, icon: "Flame", description: "Professional dryer interior cleaning" },
   { id: "upholstery_clean", name: "Upholstery Cleaning", price: 60, icon: "Sofa", description: "Sofa and furniture fabric cleaning" },
   { id: "wall_spot", name: "Wall Spot Cleaning", price: 30, icon: "Layers", description: "Remove marks and spots from walls" },
@@ -68,6 +70,25 @@ const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbyFbdI8ATphbbINJiLH
 // Email configuration
 const ENQUIRY_EMAIL = 'wipelycleaning25@gmail.com';
 
+// Maps the ?service= URL query param (set by every service page's "Book Now"
+// link) to the internal serviceType used throughout the booking form/pricing
+// logic, plus (for the six specialised Custom Cleaning services, which the
+// pricing model represents as add-ons within `custom_cleaning` rather than
+// standalone service types) the specific extra to pre-select so the customer
+// doesn't have to find and re-select it themselves.
+const SERVICE_PARAM_CONFIG: Record<string, { serviceType: string; extraId?: string }> = {
+  'regular-house-cleaning': { serviceType: 'regular_cleaning' },
+  'end-of-lease-cleaning': { serviceType: 'end_of_lease' },
+  'hourly-spring-cleaning': { serviceType: 'spring_cleaning' },
+  'custom-cleaning': { serviceType: 'custom_cleaning' },
+  'carpet-cleaning': { serviceType: 'custom_cleaning', extraId: 'carpet_steam_custom' },
+  'upholstery-cleaning': { serviceType: 'custom_cleaning', extraId: 'upholstery_custom' },
+  'oven-cleaning': { serviceType: 'custom_cleaning', extraId: 'oven_deep_clean_custom' },
+  'bbq-cleaning': { serviceType: 'custom_cleaning', extraId: 'bbq_cleaning_custom' },
+  'staircase-cleaning': { serviceType: 'custom_cleaning', extraId: 'staircase_without_carpet' },
+  'commercial-cleaning': { serviceType: 'custom_cleaning', extraId: 'commercial_specs_custom' },
+};
+
 interface FormData {
   serviceType: string;
   frequency: string;
@@ -76,6 +97,8 @@ interface FormData {
   kitchens: number;
   livingrooms: number;
   postalCode: string;
+  preferredDate: string;
+  preferredTime: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -96,6 +119,8 @@ const validationSchema = yup.object().shape({
   kitchens: yup.number().min(0, 'Kitchens must be 0 or more').required('Kitchens is required'),
   livingrooms: yup.number().min(0, 'Living rooms must be 0 or more').required('Living rooms is required'),
   postalCode: yup.string().required('Postal code is required'),
+  preferredDate: yup.string().required('Please select a preferred date'),
+  preferredTime: yup.string().required('Please select a preferred time'),
   firstName: yup
     .string()
     .required('First name is required')
@@ -126,99 +151,103 @@ const validationSchema = yup.object().shape({
 });
 
 const Book: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  // undefined for a missing/unrecognized param -> falls back to normal (all-services) behaviour
+  const servicePreset = SERVICE_PARAM_CONFIG[searchParams.get('service') || ''];
+  const preselectedServiceType = servicePreset?.serviceType;
+  const preselectedExtraId = servicePreset?.extraId;
+
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
+  const [selectedExtras, setSelectedExtras] = useState<string[]>(
+    preselectedExtraId ? [preselectedExtraId] : []
+  );
   const [postalCodeValid, setPostalCodeValid] = useState<boolean | null>(null);
   const [bedroomDropdownOpen, setBedroomDropdownOpen] = useState(false);
   const [bathroomDropdownOpen, setBathroomDropdownOpen] = useState(false);
   const [kitchenDropdownOpen, setKitchenDropdownOpen] = useState(false);
   const [livingroomDropdownOpen, setLivingroomDropdownOpen] = useState(false);
   const [carpetDropdownOpen, setCarpetDropdownOpen] = useState(false);
-  const [showCarpetDetails, setShowCarpetDetails] = useState(false);
+  const [showCarpetDetails, setShowCarpetDetails] = useState(preselectedExtraId === 'carpet_steam_custom');
   const [submitting, setSubmitting] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success')
   const [selectedHours, setSelectedHours] = useState(2); // Default to 2 hours
   const [selectedCarpets, setSelectedCarpets] = useState(1); // Default to 1 carpet
-const [selectedBalconyType, setSelectedBalconyType] = useState<1 | 2>(1);
+  const [selectedBalconyType, setSelectedBalconyType] = useState<1 | 2>(1);
 
   const [showBalconyDetails, setShowBalconyDetails] = useState(false);
-const [balconyDropdownOpen, setBalconyDropdownOpen] = useState(false);
-const [selectedBalconyPrice, setSelectedBalconyPrice] = useState(60);
 
-const [selectedBalconySize, setSelectedBalconySize] = useState<'small' | 'large'>('small');
+  const [showWindowDetails, setShowWindowDetails] = useState(false);
+  const [selectedWindows, setSelectedWindows] = useState(1);
+  const [windowDropdownOpen, setWindowDropdownOpen] = useState(false);
 
-const [showWindowDetails, setShowWindowDetails] = useState(false);
-const [selectedWindows, setSelectedWindows] = useState(1);
-const [windowDropdownOpen, setWindowDropdownOpen] = useState(false);
+  const [showUpholsteryDetails, setShowUpholsteryDetails] = useState(false);
+  const [selectedSofaType, setSelectedSofaType] = useState<2 | 3>(2);
 
-const [showUpholsteryDetails, setShowUpholsteryDetails] = useState(false);
-const [selectedSofaType, setSelectedSofaType] = useState<2 | 3>(2);
+  const [showWallSpotDetails, setShowWallSpotDetails] = useState(false);
+  const [selectedWallSpot, setSelectedWallSpot] = useState("per_wall");
 
-const [showWallSpotDetails, setShowWallSpotDetails] = useState(false);
-const [selectedWallSpot, setSelectedWallSpot] = useState("per_wall");
+  const [showBlindDetails, setShowBlindDetails] = useState(false);
+  const [selectedBlinds, setSelectedBlinds] = useState(1);
+  const [blindDropdownOpen, setBlindDropdownOpen] = useState(false);
 
-const [showBlindDetails, setShowBlindDetails] = useState(false);
-const [selectedBlinds, setSelectedBlinds] = useState(1);
-const [blindDropdownOpen, setBlindDropdownOpen] = useState(false);
-
-const [showStairsDetails, setShowStairsDetails] = useState(false);
-const [selectedStairsType, setSelectedStairsType] = useState<1 | 2>(1);
+  const [showStairsDetails, setShowStairsDetails] = useState(false);
+  const [selectedStairsType, setSelectedStairsType] = useState<1 | 2>(1);
 
 
   const getCarpetPrice = (carpets: number) => {
-  return 80 + Math.max(0, carpets - 1) * 50;
-};
+    return 80 + Math.max(0, carpets - 1) * 50;
+  };
 
 
 
-const getBalconyPrice = () => {
-  return selectedBalconyType === 1 ? 60 : 80;
-};  
+  const getBalconyPrice = () => {
+    return selectedBalconyType === 1 ? 60 : 80;
+  };
 
-const getWindowPrice = (windows: number) => {
-  return windows * 8;
-};
-const getUpholsteryPrice = () => {
-  return selectedSofaType === 2 ? 60 : 80;
-};
-const getWallSpotPrice = () => {
-  switch (selectedWallSpot) {
-    case "per_wall":
-      return 25;
-    case "two_walls":
-      return 50;
-    case "one_bedroom":
-      return 120;
-    case "two_bedrooms":
-      return 200;
-    case "three_bedrooms":
-      return 250;
-    case "four_bedrooms":
-      return 300;
-    default:
-      return 25;
-  }
-};
+  const getWindowPrice = (windows: number) => {
+    return windows * 8;
+  };
+  const getUpholsteryPrice = () => {
+    return selectedSofaType === 2 ? 60 : 80;
+  };
+  const getWallSpotPrice = () => {
+    switch (selectedWallSpot) {
+      case "per_wall":
+        return 25;
+      case "two_walls":
+        return 50;
+      case "one_bedroom":
+        return 120;
+      case "two_bedrooms":
+        return 200;
+      case "three_bedrooms":
+        return 250;
+      case "four_bedrooms":
+        return 300;
+      default:
+        return 25;
+    }
+  };
 
-const getBlindPrice = (blinds: number) => {
-  if (blinds === 1) return 25;
-  if (blinds === 2) return 40;
+  const getBlindPrice = (blinds: number) => {
+    if (blinds === 1) return 25;
+    if (blinds === 2) return 40;
 
-  return 60 + (blinds - 3) * 20;
-};
+    return 60 + (blinds - 3) * 20;
+  };
 
-const getStairsPrice = () => {
-  return selectedStairsType === 1 ? 35 : 60;
-};
+  const getStairsPrice = () => {
+    return selectedStairsType === 1 ? 35 : 60;
+  };
 
-  const { register, handleSubmit, watch, setValue, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
+  const { register, handleSubmit, watch, setValue, trigger, formState: { errors, touchedFields, isValid } } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     mode: 'onBlur',
     defaultValues: {
-      serviceType: 'regular_cleaning',
+      serviceType: preselectedServiceType || 'regular_cleaning',
       frequency: 'bi-weekly', // This will be overridden for non-regular services
       bedrooms: 0,
       bathrooms: 0,
@@ -226,7 +255,9 @@ const getStairsPrice = () => {
       livingrooms: 0,
       hasPets: false,
       hasParking: true,
-      extras: []
+      preferredDate: '',
+      preferredTime: '',
+      extras: preselectedExtraId ? [preselectedExtraId] : []
     }
   });
 
@@ -240,7 +271,7 @@ const getStairsPrice = () => {
       setValue('kitchens', 0);
       setValue('livingrooms', 0);
     }
-    
+
     // Set frequency based on service type
     if (watchedValues.serviceType === 'regular_cleaning') {
       setValue('frequency', 'bi-weekly');
@@ -251,18 +282,27 @@ const getStairsPrice = () => {
   }, [watchedValues.serviceType, setValue]);
 
   const steps = [
-    { number: 1, title: "Service Details", icon: HomeIcon },
-    { number: 2, title: "Location", icon: MapPin },
-    { number: 3, title: "Add-ons", icon: Sparkles },
-    { number: 4, title: "Contact Info", icon: User }
+    { number: 1, title: "Service", icon: HomeIcon },
+    { number: 2, title: "Property", icon: MapPin },
+    { number: 3, title: "Date & Time", icon: Calendar },
+    { number: 4, title: "Extras", icon: Sparkles },
+    { number: 5, title: "Details", icon: User },
+    { number: 6, title: "Review", icon: CheckCircle }
   ];
+  const TOTAL_STEPS = steps.length;
 
-  const serviceTypes = [
+  const allServiceTypes = [
     { value: 'regular_cleaning', label: 'Regular House Cleaning', icon: HomeIcon },
     { value: 'end_of_lease', label: 'End of Lease Cleaning', icon: CheckCircle },
     { value: 'spring_cleaning', label: 'One-off Spring Cleaning', icon: Sparkles },
     { value: 'custom_cleaning', label: 'Custom Cleaning', icon: Square }
   ];
+
+  // Arriving via a service-page "Book Now" link (?service=...) locks the booking
+  // page to that single service instead of showing all 4 options.
+  const serviceTypes = preselectedServiceType
+    ? allServiceTypes.filter(service => service.value === preselectedServiceType)
+    : allServiceTypes;
 
   const frequencyOptions = [
     { value: 'weekly', label: 'Weekly', popular: false },
@@ -306,7 +346,7 @@ const getStairsPrice = () => {
   const currentServiceExtras = getServiceExtras();
 
   function getIconComponent(iconName: string) {
-    const iconMap: { [key: string]: any } = {
+    const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
       Flame: Flame,
       Layers: Layers,
       Sofa: Sofa,
@@ -321,6 +361,33 @@ const getStairsPrice = () => {
     };
     return iconMap[iconName] || Sparkles;
   }
+  const getExtraPrice = (extraId: string, defaultPrice: number) => {
+    switch (extraId) {
+      case "carpet_steam":
+        return getCarpetPrice(selectedCarpets);
+
+      case "balcony_garage":
+        return getBalconyPrice();
+
+      case "exterior_window":
+        return getWindowPrice(selectedWindows);
+
+      case "upholstery_clean":
+        return getUpholsteryPrice();
+
+      case "wall_spot":
+        return getWallSpotPrice();
+
+      case "blind_cleaning":
+        return getBlindPrice(selectedBlinds);
+
+      case "flight_stairs":
+        return getStairsPrice();
+
+      default:
+        return defaultPrice;
+    }
+  };
 
   const CustomDropdown = ({
     label,
@@ -337,6 +404,7 @@ const getStairsPrice = () => {
     isOpen: boolean;
     setIsOpen: (open: boolean) => void;
   }) => {
+
     return (
       <div className="relative">
         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -380,7 +448,27 @@ const getStairsPrice = () => {
     setPostalCodeValid(isValid);
     return isValid;
   };
+  const getPropertyPricing = () => {
+  const serviceType = watchedValues.serviceType as keyof typeof pricing;
+  const servicePricing = pricing[serviceType];
 
+  if (!servicePricing) {
+    return {
+      bedrooms: 0,
+      bathrooms: 0,
+      kitchens: 0,
+      livingrooms: 0,
+    };
+  }
+
+  return {
+    bedrooms: servicePricing.per_bedroom || 0,
+    bathrooms: servicePricing.per_bathroom || 0,
+    kitchens: servicePricing.per_kitchen || 0,
+    livingrooms: servicePricing.per_livingroom || 0,
+  };
+};
+const propertyPricing = getPropertyPricing();
   const calculatePrice = () => {
     const serviceType = watchedValues.serviceType as keyof typeof pricing;
     const bedrooms = Number(watchedValues.bedrooms) || 0;
@@ -392,7 +480,7 @@ const getStairsPrice = () => {
     if (serviceType === 'spring_cleaning') {
       // All hours are $50 each
       const basePrice = selectedHours * 50;
-      
+
       // Add extras price
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
         const extra = currentServiceExtras.find(e => e.id === extraId);
@@ -406,12 +494,12 @@ const getStairsPrice = () => {
     if (serviceType === 'custom_cleaning') {
       const servicePricing = pricing[serviceType];
       if (!servicePricing) return 0;
-      
+
       let basePrice = servicePricing.base_price;
-      basePrice += (bedrooms * servicePricing.per_bedroom) + 
-                   (bathrooms * servicePricing.per_bathroom) + 
-                   (kitchens * servicePricing.per_kitchen) + 
-                   (livingrooms * servicePricing.per_livingroom);
+      basePrice += (bedrooms * servicePricing.per_bedroom) +
+        (bathrooms * servicePricing.per_bathroom) +
+        (kitchens * servicePricing.per_kitchen) +
+        (livingrooms * servicePricing.per_livingroom);
 
       // Calculate extras price with special carpet pricing
       const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -420,39 +508,39 @@ const getStairsPrice = () => {
           // Custom carpet pricing: 1 carpet = $80, 2 carpets = $150, 3+ carpets = $200
           return total + getCarpetPrice(selectedCarpets);
         }
-         if (extraId === "balcony_garage") {
-    total += getBalconyPrice();
-  }
-  if (extraId === "exterior_window") {
-    total += getWindowPrice(selectedWindows);
-}
-if (extraId === "wall_spot") {
-    total += getWallSpotPrice();
-}
-if (extraId === "blind_cleaning") {
-    total += getBlindPrice(selectedBlinds);
-}
-if (extraId === "flight_stairs") {
-    total += getStairsPrice();
-}
+        if (extraId === "balcony_garage") {
+          total += getBalconyPrice();
+        }
+        if (extraId === "exterior_window") {
+          total += getWindowPrice(selectedWindows);
+        }
+        if (extraId === "wall_spot") {
+          total += getWallSpotPrice();
+        }
+        if (extraId === "blind_cleaning") {
+          total += getBlindPrice(selectedBlinds);
+        }
+        if (extraId === "flight_stairs") {
+          total += getStairsPrice();
+        }
         return total + (extra?.price || 0);
       }, 0);
 
-      
+
 
       return basePrice + extrasPrice;
     }
-  
+
 
     const servicePricing = pricing[serviceType];
     if (!servicePricing) return 0;
 
     // Base price calculation for other services
     let basePrice = servicePricing.base_price;
-    basePrice += (bedrooms * servicePricing.per_bedroom) + 
-                 (bathrooms * servicePricing.per_bathroom) + 
-                 (kitchens * servicePricing.per_kitchen) + 
-                 (livingrooms * servicePricing.per_livingroom);
+    basePrice += (bedrooms * servicePricing.per_bedroom) +
+      (bathrooms * servicePricing.per_bathroom) +
+      (kitchens * servicePricing.per_kitchen) +
+      (livingrooms * servicePricing.per_livingroom);
 
     // Add extras price
     const extrasPrice = selectedExtras.reduce((total, extraId) => {
@@ -463,115 +551,115 @@ if (extraId === "flight_stairs") {
     return basePrice + extrasPrice;
   };
 
-const handleExtraToggle = (extraId: string) => {
-  // Carpet
-  if (extraId === "carpet_steam" || extraId === "carpet_steam_custom") {
-    if (selectedExtras.includes(extraId)) {
-      setShowCarpetDetails(prev => !prev);
+  const handleExtraToggle = (extraId: string) => {
+    // Carpet
+    if (extraId === "carpet_steam" || extraId === "carpet_steam_custom") {
+      if (selectedExtras.includes(extraId)) {
+        setShowCarpetDetails(prev => !prev);
+        return;
+      }
+
+      const newExtras = [...selectedExtras, extraId];
+      setSelectedExtras(newExtras);
+      setValue("extras", newExtras);
+      setShowCarpetDetails(true);
       return;
     }
 
-    const newExtras = [...selectedExtras, extraId];
+    // Balcony
+    if (extraId === "balcony_garage") {
+
+      if (selectedExtras.includes(extraId)) {
+        setShowBalconyDetails(prev => !prev);
+        return;
+      }
+
+      const newExtras = [...selectedExtras, extraId];
+      setSelectedExtras(newExtras);
+      setValue("extras", newExtras);
+
+      setShowBalconyDetails(true);
+      return;
+    }
+    if (extraId === "exterior_window") {
+
+      if (selectedExtras.includes(extraId)) {
+        setShowWindowDetails(prev => !prev);
+        return;
+      }
+
+
+      const newExtras = [...selectedExtras, extraId];
+      setSelectedExtras(newExtras);
+      setValue("extras", newExtras);
+
+      setShowWindowDetails(true);
+      return;
+    }
+    if (extraId === "upholstery_clean") {
+
+      if (selectedExtras.includes(extraId)) {
+        setShowUpholsteryDetails(prev => !prev);
+        return;
+      }
+
+      const newExtras = [...selectedExtras, extraId];
+      setSelectedExtras(newExtras);
+      setValue("extras", newExtras);
+
+      setShowUpholsteryDetails(true);
+      return;
+    }
+    if (extraId === "wall_spot") {
+
+      if (selectedExtras.includes(extraId)) {
+        setShowWallSpotDetails(prev => !prev);
+        return;
+      }
+
+      const newExtras = [...selectedExtras, extraId];
+      setSelectedExtras(newExtras);
+      setValue("extras", newExtras);
+
+      setShowWallSpotDetails(true);
+      return;
+    }
+    if (extraId === "blind_cleaning") {
+
+      if (selectedExtras.includes(extraId)) {
+        setShowBlindDetails(prev => !prev);
+        return;
+      }
+
+      const newExtras = [...selectedExtras, extraId];
+      setSelectedExtras(newExtras);
+      setValue("extras", newExtras);
+
+      setShowBlindDetails(true);
+      return;
+    }
+    if (extraId === "flight_stairs") {
+
+      if (selectedExtras.includes(extraId)) {
+        setShowStairsDetails(prev => !prev);
+        return;
+      }
+
+      const newExtras = [...selectedExtras, extraId];
+      setSelectedExtras(newExtras);
+      setValue("extras", newExtras);
+
+      setShowStairsDetails(true);
+      return;
+    }
+    // Other add-ons
+    const newExtras = selectedExtras.includes(extraId)
+      ? selectedExtras.filter(id => id !== extraId)
+      : [...selectedExtras, extraId];
+
     setSelectedExtras(newExtras);
     setValue("extras", newExtras);
-    setShowCarpetDetails(true);
-    return;
-  }
-
-  // Balcony
- if (extraId === "balcony_garage") {
-
-  if (selectedExtras.includes(extraId)) {
-    setShowBalconyDetails(prev => !prev);
-    return;
-  }
-
-  const newExtras = [...selectedExtras, extraId];
-  setSelectedExtras(newExtras);
-  setValue("extras", newExtras);
-
-  setShowBalconyDetails(true);
-  return;
-}
-if (extraId === "exterior_window") {
-
-  if (selectedExtras.includes(extraId)) {
-    setShowWindowDetails(prev => !prev);
-    return;
-  }
-
-  
-  const newExtras = [...selectedExtras, extraId];
-  setSelectedExtras(newExtras);
-  setValue("extras", newExtras);
-
-  setShowWindowDetails(true);
-  return;
-}
-if (extraId === "upholstery_clean") {
-
-  if (selectedExtras.includes(extraId)) {
-    setShowUpholsteryDetails(prev => !prev);
-    return;
-  }
-
-  const newExtras = [...selectedExtras, extraId];
-  setSelectedExtras(newExtras);
-  setValue("extras", newExtras);
-
-  setShowUpholsteryDetails(true);
-  return;
-}
-if (extraId === "wall_spot") {
-
-  if (selectedExtras.includes(extraId)) {
-    setShowWallSpotDetails(prev => !prev);
-    return;
-  }
-
-  const newExtras = [...selectedExtras, extraId];
-  setSelectedExtras(newExtras);
-  setValue("extras", newExtras);
-
-  setShowWallSpotDetails(true);
-  return;
-}
-if (extraId === "blind_cleaning") {
-
-  if (selectedExtras.includes(extraId)) {
-    setShowBlindDetails(prev => !prev);
-    return;
-  }
-
-  const newExtras = [...selectedExtras, extraId];
-  setSelectedExtras(newExtras);
-  setValue("extras", newExtras);
-
-  setShowBlindDetails(true);
-  return;
-}
-if (extraId === "flight_stairs") {
-
-  if (selectedExtras.includes(extraId)) {
-    setShowStairsDetails(prev => !prev);
-    return;
-  }
-
-  const newExtras = [...selectedExtras, extraId];
-  setSelectedExtras(newExtras);
-  setValue("extras", newExtras);
-
-  setShowStairsDetails(true);
-  return;
-}
-  // Other add-ons
-  const newExtras = selectedExtras.includes(extraId)
-    ? selectedExtras.filter(id => id !== extraId)
-    : [...selectedExtras, extraId];
-
-  setSelectedExtras(newExtras);
-  setValue("extras", newExtras);
-};
+  };
 
   const onSubmit = async (data: FormData) => {
     setSubmitting(true);
@@ -615,7 +703,7 @@ if (extraId === "flight_stairs") {
       });
 
       console.log('=== FORMDATA ENTRIES ===');
-      for (let [key, value] of fd.entries()) {
+      for (const [key, value] of fd.entries()) {
         console.log(`${key}: ${value}`);
       }
       console.log('=== END FORMDATA ===');
@@ -652,24 +740,39 @@ if (extraId === "flight_stairs") {
 
 
 
-  const nextStep = () => {
-    if (currentStep < 4) {
-      // Validation for step 2 - require valid postal code
-      if (currentStep === 2) {
-        if (!watchedValues.postalCode || postalCodeValid !== true) {
-          return; // Don't proceed if postal code is invalid or empty
-        }
+  const nextStep = async () => {
+    if (currentStep >= TOTAL_STEPS) return;
+
+    // Step 2 (Property): require a valid postal code, and at least one room
+    // selected for service types that are billed per-room.
+    if (currentStep === 2) {
+      if (!watchedValues.postalCode || postalCodeValid !== true) {
+        return;
       }
-      
-      // Validation for step 1 - ensure bedrooms and bathrooms are not both 0 for non-custom services
-      if (currentStep === 1 && watchedValues.serviceType !== 'custom_cleaning') {
-        if (watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0) {
-          alert('For this service type, at least one bedroom or bathroom must be selected.');
-          return;
-        }
+      if (
+        watchedValues.serviceType !== 'custom_cleaning' &&
+        watchedValues.serviceType !== 'spring_cleaning' &&
+        watchedValues.bedrooms === 0 &&
+        watchedValues.bathrooms === 0
+      ) {
+        alert('For this service type, at least one bedroom or bathroom must be selected.');
+        return;
       }
-      setCurrentStep(currentStep + 1);
     }
+
+    // Step 3 (Date & Time): require both fields before continuing.
+    if (currentStep === 3) {
+      const valid = await trigger(['preferredDate', 'preferredTime']);
+      if (!valid) return;
+    }
+
+    // Step 5 (Details): require valid contact details before the review step.
+    if (currentStep === 5) {
+      const valid = await trigger(['firstName', 'lastName', 'email', 'phone', 'address']);
+      if (!valid) return;
+    }
+
+    setCurrentStep(currentStep + 1);
   };
 
   const prevStep = () => {
@@ -677,6 +780,192 @@ if (extraId === "flight_stairs") {
       setCurrentStep(currentStep - 1);
     }
   };
+
+  const TIME_SLOT_LABELS: Record<string, string> = {
+    morning: 'Morning (8am – 11am)',
+    midday: 'Midday (11am – 2pm)',
+    afternoon: 'Afternoon (2pm – 5pm)',
+  };
+
+  const renderBookingSummary = () => (
+    <>
+      {/* Service */}
+      <div>
+        <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+          Service
+        </p>
+        <p className="font-semibold text-gray-900">
+          {serviceTypes.find(
+            s => s.value === watchedValues.serviceType
+          )?.label || allServiceTypes.find(s => s.value === watchedValues.serviceType)?.label}
+        </p>
+      </div>
+
+      <hr />
+
+      {/* Date & Time */}
+      <div>
+        <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+          Date & Time
+        </p>
+        {watchedValues.preferredDate && watchedValues.preferredTime ? (
+          <>
+            <p className="font-semibold text-gray-900">
+              {new Date(watchedValues.preferredDate + 'T00:00:00').toLocaleDateString('en-AU', {
+                weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+              })}
+            </p>
+            <p className="text-sm text-gray-500">{TIME_SLOT_LABELS[watchedValues.preferredTime]}</p>
+          </>
+        ) : (
+          <p className="text-sm text-gray-500">Not selected yet</p>
+        )}
+      </div>
+
+      <hr />
+
+      {/* Property Details */}
+      {watchedValues.serviceType !== 'spring_cleaning' && (
+        <>
+          <div>
+            <p className="text-xs uppercase tracking-wide text-gray-500 mb-3">
+              Property Details
+            </p>
+
+            <div className="space-y-3">
+              {/* Bedrooms */}
+              <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="text-2xl">🛏️</div>
+                  <div>
+                    <p className="font-medium text-gray-900">Bedrooms</p>
+                    <p className="text-sm text-gray-500">
+                      {Number(watchedValues.bedrooms) || 0} × ${propertyPricing.bedrooms}
+                    </p>
+                  </div>
+                </div>
+                <p className="font-bold text-gray-900">
+                  ${(Number(watchedValues.bedrooms) || 0) * (propertyPricing.bedrooms || 0)}
+                </p>
+              </div>
+
+              {/* Bathrooms */}
+              <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="text-2xl">🛁</div>
+                  <div>
+                    <p className="font-medium text-gray-900">Bathrooms</p>
+                    <p className="text-sm text-gray-500">
+                      {Number(watchedValues.bathrooms) || 0} × ${propertyPricing.bathrooms}
+                    </p>
+                  </div>
+                </div>
+                <p className="font-bold text-gray-900">
+                  ${(Number(watchedValues.bathrooms) || 0) * (propertyPricing.bathrooms || 0)}
+                </p>
+              </div>
+
+              {/* Kitchen */}
+              <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="text-2xl">🍳</div>
+                  <div>
+                    <p className="font-medium text-gray-900">Kitchen</p>
+                    <p className="text-sm text-gray-500">
+                      {Number(watchedValues.kitchens) || 0} × ${propertyPricing.kitchens}
+                    </p>
+                  </div>
+                </div>
+                <p className="font-bold text-gray-900">
+                  ${(Number(watchedValues.kitchens) || 0) * (propertyPricing.kitchens || 0)}
+                </p>
+              </div>
+
+              {/* Living Room */}
+              <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="text-2xl">🛋️</div>
+                  <div>
+                    <p className="font-medium text-gray-900">Living Room</p>
+                    <p className="text-sm text-gray-500">
+                      {Number(watchedValues.livingrooms) || 0} × ${propertyPricing.livingrooms}
+                    </p>
+                  </div>
+                </div>
+                <p className="font-bold text-gray-900">
+                  ${(Number(watchedValues.livingrooms) || 0) * (propertyPricing.livingrooms || 0)}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+        </>
+      )}
+
+      {/* Add-ons */}
+      <div>
+        <p className="text-xs uppercase tracking-wide text-gray-500 mb-3">
+          Selected Add-ons
+        </p>
+
+        {selectedExtras.length === 0 ? (
+          <p className="text-sm text-gray-500">
+            No add-ons selected
+          </p>
+        ) : (
+          currentServiceExtras
+            .filter(extra => selectedExtras.includes(extra.id))
+            .map(extra => (
+              <div
+                key={extra.id}
+                className="flex justify-between items-center py-2 border-b last:border-b-0"
+              >
+                <span className="text-gray-700">
+                  {extra.name}
+                </span>
+                <span className="font-semibold text-emerald-600">
+                  ${getExtraPrice(extra.id, extra.price)}
+                </span>
+              </div>
+            ))
+        )}
+      </div>
+
+      <hr />
+
+      {/* Total */}
+      <div className="bg-emerald-50 rounded-xl p-5">
+        <div className="flex justify-between items-center">
+          <span className="font-semibold text-gray-700 text-lg">
+            Estimated Total
+          </span>
+          <span className="text-4xl font-extrabold text-emerald-600">
+            ${calculatePrice()}
+          </span>
+        </div>
+        <p className="text-xs text-gray-500 mt-2">
+          Final pricing may vary depending on property condition.
+        </p>
+      </div>
+
+      {/* Features */}
+      <div className="space-y-3 text-sm">
+        <div className="flex items-center gap-2">
+          🛡️ <span>Fully Insured Professionals</span>
+        </div>
+        <div className="flex items-center gap-2">
+          🌱 <span>Eco-Friendly Cleaning Products</span>
+        </div>
+        <div className="flex items-center gap-2">
+          ⭐ <span>100% Satisfaction Guarantee</span>
+        </div>
+        <div className="flex items-center gap-2">
+          💳 <span>No Hidden Charges</span>
+        </div>
+      </div>
+    </>
+  );
 
   if (isSubmitted) {
     return (
@@ -718,7 +1007,7 @@ if (extraId === "flight_stairs") {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-sage-50">
-      <div className="max-w-4xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <motion.div
           initial={{ y: -50, opacity: 0 }}
@@ -726,54 +1015,111 @@ if (extraId === "flight_stairs") {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Book Your Clean
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Get a personalized quote for your cleaning needs. No payment required ,  just tell us what you need!
-          </p>
+          <div className="mb-10">
+
+            <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              🧹 Melbourne's Trusted Cleaning Service
+            </div>
+
+            <h1 className="text-5xl font-extrabold text-gray-900 leading-tight">
+              Book Your Cleaning
+            </h1>
+
+            <p className="mt-4 text-lg text-gray-600">
+              Book professional cleaning services in just a few minutes.
+              Fast online booking, transparent pricing, and trusted cleaners across Melbourne.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-4 mt-6">
+
+              <div className="flex items-center gap-2 bg-white border rounded-full px-4 py-2 shadow-sm">
+                ⭐⭐⭐⭐⭐
+                <span className="text-sm font-medium">
+                  Trusted by Happy Customers
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 bg-white border rounded-full px-4 py-2 shadow-sm">
+                🛡️
+                <span className="text-sm font-medium">
+                  Fully Insured
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 bg-white border rounded-full px-4 py-2 shadow-sm">
+                🌱
+                <span className="text-sm font-medium">
+                  Eco-Friendly Products
+                </span>
+              </div>
+
+            </div>
+
+          </div>
         </motion.div>
 
         {/* Progress Steps */}
-        <div className="mb-12">
-          <div className="flex justify-between items-center">
+        <div className="mb-8 md:mb-12">
+          <div className="flex items-center">
             {steps.map((step, index) => (
-              <div key={step.number} className="flex items-center">
-                <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${currentStep >= step.number
-                  ? 'bg-emerald-600 border-emerald-600 text-white'
-                  : 'bg-white border-gray-300 text-gray-400'
-                  }`}>
-                  <step.icon className="w-5 h-5" />
-                </div>
-                <div className="ml-3 hidden md:block">
-                  <div className={`text-sm font-medium ${currentStep >= step.number ? 'text-emerald-600' : 'text-gray-400'
+              <div key={step.number} className="flex items-center flex-1 last:flex-none">
+                <div className="flex items-center">
+                  <div className={`flex items-center justify-center w-8 h-8 md:w-12 md:h-12 rounded-full border-2 flex-shrink-0 transition-all duration-300 ${currentStep >= step.number
+                    ? 'bg-emerald-600 border-emerald-600 text-white'
+                    : 'bg-white border-gray-300 text-gray-400'
                     }`}>
-                    Step {step.number}
+                    <step.icon className="w-3.5 h-3.5 md:w-5 md:h-5" />
                   </div>
-                  <div className={`text-xs ${currentStep >= step.number ? 'text-gray-900' : 'text-gray-400'
-                    }`}>
-                    {step.title}
+                  <div className="ml-3 hidden md:block">
+                    <div className={`text-sm font-medium ${currentStep >= step.number ? 'text-emerald-600' : 'text-gray-400'
+                      }`}>
+                      Step {step.number}
+                    </div>
+                    <div className={`text-xs ${currentStep >= step.number ? 'text-gray-900' : 'text-gray-400'
+                      }`}>
+                      {step.title}
+                    </div>
                   </div>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`hidden md:block w-16 h-0.5 ml-6 ${currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-300'
+                  <div className={`flex-1 h-0.5 mx-1.5 md:mx-4 transition-colors duration-300 ${currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-300'
                     }`} />
                 )}
               </div>
             ))}
           </div>
+          <p className="mt-3 text-center text-sm font-medium text-gray-600 md:hidden">
+            Step {currentStep} of {TOTAL_STEPS}: <span className="text-emerald-600">{steps[currentStep - 1].title}</span>
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            {/* Step 1: Service Details */}
+        {/* Compact mobile total bar - keeps the running price visible while the
+            full summary (desktop sidebar) is hidden on small screens */}
+        <div className="lg:hidden mb-6 bg-emerald-600 text-white rounded-xl px-5 py-3 flex items-center justify-between shadow-md">
+          <span className="text-sm font-medium">Estimated Total</span>
+          <span className="text-xl font-bold">${calculatePrice()}</span>
+        </div>
+
+        {/* Submission is triggered explicitly by the "Confirm Booking" button's
+            onClick (below), never by native form submission - this guarantees
+            a stray Enter keypress or the step-navigation "Continue" button can
+            never send the booking early. */}
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
+          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+            {/* Step 1: Service */}
             {currentStep === 1 && (
               <motion.div
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Service Details</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">Choose Your Service</h2>
+                <p className="text-gray-500 mb-6">
+                  {preselectedServiceType
+                    ? "We've pre-selected the service you were viewing."
+                    : 'Pick the cleaning service you need.'}
+                </p>
 
                 {/* Service Type */}
                 <div className="mb-6">
@@ -872,66 +1218,70 @@ if (extraId === "flight_stairs") {
                     </p>
                   </div>
                 )}
-
-                {/* Bedrooms & Bathrooms */}
-                {/* Bedrooms & Bathrooms - Hidden for Spring Cleaning */}
-                {watchedValues.serviceType !== 'spring_cleaning' && (
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <CustomDropdown
-                      label="Bedrooms"
-                      value={watchedValues.bedrooms}
-                      onChange={(value) => setValue('bedrooms', value)}
-                      options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                      isOpen={bedroomDropdownOpen}
-                      setIsOpen={setBedroomDropdownOpen}
-                    />
-                    <CustomDropdown
-                      label="Bathrooms"
-                      value={watchedValues.bathrooms}
-                      onChange={(value) => setValue('bathrooms', value)}
-                      options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                      isOpen={bathroomDropdownOpen}
-                      setIsOpen={setBathroomDropdownOpen}
-                    />
-                    <CustomDropdown
-                      label="Kitchens"
-                      value={watchedValues.kitchens}
-                      onChange={(value) => setValue('kitchens', value)}
-                      options={[0, 1, 2, 3, 4, 5]}
-                      isOpen={kitchenDropdownOpen}
-                      setIsOpen={setKitchenDropdownOpen}
-                    />
-                    <CustomDropdown
-                      label="Living Rooms"
-                      value={watchedValues.livingrooms}
-                      onChange={(value) => setValue('livingrooms', value)}
-                      options={[0, 1, 2, 3, 4, 5]}
-                      isOpen={livingroomDropdownOpen}
-                      setIsOpen={setLivingroomDropdownOpen}
-                    />
-                  </div>
-                )}
-
-                {/* Validation message for non-custom services */}
-                {watchedValues.serviceType !== 'custom_cleaning' && watchedValues.serviceType !== 'spring_cleaning' && 
-                 watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 && watchedValues.kitchens === 0 && watchedValues.livingrooms === 0 && (
-                  <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-red-600 text-sm">
-                      For this service type, at least one room must be selected.
-                    </p>
-                  </div>
-                )}
               </motion.div>
             )}
 
-            {/* Step 2: Location */}
+            {/* Step 2: Property */}
             {currentStep === 2 && (
               <motion.div
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Location</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">Tell Us About Your Property</h2>
+                <p className="text-gray-500 mb-6">
+                  Only the details relevant to your selected service are shown below.
+                </p>
+
+                {/* Bedrooms & Bathrooms - Hidden for Spring Cleaning */}
+                {watchedValues.serviceType !== 'spring_cleaning' && (
+                  <div className="mb-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <CustomDropdown
+                        label="Bedrooms"
+                        value={watchedValues.bedrooms}
+                        onChange={(value) => setValue('bedrooms', value)}
+                        options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                        isOpen={bedroomDropdownOpen}
+                        setIsOpen={setBedroomDropdownOpen}
+                      />
+                      <CustomDropdown
+                        label="Bathrooms"
+                        value={watchedValues.bathrooms}
+                        onChange={(value) => setValue('bathrooms', value)}
+                        options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                        isOpen={bathroomDropdownOpen}
+                        setIsOpen={setBathroomDropdownOpen}
+                      />
+                      <CustomDropdown
+                        label="Kitchens"
+                        value={watchedValues.kitchens}
+                        onChange={(value) => setValue('kitchens', value)}
+                        options={[0, 1, 2, 3, 4, 5]}
+                        isOpen={kitchenDropdownOpen}
+                        setIsOpen={setKitchenDropdownOpen}
+                      />
+                      <CustomDropdown
+                        label="Living Rooms"
+                        value={watchedValues.livingrooms}
+                        onChange={(value) => setValue('livingrooms', value)}
+                        options={[0, 1, 2, 3, 4, 5]}
+                        isOpen={livingroomDropdownOpen}
+                        setIsOpen={setLivingroomDropdownOpen}
+                      />
+                    </div>
+
+                    {watchedValues.serviceType !== 'custom_cleaning' &&
+                      watchedValues.bedrooms === 0 && watchedValues.bathrooms === 0 &&
+                      watchedValues.kitchens === 0 && watchedValues.livingrooms === 0 && (
+                        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                          <p className="text-red-600 text-sm">
+                            For this service type, at least one room must be selected.
+                          </p>
+                        </div>
+                      )}
+                  </div>
+                )}
 
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -994,8 +1344,86 @@ if (extraId === "flight_stairs") {
               </motion.div>
             )}
 
-            {/* Step 3: Add-ons */}
+            {/* Step 3: Date & Time */}
             {currentStep === 3 && (
+              <motion.div
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">Choose Date & Time</h2>
+                <p className="text-gray-500 mb-6">
+                  Let us know when you'd like your clean.
+                </p>
+
+                <div className="mb-8">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Select Date
+                  </label>
+                  <input
+                    type="date"
+                    min={new Date().toISOString().split('T')[0]}
+                    {...register('preferredDate')}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                  />
+                  {errors.preferredDate && (
+                    <p className="mt-2 text-red-600 text-sm">{errors.preferredDate.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                    Select Preferred Time
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {[
+                      { value: 'morning', label: 'Morning', hint: '8am – 11am' },
+                      { value: 'midday', label: 'Midday', hint: '11am – 2pm' },
+                      { value: 'afternoon', label: 'Afternoon', hint: '2pm – 5pm' },
+                    ].map((slot) => (
+                      <label key={slot.value} className="cursor-pointer">
+                        <input
+                          type="radio"
+                          value={slot.value}
+                          {...register('preferredTime')}
+                          className="hidden"
+                        />
+                        <div className={`p-4 border-2 rounded-lg text-center transition-all duration-200 ${watchedValues.preferredTime === slot.value
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-200 hover:border-emerald-300'
+                          }`}>
+                          <span className="block font-medium text-gray-900">{slot.label}</span>
+                          <span className="block text-xs text-gray-500 mt-1">{slot.hint}</span>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                  {errors.preferredTime && (
+                    <p className="mt-2 text-red-600 text-sm">{errors.preferredTime.message}</p>
+                  )}
+                </div>
+
+                {watchedValues.preferredDate && watchedValues.preferredTime && (
+                  <div className="mt-6 p-4 bg-emerald-50 border border-emerald-100 rounded-lg flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <p className="text-sm text-gray-700">
+                      Your clean is scheduled for{' '}
+                      <span className="font-semibold text-gray-900">
+                        {new Date(watchedValues.preferredDate + 'T00:00:00').toLocaleDateString('en-AU', {
+                          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+                        })}
+                      </span>{' '}
+                      (
+                      {{ morning: 'Morning, 8am – 11am', midday: 'Midday, 11am – 2pm', afternoon: 'Afternoon, 2pm – 5pm' }[watchedValues.preferredTime]}
+                      )
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+            )}
+
+            {/* Step 4: Extras */}
+            {currentStep === 4 && (
               <motion.div
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -1012,497 +1440,520 @@ if (extraId === "flight_stairs") {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {currentServiceExtras.map((extra) => (
                     <div key={extra.id}>
-                      <label className="cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={selectedExtras.includes(extra.id)}
-                          onChange={() => handleExtraToggle(extra.id)}
-                          className="hidden"
-                        />
-                        <div className={`p-4 border-2 rounded-lg transition-all duration-200 ${selectedExtras.includes(extra.id)
-                          ? 'border-emerald-500 bg-emerald-50'
-                          : 'border-gray-200 hover:border-emerald-300'
-                          }`}>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <extra.iconComponent className="w-5 h-5 text-emerald-600" />
-                              <div>
-                                <div className="font-medium text-gray-900">{extra.name}</div>
-                                <div className="text-sm text-gray-600">{extra.description}</div>
-                              </div>
-                            </div>
-                            <div className="text-emerald-600 font-bold">
-                           {extra.id === "carpet_steam" && selectedExtras.includes(extra.id)
-  ? `$${getCarpetPrice(selectedCarpets)}`
-  : extra.id === "balcony_garage" && selectedExtras.includes(extra.id)
-  ? `$${getBalconyPrice()}`
-  : extra.id === "exterior_window" && selectedExtras.includes(extra.id)
-  ? `$${getWindowPrice(selectedWindows)}`
-  : extra.id === "upholstery_clean" && selectedExtras.includes(extra.id)
-  ? `$${getUpholsteryPrice()}`
-  : extra.id === "wall_spot" && selectedExtras.includes(extra.id)
-? `$${getWallSpotPrice()}`
-: extra.id === "blind_cleaning" && selectedExtras.includes(extra.id)
-? `$${getBlindPrice(selectedBlinds)}`
-: extra.id === "flight_stairs" && selectedExtras.includes(extra.id)
-? `$${getStairsPrice()}`
-  : `$${extra.price}`
-}
-  
-                            </div>
-                          </div>
-                        </div>
-                      </label>
-                      
+                      <AddonCard
+                        checked={selectedExtras.includes(extra.id)}
+                        name={extra.name}
+                        description={extra.description}
+                        icon={extra.iconComponent}
+                        price={`$${getExtraPrice(extra.id, extra.price)}`}
+                        onClick={() => handleExtraToggle(extra.id)}
+                      />
+
                       {/* Carpet Quantity Selection - Appears directly below carpet add-on */}
-                      {extra.id === 'carpet_steam' &&
- selectedExtras.includes('carpet_steam') &&
- showCarpetDetails && (
-                        <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                            Carpet Steam Cleaning Details
-                          </h3>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            How many carpets would you like cleaned?
-                          </label>
-                          <div className="relative mb-4">
-                           <CustomDropdown
-  label="Number of Carpets"
-  value={selectedCarpets}
- onChange={(value) => {
-    setSelectedCarpets(value);
-    setShowCarpetDetails(false);
-}}
-  options={[1, 2, 3, 4, 5]}
-  isOpen={carpetDropdownOpen}
-  setIsOpen={setCarpetDropdownOpen}
-/>
+                      {(extra.id === 'carpet_steam' || extra.id === 'carpet_steam_custom') &&
+                        selectedExtras.includes(extra.id) &&
+                        showCarpetDetails && (
+                          <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                              Carpet Steam Cleaning Details
+                            </h3>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              How many carpets would you like cleaned?
+                            </label>
+                            <div className="relative mb-4">
+                              <CustomDropdown
+                                label="Number of Carpets"
+                                value={selectedCarpets}
+                                onChange={(value) => {
+                                  setSelectedCarpets(value);
+                                  setShowCarpetDetails(false);
+                                }}
+                                options={[1, 2, 3, 4, 5]}
+                                isOpen={carpetDropdownOpen}
+                                setIsOpen={setCarpetDropdownOpen}
+                              />
+                            </div>
+                            <p className="text-sm text-gray-600 mb-2">
+                              Carpet Steam Cleaning:
+                              First carpet $80, each additional carpet +$50.
+                            </p>
+                            <p className="text-sm font-semibold text-emerald-600">
+                              {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${getCarpetPrice(selectedCarpets)}
+                            </p>
                           </div>
-                          <p className="text-sm text-gray-600 mb-2">
-                            Carpet Steam Cleaning:
-First carpet $80, each additional carpet +$50.
-                          </p>
-                          <p className="text-sm font-semibold text-emerald-600">
-                            {selectedCarpets} carpet{selectedCarpets > 1 ? 's' : ''}: Your rate is ${getCarpetPrice(selectedCarpets)}
-                          </p>
-                        </div>
-                      )
-                      
-                      
+                        )
+
+
                       }
-{extra.id === "balcony_garage" &&
- selectedExtras.includes("balcony_garage") &&
- showBalconyDetails && (
+                      {extra.id === "balcony_garage" &&
+                        selectedExtras.includes("balcony_garage") &&
+                        showBalconyDetails && (
 
-<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
 
-    <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Balcony Cleaning Details
-    </h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                              Balcony Cleaning Details
+                            </h3>
 
-    <div className="space-y-3">
+                            <div className="space-y-3">
 
-        <button
-            type="button"
-            onClick={() => {
-                setSelectedBalconyType(1);
-                setShowBalconyDetails(false);
-            }}
-            className={`w-full p-4 rounded-lg border-2 text-left transition ${
-                selectedBalconyType === 1
-                    ? "border-emerald-500 bg-emerald-100"
-                    : "border-gray-300"
-            }`}
-        >
-            <div className="font-semibold">
-                Up to 12 m²
-            </div>
-            <div className="text-emerald-600 font-bold">
-                $60
-            </div>
-        </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedBalconyType(1);
+                                  setShowBalconyDetails(false);
+                                }}
+                                className={`w-full p-4 rounded-lg border-2 text-left transition ${selectedBalconyType === 1
+                                    ? "border-emerald-500 bg-emerald-100"
+                                    : "border-gray-300"
+                                  }`}
+                              >
+                                <div className="font-semibold">
+                                  Up to 12 m²
+                                </div>
+                                <div className="text-emerald-600 font-bold">
+                                  $60
+                                </div>
+                              </button>
 
-        <button
-            type="button"
-            onClick={() => {
-                setSelectedBalconyType(2);
-                setShowBalconyDetails(false);
-            }}
-            className={`w-full p-4 rounded-lg border-2 text-left transition ${
-                selectedBalconyType === 2
-                    ? "border-emerald-500 bg-emerald-100"
-                    : "border-gray-300"
-            }`}
-        >
-            <div className="font-semibold">
-                More than 12 m²
-            </div>
-            <div className="text-emerald-600 font-bold">
-                $80
-            </div>
-        </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedBalconyType(2);
+                                  setShowBalconyDetails(false);
+                                }}
+                                className={`w-full p-4 rounded-lg border-2 text-left transition ${selectedBalconyType === 2
+                                    ? "border-emerald-500 bg-emerald-100"
+                                    : "border-gray-300"
+                                  }`}
+                              >
+                                <div className="font-semibold">
+                                  More than 12 m²
+                                </div>
+                                <div className="text-emerald-600 font-bold">
+                                  $80
+                                </div>
+                              </button>
 
-    </div>
+                            </div>
 
-</div>
+                          </div>
 
-)}
-{extra.id === "exterior_window" &&
- selectedExtras.includes("exterior_window") &&
- showWindowDetails && (
+                        )}
+                      {extra.id === "exterior_window" &&
+                        selectedExtras.includes("exterior_window") &&
+                        showWindowDetails && (
 
-<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
 
-  <h3 className="text-lg font-semibold text-gray-900 mb-4">
-    Exterior Window Cleaning Details
-  </h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                              Exterior Window Cleaning Details
+                            </h3>
 
-  <CustomDropdown
-    label="Number of Windows"
-    value={selectedWindows}
-    onChange={(value) => {
-      setSelectedWindows(value);
-      setShowWindowDetails(false);
-    }}
-    options={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
-    isOpen={windowDropdownOpen}
-    setIsOpen={setWindowDropdownOpen}
-  />
+                            <CustomDropdown
+                              label="Number of Windows"
+                              value={selectedWindows}
+                              onChange={(value) => {
+                                setSelectedWindows(value);
+                                setShowWindowDetails(false);
+                              }}
+                              options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}
+                              isOpen={windowDropdownOpen}
+                              setIsOpen={setWindowDropdownOpen}
+                            />
 
-  <p className="mt-3 text-sm text-gray-600">
-    $8 per window
-  </p>
+                            <p className="mt-3 text-sm text-gray-600">
+                              $8 per window
+                            </p>
 
-  <p className="mt-2 text-emerald-600 font-semibold">
-    {selectedWindows} window{selectedWindows > 1 ? "s" : ""}: ${getWindowPrice(selectedWindows)}
-  </p>
+                            <p className="mt-2 text-emerald-600 font-semibold">
+                              {selectedWindows} window{selectedWindows > 1 ? "s" : ""}: ${getWindowPrice(selectedWindows)}
+                            </p>
 
-</div>
+                          </div>
 
-)}
-{extra.id === "upholstery_clean" &&
- selectedExtras.includes("upholstery_clean") &&
- showUpholsteryDetails && (
+                        )}
+                      {extra.id === "upholstery_clean" &&
+                        selectedExtras.includes("upholstery_clean") &&
+                        showUpholsteryDetails && (
 
-<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
 
-    <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Upholstery Cleaning Details
-    </h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                              Upholstery Cleaning Details
+                            </h3>
 
-    <div className="space-y-3">
+                            <div className="space-y-3">
 
-        <button
-            type="button"
-            onClick={() => {
-                setSelectedSofaType(2);
-                setShowUpholsteryDetails(false);
-            }}
-            className={`w-full p-4 rounded-lg border-2 text-left transition ${
-                selectedSofaType === 2
-                    ? "border-emerald-500 bg-emerald-100"
-                    : "border-gray-300"
-            }`}
-        >
-            <div className="font-semibold">
-                2 Seat Sofa
-            </div>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedSofaType(2);
+                                  setShowUpholsteryDetails(false);
+                                }}
+                                className={`w-full p-4 rounded-lg border-2 text-left transition ${selectedSofaType === 2
+                                    ? "border-emerald-500 bg-emerald-100"
+                                    : "border-gray-300"
+                                  }`}
+                              >
+                                <div className="font-semibold">
+                                  2 Seat Sofa
+                                </div>
 
-            <div className="text-emerald-600 font-bold">
-                $60
-            </div>
-        </button>
+                                <div className="text-emerald-600 font-bold">
+                                  $60
+                                </div>
+                              </button>
 
-        <button
-            type="button"
-            onClick={() => {
-                setSelectedSofaType(3);
-                setShowUpholsteryDetails(false);
-            }}
-            className={`w-full p-4 rounded-lg border-2 text-left transition ${
-                selectedSofaType === 3
-                    ? "border-emerald-500 bg-emerald-100"
-                    : "border-gray-300"
-            }`}
-        >
-            <div className="font-semibold">
-                3 Seat Sofa
-            </div>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedSofaType(3);
+                                  setShowUpholsteryDetails(false);
+                                }}
+                                className={`w-full p-4 rounded-lg border-2 text-left transition ${selectedSofaType === 3
+                                    ? "border-emerald-500 bg-emerald-100"
+                                    : "border-gray-300"
+                                  }`}
+                              >
+                                <div className="font-semibold">
+                                  3 Seat Sofa
+                                </div>
 
-            <div className="text-emerald-600 font-bold">
-                $80
-            </div>
-        </button>
+                                <div className="text-emerald-600 font-bold">
+                                  $80
+                                </div>
+                              </button>
 
-    </div>
+                            </div>
 
-</div>
+                          </div>
 
-)}
-                {extra.id === "wall_spot" &&
- selectedExtras.includes("wall_spot") &&
- showWallSpotDetails && (
+                        )}
+                      {extra.id === "wall_spot" &&
+                        selectedExtras.includes("wall_spot") &&
+                        showWallSpotDetails && (
 
-<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
 
-<h3 className="text-lg font-semibold mb-4">
-Wall Spot Cleaning Details
-</h3>
+                            <h3 className="text-lg font-semibold mb-4">
+                              Wall Spot Cleaning Details
+                            </h3>
 
-<div className="space-y-3">
+                            <div className="space-y-3">
 
-{[
-  { value: "per_wall", label: "Per Wall", price: 25 },
-  { value: "two_walls", label: "2 Walls", price: 50 },
-  { value: "one_bedroom", label: "1 Bedroom", price: 120 },
-  { value: "two_bedrooms", label: "2 Bedrooms", price: 200 },
-  { value: "three_bedrooms", label: "3 Bedrooms", price: 250 },
-  { value: "four_bedrooms", label: "4 Bedrooms", price: 300 },
-].map(option => (
+                              {[
+                                { value: "per_wall", label: "Per Wall", price: 25 },
+                                { value: "two_walls", label: "2 Walls", price: 50 },
+                                { value: "one_bedroom", label: "1 Bedroom", price: 120 },
+                                { value: "two_bedrooms", label: "2 Bedrooms", price: 200 },
+                                { value: "three_bedrooms", label: "3 Bedrooms", price: 250 },
+                                { value: "four_bedrooms", label: "4 Bedrooms", price: 300 },
+                              ].map(option => (
 
-<button
-key={option.value}
-type="button"
-onClick={() => {
-setSelectedWallSpot(option.value);
-setShowWallSpotDetails(false);
-}}
-className={`w-full p-4 rounded-lg border-2 text-left transition ${
-selectedWallSpot === option.value
-? "border-emerald-500 bg-emerald-100"
-: "border-gray-300"
-}`}
->
+                                <button
+                                  key={option.value}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedWallSpot(option.value);
+                                    setShowWallSpotDetails(false);
+                                  }}
+                                  className={`w-full p-4 rounded-lg border-2 text-left transition ${selectedWallSpot === option.value
+                                      ? "border-emerald-500 bg-emerald-100"
+                                      : "border-gray-300"
+                                    }`}
+                                >
 
-<div className="flex justify-between">
+                                  <div className="flex justify-between">
 
-<span className="font-medium">
-{option.label}
-</span>
+                                    <span className="font-medium">
+                                      {option.label}
+                                    </span>
 
-<span className="font-bold text-emerald-600">
-${option.price}
-</span>
+                                    <span className="font-bold text-emerald-600">
+                                      ${option.price}
+                                    </span>
 
-</div>
+                                  </div>
 
-</button>
+                                </button>
 
-))}
+                              ))}
 
-</div>
+                            </div>
 
-</div>
+                          </div>
 
-)}
-{extra.id === "blind_cleaning" &&
- selectedExtras.includes("blind_cleaning") &&
- showBlindDetails && (
+                        )}
+                      {extra.id === "blind_cleaning" &&
+                        selectedExtras.includes("blind_cleaning") &&
+                        showBlindDetails && (
 
-<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
 
-<h3 className="text-lg font-semibold text-gray-900 mb-4">
-Blind Cleaning Details
-</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                              Blind Cleaning Details
+                            </h3>
 
-<CustomDropdown
-label="Number of Blinds"
-value={selectedBlinds}
-onChange={(value) => {
-setSelectedBlinds(value);
-setShowBlindDetails(false);
-}}
-options={[1,2,3,4,5,6,7,8,9,10]}
-isOpen={blindDropdownOpen}
-setIsOpen={setBlindDropdownOpen}
-/>
+                            <CustomDropdown
+                              label="Number of Blinds"
+                              value={selectedBlinds}
+                              onChange={(value) => {
+                                setSelectedBlinds(value);
+                                setShowBlindDetails(false);
+                              }}
+                              options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                              isOpen={blindDropdownOpen}
+                              setIsOpen={setBlindDropdownOpen}
+                            />
 
-<p className="mt-4 text-sm text-gray-600">
-1 Blind = $25, 2 Blinds = $40, 3 Blinds = $60
-</p>
+                            <p className="mt-4 text-sm text-gray-600">
+                              1 Blind = $25, 2 Blinds = $40, 3 Blinds = $60
+                            </p>
 
-<p className="text-sm font-semibold text-emerald-600 mt-2">
-{selectedBlinds} Blind{selectedBlinds > 1 ? "s" : ""}: ${getBlindPrice(selectedBlinds)}
-</p>
+                            <p className="text-sm font-semibold text-emerald-600 mt-2">
+                              {selectedBlinds} Blind{selectedBlinds > 1 ? "s" : ""}: ${getBlindPrice(selectedBlinds)}
+                            </p>
 
-<p className="mt-2 text-sm text-gray-600">
-<strong>Note:</strong> Add <span className="font-semibold text-emerald-600">$20</span> for each additional blind after the first three.
-</p>
+                            <p className="mt-2 text-sm text-gray-600">
+                              <strong>Note:</strong> Add <span className="font-semibold text-emerald-600">$20</span> for each additional blind after the first three.
+                            </p>
 
-</div>
+                          </div>
 
-)}      
-      {extra.id === "flight_stairs" &&
- selectedExtras.includes("flight_stairs") &&
- showStairsDetails && (
+                        )}
+                      {extra.id === "flight_stairs" &&
+                        selectedExtras.includes("flight_stairs") &&
+                        showStairsDetails && (
 
-<div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
+                          <div className="mt-4 p-6 bg-emerald-50 rounded-lg border border-emerald-200">
 
-    <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Flight of Stairs Details
-    </h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                              Flight of Stairs Details
+                            </h3>
 
-    <div className="space-y-3">
+                            <div className="space-y-3">
 
-        <button
-            type="button"
-            onClick={() => {
-                setSelectedStairsType(1);
-                setShowStairsDetails(false);
-            }}
-            className={`w-full p-4 rounded-lg border-2 text-left transition ${
-                selectedStairsType === 1
-                    ? "border-emerald-500 bg-emerald-100"
-                    : "border-gray-300"
-            }`}
-        >
-            <div className="flex justify-between items-center">
-                <span className="font-semibold">
-                    Vacuum Only
-                </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedStairsType(1);
+                                  setShowStairsDetails(false);
+                                }}
+                                className={`w-full p-4 rounded-lg border-2 text-left transition ${selectedStairsType === 1
+                                    ? "border-emerald-500 bg-emerald-100"
+                                    : "border-gray-300"
+                                  }`}
+                              >
+                                <div className="flex justify-between items-center">
+                                  <span className="font-semibold">
+                                    Vacuum Only
+                                  </span>
 
-                <span className="font-bold text-emerald-600">
-                    $35
-                </span>
-            </div>
-        </button>
+                                  <span className="font-bold text-emerald-600">
+                                    $35
+                                  </span>
+                                </div>
+                              </button>
 
-        <button
-            type="button"
-            onClick={() => {
-                setSelectedStairsType(2);
-                setShowStairsDetails(false);
-            }}
-            className={`w-full p-4 rounded-lg border-2 text-left transition ${
-                selectedStairsType === 2
-                    ? "border-emerald-500 bg-emerald-100"
-                    : "border-gray-300"
-            }`}
-        >
-            <div className="flex justify-between items-center">
-                <span className="font-semibold">
-                    Vacuum + Carpet Steam Clean
-                </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedStairsType(2);
+                                  setShowStairsDetails(false);
+                                }}
+                                className={`w-full p-4 rounded-lg border-2 text-left transition ${selectedStairsType === 2
+                                    ? "border-emerald-500 bg-emerald-100"
+                                    : "border-gray-300"
+                                  }`}
+                              >
+                                <div className="flex justify-between items-center">
+                                  <span className="font-semibold">
+                                    Vacuum + Carpet Steam Clean
+                                  </span>
 
-                <span className="font-bold text-emerald-600">
-                    $60
-                </span>
-            </div>
-        </button>
+                                  <span className="font-bold text-emerald-600">
+                                    $60
+                                  </span>
+                                </div>
+                              </button>
 
-    </div>
+                            </div>
 
-</div>
+                          </div>
 
-)}                
+                        )}
                       {/* Carpet Quantity Selection for Custom Cleaning */}
-                     
 
-                     
+
+
                     </div>
-                    
+
                   ))}
                 </div>
 
               </motion.div>
             )}
-
-            {/* Step 4: Contact Info */}
-            {currentStep === 4 && (
+              
+            {/* Step 5: Details */}
+            {currentStep === 5 && (
               <motion.div
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">Your Details</h2>
+                <p className="text-gray-500 mb-6">
+                  We'll use these details to confirm and arrange your clean.
+                </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          {...register('firstName')}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                          placeholder="Enter your first name"
+                        />
+                        {errors.firstName && touchedFields.firstName && (
+                          <p className="mt-1 text-red-600 text-sm">{errors.firstName.message}</p>
+                        )}
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          {...register('lastName')}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                          placeholder="Enter your last name"
+                        />
+                        {errors.lastName && touchedFields.lastName && (
+                          <p className="mt-1 text-red-600 text-sm">{errors.lastName.message}</p>
+                        )}
+                      </div>
+                    </div>
+
+
+                 
+                  
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        {...register('email')}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                        placeholder="your.email@example.com"
+                      />
+                      {errors.email && touchedFields.email && (
+                        <p className="mt-1 text-red-600 text-sm">{errors.email.message}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Phone
+                      </label>
+                      <input
+                        type="tel"
+                        {...register('phone')}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
+                        placeholder="0412 345 678"
+                      />
+                      {errors.phone && touchedFields.phone && (
+                        <p className="mt-1 text-red-600 text-sm">{errors.phone.message}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      First Name
+                      Property Address
                     </label>
                     <input
                       type="text"
-                      {...register('firstName')}
+                      {...register('address')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
-                      placeholder="Enter your first name"
+                      placeholder="Enter your full address (e.g., 123 Collins Street, Melbourne VIC 3000)"
                     />
-                    {errors.firstName && touchedFields.firstName && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.firstName.message}</p>
+                    {errors.address && touchedFields.address && (
+                      <p className="mt-1 text-red-600 text-sm">{errors.address.message}</p>
                     )}
                   </div>
-                  <div>
+
+                  <div className="mb-2">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Last Name
+                      Additional Notes (Optional)
                     </label>
-                    <input
-                      type="text"
-                      {...register('lastName')}
+                    <textarea
+                      {...register('notes')}
+                      rows={4}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
-                      placeholder="Enter your last name"
+                      placeholder="Any special instructions or requests..."
                     />
-                    {errors.lastName && touchedFields.lastName && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.lastName.message}</p>
+                  </div>
+              </motion.div>
+            )}
+
+            {/* Step 6: Review */}
+            {currentStep === 6 && (
+              <motion.div
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-2xl font-bold text-gray-900 mb-1">Review & Confirm</h2>
+                <p className="text-gray-500 mb-6">
+                  Please check the details below before confirming your booking.
+                </p>
+
+                <div className="bg-gray-50 rounded-xl p-6 mb-6">
+                  <p className="text-xs uppercase tracking-wide text-gray-500 mb-3">
+                    Contact Details
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="text-gray-500">Name</p>
+                      <p className="font-medium text-gray-900">
+                        {watchedValues.firstName} {watchedValues.lastName}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Email</p>
+                      <p className="font-medium text-gray-900">{watchedValues.email}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Phone</p>
+                      <p className="font-medium text-gray-900">{watchedValues.phone}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Address</p>
+                      <p className="font-medium text-gray-900">{watchedValues.address}</p>
+                    </div>
+                    {watchedValues.notes && (
+                      <div className="sm:col-span-2">
+                        <p className="text-gray-500">Notes</p>
+                        <p className="font-medium text-gray-900">{watchedValues.notes}</p>
+                      </div>
                     )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      {...register('email')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
-                      placeholder="your.email@example.com"
-                    />
-                    {errors.email && touchedFields.email && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.email.message}</p>
-                    )}
+                {/* Full summary, shown as the main content on Review (and always in
+                    the sidebar on desktop) so mobile users see it here too. */}
+                <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden lg:hidden">
+                  <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 p-6 text-white">
+                    <h3 className="text-2xl font-bold">🧾 Booking Summary</h3>
+                    <p className="text-emerald-100 text-sm mt-1">Review your booking before checkout</p>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      {...register('phone')}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
-                      placeholder="0412 345 678"
-                    />
-                    {errors.phone && touchedFields.phone && (
-                      <p className="mt-1 text-red-600 text-sm">{errors.phone.message}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Property Address
-                  </label>
-                  <input
-                    type="text"
-                    {...register('address')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
-                    placeholder="Enter your full address (e.g., 123 Collins Street, Melbourne VIC 3000)"
-                  />
-                  {errors.address && touchedFields.address && (
-                    <p className="mt-1 text-red-600 text-sm">{errors.address.message}</p>
-                  )}
-                </div>
-
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Additional Notes (Optional)
-                  </label>
-                  <textarea
-                    {...register('notes')}
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition-colors duration-200"
-                    placeholder="Any special instructions or requests..."
-                  />
+                  <div className="p-6 space-y-6">{renderBookingSummary()}</div>
                 </div>
               </motion.div>
             )}
@@ -1524,50 +1975,56 @@ setIsOpen={setBlindDropdownOpen}
                 )}
               </div>
 
-              <div className="text-center">
-                {watchedValues.serviceType && (
-                  <div className="text-sm text-gray-600 mb-2">
-                    Estimated Price
-                  </div>
-                )}
-                {watchedValues.serviceType && (
-                  <div className="text-2xl font-bold text-emerald-600">
-                    ${calculatePrice()}
-                  </div>
-                )}
-              </div>
+
 
               <div>
-                {currentStep < 4 ? (
+                {currentStep < TOTAL_STEPS ? (
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="button"
                     onClick={nextStep}
-                    disabled={currentStep === 2 && postalCodeValid !== true}
-                    className={`btn-primary flex items-center ${
-                      currentStep === 2 && postalCodeValid !== true 
-                        ? 'opacity-50 cursor-not-allowed' 
+                    disabled={
+                      (currentStep === 2 && postalCodeValid !== true) ||
+                      (currentStep === 3 && (!watchedValues.preferredDate || !watchedValues.preferredTime))
+                    }
+                    className={`btn-primary flex items-center ${(currentStep === 2 && postalCodeValid !== true) ||
+                        (currentStep === 3 && (!watchedValues.preferredDate || !watchedValues.preferredTime))
+                        ? 'opacity-50 cursor-not-allowed'
                         : ''
-                    }`}
+                      }`}
                   >
-                    Next
+                    Continue
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </motion.button>
                 ) : (
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    type="submit"
+                    type="button"
+                    onClick={handleSubmit(onSubmit)}
                     disabled={submitting}
                     className={`btn-primary flex items-center ${(!isValid || submitting) ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
-                    {submitting ? 'Submitting…' : 'Submit Request'}
+                    {submitting ? 'Submitting…' : 'Confirm Booking'}
                     <CheckCircle className="w-4 h-4 ml-2" />
                   </motion.button>
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Persistent Booking Summary sidebar (desktop only - mobile sees the
+              compact total bar above, plus the full summary on the Review step) */}
+          <aside className="hidden lg:block sticky top-24">
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+              <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 p-6 text-white">
+                <h3 className="text-2xl font-bold">🧾 Booking Summary</h3>
+                <p className="text-emerald-100 text-sm mt-1">Review your booking before checkout</p>
+              </div>
+              <div className="p-6 space-y-6">{renderBookingSummary()}</div>
+            </div>
+          </aside>
           </div>
         </form>
       </div>

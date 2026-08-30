@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  CheckCircle, 
-  Shield, 
-  Clock, 
+import {
+  CheckCircle,
+  Shield,
   ArrowRight,
   Sparkles,
   Users,
@@ -13,10 +12,8 @@ import {
   Wind,
   Zap,
   Star,
-  Heart,
-  Home as HomeIcon
+  Heart
 } from 'lucide-react';
-import carpetSteamCleaningImg from "../../images/carpetSteamCleaning.jpg";
 import carpetCleaningSecImg from "../../images/carpetCleaningSecImg.jpg";
 
 const CarpetCleaning: React.FC = () => {
@@ -50,18 +47,6 @@ const CarpetCleaning: React.FC = () => {
       description: "Professional carpet maintenance for offices, retail spaces, and commercial properties",
       icon: "🏢",
       features: ["Flexible scheduling", "Minimal disruption", "High-traffic areas", "Maintenance plans"]
-    },
-    {
-      title: "Upholstery Cleaning",
-      description: "Professional cleaning for sofas, chairs, and other upholstered furniture",
-      icon: "🛋️",
-      features: ["Fabric care", "Color restoration", "Stain protection", "Quick drying"]
-    },
-    {
-      title: "Rug Cleaning",
-      description: "Specialized cleaning for area rugs, Persian rugs, and delicate textiles",
-      icon: "🏺",
-      features: ["Hand cleaning", "Color testing", "Fringe care", "Pickup & delivery"]
     }
   ];
 
@@ -95,23 +80,33 @@ const CarpetCleaning: React.FC = () => {
   const whyChooseWipely = [
     {
       title: "Advanced Equipment",
-      description: "We use professional-grade steam cleaning equipment that delivers superior results compared to rental machines.",
+      description: "Commercial-grade steam extraction outperforms rental machines.",
       icon: Zap
     },
     {
-      title: "Eco-Friendly Solutions",
-      description: "Our cleaning products are safe for children, pets, and the environment while being tough on dirt and stains.",
+      title: "Eco-Friendly & Safe",
+      description: "Non-toxic solutions that are safe for children and pets.",
       icon: Shield
     },
     {
-      title: "Fast Drying Time",
-      description: "Our efficient extraction process means your carpets dry faster, typically within 2-4 hours.",
+      title: "Fast Drying",
+      description: "Carpets dry in just 2-4 hours after cleaning.",
       icon: Wind
     },
     {
       title: "Satisfaction Guarantee",
-      description: "We stand behind our work with a 100% satisfaction guarantee. If you're not happy, we'll make it right.",
+      description: "100% guarantee — if you're not happy, we'll make it right.",
       icon: Heart
+    },
+    {
+      title: "Extends Carpet Life",
+      description: "Regular cleaning prevents premature wear and replacement.",
+      icon: Award
+    },
+    {
+      title: "Healthier Home",
+      description: "Removes allergens, bacteria, and dust mites for cleaner air.",
+      icon: Users
     }
   ];
 
@@ -152,47 +147,35 @@ const CarpetCleaning: React.FC = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Jennifer Walsh",
-      location: "Toorak",
-      rating: 5,
-      text: "Amazing results! My carpets look brand new after Wipely's steam cleaning. The pet odors are completely gone and the service was professional.",
-      service: "Pet Odor Treatment"
-    },
-    {
-      name: "David Kim",
-      location: "South Melbourne",
-      rating: 5,
-      text: "Excellent carpet cleaning service. They removed wine stains I thought were permanent. Fast drying and great customer service.",
-      service: "Stain Removal"
-    },
-    {
-      name: "Sarah Mitchell",
-      location: "Brighton",
-      rating: 5,
-      text: "Professional and thorough. My office carpets look fantastic and the team worked around our business hours perfectly.",
-      service: "Commercial Cleaning"
-    }
-  ];
-
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
+      <section className="relative py-16 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Professional Carpet
-              <span className="block text-emerald-600">Cleaning</span>
+            <span className="inline-block bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+              Professional Carpet Care
+            </span>
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 font-display">
+              Carpet <span className="text-emerald-600">Cleaning</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Deep steam cleaning that removes dirt, stains, and allergens ,  leaving your carpets fresh, clean, and healthy
+              Deep steam cleaning that removes dirt, stains, and allergens, leaving your carpets fresh, clean, and healthy.
             </p>
+            <Link to="/book?service=carpet-cleaning">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-full shadow-lg transition-colors duration-300"
+              >
+                Book Now
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
         
@@ -237,7 +220,7 @@ const CarpetCleaning: React.FC = () => {
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Professional carpet cleaning extends carpet life, improves indoor air quality, and creates a healthier home environment
+              Extends carpet life, improves indoor air quality, and creates a healthier home.
             </p>
           </motion.div>
 
@@ -256,23 +239,13 @@ const CarpetCleaning: React.FC = () => {
                   className="rounded-2xl shadow-2xl w-full"
                 />
                 
-                <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-sm">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-emerald-600" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900 text-sm">Lisa R.</div>
-                      <div className="text-gray-600 text-xs">Malvern</div>
-                    </div>
+                <div className="absolute -bottom-6 -right-6 bg-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3">
+                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Star className="w-5 h-5 text-emerald-600 fill-current" />
                   </div>
-                  <blockquote className="text-gray-700 italic text-sm leading-relaxed">
-                    "My carpets haven't looked this good since they were new! The team was professional and the results are amazing."
-                  </blockquote>
-                  <div className="flex items-center mt-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
-                    ))}
+                  <div>
+                    <div className="font-semibold text-gray-900 text-sm">4.9 Google Rating</div>
+                    <div className="text-gray-600 text-xs">From real Wipely customers</div>
                   </div>
                 </div>
               </div>
@@ -297,14 +270,9 @@ const CarpetCleaning: React.FC = () => {
                     <h3 className="text-2xl font-bold text-gray-900">The Wipely Difference</h3>
                   </div>
                   
-                  <div className="space-y-4 mb-8">
+                  <div className="mb-8">
                     <p className="text-gray-700 leading-relaxed">
-                      Our professional carpet cleaning uses <strong>hot water extraction</strong> (steam cleaning) to remove deep-seated dirt, 
-                      allergens, and bacteria that regular vacuuming can't reach.
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                      Unlike DIY methods, our <strong>commercial-grade equipment</strong> and specialized cleaning solutions 
-                      deliver superior results while being safe for your family and pets.
+                      Our <strong>commercial-grade hot water extraction</strong> removes deep-seated dirt, allergens, and bacteria that regular vacuuming and DIY methods can't reach.
                     </p>
                   </div>
 
@@ -314,7 +282,7 @@ const CarpetCleaning: React.FC = () => {
                       { icon: Wind, text: "Fast Drying" },
                       { icon: Award, text: "Guaranteed Results" },
                       { icon: Users, text: "Trained Experts" }
-                    ].map((benefit, index) => (
+                    ].map((benefit) => (
                       <div key={benefit.text} className="flex items-center space-x-2">
                         <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
                           <benefit.icon className="w-4 h-4 text-emerald-600" />
@@ -331,7 +299,7 @@ const CarpetCleaning: React.FC = () => {
       </section>
 
       {/* Carpet Services */}
-      <section className="py-20 bg-white">
+      <section className="py-14 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -344,11 +312,11 @@ const CarpetCleaning: React.FC = () => {
               Our Carpet Cleaning Services
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive carpet care solutions for homes and businesses across Melbourne
+              Comprehensive carpet care for homes and businesses across Melbourne
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {carpetServices.map((service, index) => (
               <motion.div
                 key={service.title}
@@ -356,15 +324,15 @@ const CarpetCleaning: React.FC = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 h-full flex flex-col"
               >
                 <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
-                <ul className="space-y-2">
+                <ul className="space-y-2 mt-auto">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center space-x-2 text-sm text-gray-700">
-                      <CheckCircle className="w-4 h-4 text-emerald-500" />
+                      <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -376,7 +344,7 @@ const CarpetCleaning: React.FC = () => {
       </section>
 
       {/* Cleaning Process */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-14 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -389,7 +357,7 @@ const CarpetCleaning: React.FC = () => {
               Our Carpet Cleaning Process
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A systematic approach that ensures the best possible results for your carpets
+              A systematic approach for the best possible results
             </p>
           </motion.div>
 
@@ -484,7 +452,7 @@ const CarpetCleaning: React.FC = () => {
       </section>
 
       {/* Why Choose Wipely */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+      <section className="py-14 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -501,11 +469,11 @@ const CarpetCleaning: React.FC = () => {
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Professional equipment, expert techniques, and guaranteed satisfaction for the best carpet cleaning results
+              Professional equipment, expert techniques, and guaranteed satisfaction
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {whyChooseWipely.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -515,107 +483,49 @@ const CarpetCleaning: React.FC = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-full -translate-y-10 translate-x-10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
-                  
-                  <div className="relative z-10">
-                    <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-emerald-200 group-hover:scale-110 transition-all duration-300">
-                      <item.icon className="w-8 h-8 text-emerald-600" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed text-lg">
-                      {item.description}
-                    </p>
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-lg h-full">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition-all duration-300">
+                    <item.icon className="w-6 h-6 text-emerald-600" />
                   </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
-          
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white rounded-2xl p-8 border border-gray-100"
-          >
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Additional Benefits</h3>
-              <p className="text-gray-600">More reasons to choose professional carpet cleaning</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: "💰",
-                  title: "Extends Carpet Life",
-                  description: "Regular cleaning prevents premature wear and replacement"
-                },
-                {
-                  icon: "🏠",
-                  title: "Improves Air Quality",
-                  description: "Removes allergens and pollutants trapped in carpet fibers"
-                },
-                {
-                  icon: "😌",
-                  title: "Healthier Home",
-                  description: "Eliminates bacteria, dust mites, and other harmful microorganisms"
-                }
-              ].map((benefit, index) => (
-                <div key={benefit.title} className="text-center">
-                  <div className="text-3xl mb-3">{benefit.icon}</div>
-                  <h4 className="font-semibold text-gray-900 mb-2">{benefit.title}</h4>
-                  <p className="text-gray-600 text-sm">{benefit.description}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 
-      {/* Customer Testimonials */}
-      <section className="py-14 bg-white">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">
-            What Our Customers Say
-          </h2>
-          <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6 mx-auto"></div>
-          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-            Real reviews from satisfied customers across Melbourne
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-50 rounded-xl shadow-md p-6 h-full flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center mb-3 justify-center">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 italic mb-4">
-                    "{testimonial.text}"
-                  </p>
-                </div>
-                <div className="text-center mt-4">
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-sm text-gray-600">{testimonial.location}</div>
-                  <span className="inline-block mt-2 text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded">
-                    {testimonial.service}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      {/* Customer Reviews */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center justify-center w-14 h-14 bg-emerald-100 rounded-full mb-4">
+              <Star className="w-7 h-7 text-emerald-600 fill-current" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Loved by Homes &amp; Businesses Across Melbourne
+            </h2>
+            <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+              See genuine feedback from customers who've booked with us.
+            </p>
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full transition-colors duration-300"
+            >
+              Read Customer Reviews
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
@@ -653,15 +563,15 @@ const CarpetCleaning: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-emerald-600 text-white py-12">
+      <section className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
             Ready for Cleaner, Healthier Carpets?
           </h2>
           <p className="text-lg mb-6 max-w-2xl mx-auto">
-            Professional carpet cleaning that removes dirt, stains, and allergens ,  book your service today!
+            Professional carpet cleaning that removes dirt, stains, and allergens — book your service today!
           </p>
-          <Link to="/book">
+          <Link to="/book?service=carpet-cleaning">
             <button className="inline-block bg-white text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300">
               Book Now
             </button>

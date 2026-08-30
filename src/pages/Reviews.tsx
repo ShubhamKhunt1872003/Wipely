@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Star, 
-  ArrowRight, 
-  ChevronLeft, 
+import {
+  Star,
+  ArrowRight,
+  ChevronLeft,
   ChevronRight,
   Users,
   Home as HomeIcon,
   Award,
   Clock,
   CheckCircle,
-  PlayCircle,
   Sparkles
 } from 'lucide-react';
+import GoogleReviewsCarousel from '../components/home/GoogleReviewsCarousel';
+import { GOOGLE_REVIEWS_PROFILE_URL } from '../data/googleReviews';
+import { useGoogleReviews } from '../hooks/useGoogleReviews';
+import bathroomBeforeImg from '../images/bathroomBefore.jpeg';
+import bathroomAfterImg from '../images/bathroomAfter.jpeg';
 
 const Reviews: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { reviews, rating, userRatingCount, isLive } = useGoogleReviews();
 
   const beforeAfterImages = [
     {
@@ -26,8 +31,8 @@ const Reviews: React.FC = () => {
       location: "South Yarra"
     },
     {
-      before: "https://images.pexels.com/photos/6436308/pexels-photo-6436308.jpeg?auto=compress&cs=tinysrgb&w=600",
-      after: "https://images.pexels.com/photos/6436309/pexels-photo-6436309.jpeg?auto=compress&cs=tinysrgb&w=600",
+      before: bathroomBeforeImg,
+      after: bathroomAfterImg,
       title: "Bathroom Restoration",
       location: "Richmond"
     },
@@ -73,63 +78,6 @@ const Reviews: React.FC = () => {
       description: "Final inspection and your satisfaction guaranteed",
       icon: Award,
       duration: "Complete"
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      location: "South Yarra",
-      rating: 5,
-      text: "Wipely transformed my home! The team was professional, thorough, and left everything spotless. I'll definitely book them again.",
-      image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      service: "Regular Cleaning",
-      date: "2 weeks ago"
-    },
-    {
-      name: "Michael Chen",
-      location: "Richmond",
-      rating: 5,
-      text: "Outstanding end of lease cleaning service. Got my full bond back thanks to their meticulous attention to detail.",
-      image: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      service: "End of Lease",
-      date: "1 month ago"
-    },
-    {
-      name: "Emma Thompson",
-      location: "Carlton",
-      rating: 5,
-      text: "Regular cleaning service has been a game-changer for our busy family. Reliable, thorough, and reasonably priced.",
-      image: "https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      service: "Regular Cleaning",
-      date: "3 weeks ago"
-    },
-    {
-      name: "James Wilson",
-      location: "Fitzroy",
-      rating: 5,
-      text: "The spring cleaning service exceeded all expectations. Every corner was spotless and the team was incredibly professional.",
-      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      service: "Spring Cleaning",
-      date: "2 months ago"
-    },
-    {
-      name: "Lisa Rodriguez",
-      location: "Collingwood",
-      rating: 5,
-      text: "Amazing carpet cleaning service! Stains I thought were permanent are completely gone. Highly recommend!",
-      image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      service: "Custom Cleaning",
-      date: "1 week ago"
-    },
-    {
-      name: "David Park",
-      location: "Windsor",
-      rating: 5,
-      text: "Excellent service from start to finish. Punctual, professional, and delivered exactly what they promised.",
-      image: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      service: "One-off Clean",
-      date: "3 weeks ago"
     }
   ];
 
@@ -388,63 +336,37 @@ const Reviews: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonials Carousel */}
+      {/* Genuine Customer Reviews */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-10"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               What Our Customers Say
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Real reviews from real customers across Melbourne
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
+              Genuine Google reviews from real customers across Melbourne
             </p>
+            <div className="inline-flex items-center gap-2 bg-gray-50 rounded-full shadow-sm border border-gray-100 px-5 py-2.5">
+              <div className="flex">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                ))}
+              </div>
+              <span className="!text-sm font-semibold text-gray-800">
+                {isLive && rating !== null
+                  ? `${rating.toFixed(1)} · Google Reviews${userRatingCount ? ` (${userRatingCount})` : ''}`
+                  : 'Google Reviews'}
+              </span>
+            </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-50 rounded-xl p-6 card-hover"
-              >
-                <div className="flex items-center mb-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.location}</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                
-                <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                
-                <div className="flex justify-between items-center text-sm text-gray-500">
-                  <span className="bg-emerald-100 text-emerald-800 px-2 py-1 rounded">
-                    {testimonial.service}
-                  </span>
-                  <span>{testimonial.date}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <GoogleReviewsCarousel reviews={reviews} profileUrl={GOOGLE_REVIEWS_PROFILE_URL} />
         </div>
       </section>
 
