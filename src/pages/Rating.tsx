@@ -9,7 +9,7 @@ import {
 
 const ratingLabels = ["Poor", "Fair", "Good", "Great", "Excellent"];
 const REVIEW_WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxM6-kCzMg1ukZtK9SJmvJa9FKXH0p3o4L_9aPqDNHuoOe_ZI8mnMeTkG-P8MRIfDZe1A/exec";
+  "https://script.google.com/macros/s/AKfycbwC7vuMxFcTJrpwulWdO7fev7yDIdA_bkiVW9-hb3JiUqKLBkAI9CVIbpb1OnaKt4N-3A/exec";
 const Rating: React.FC = () => {
   const [rating, setRating] = useState<number>(0);
   const [name, setName] = useState("");
