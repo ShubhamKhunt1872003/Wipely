@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, ChevronRight, Sparkles, Phone, ArrowRight } from 'lucide-react';
+import { trackContactClick } from '../lib/metaPixel';
 
 interface NavLink {
   name: string;
@@ -198,6 +199,7 @@ const Header: React.FC = () => {
           <div className="hidden md:flex items-center gap-5">
             <a
               href="tel:+61435137936"
+              onClick={() => trackContactClick('call')}
               className="flex items-center gap-2 !text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200"
             >
               <Phone className="w-4 h-4 text-emerald-600" />
@@ -333,6 +335,7 @@ const Header: React.FC = () => {
               <div className="pt-6 space-y-3">
                 <a
                   href="tel:+61435137936"
+                  onClick={() => trackContactClick('call')}
                   className="flex items-center justify-center gap-2 w-full border-2 border-emerald-600 text-emerald-600 font-semibold py-3 rounded-full"
                 >
                   <Phone className="w-4 h-4" />

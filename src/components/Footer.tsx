@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Sparkles, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { trackContactClick } from '../lib/metaPixel';
 
 const quickLinks = [
   { name: 'Home', href: '/' },
@@ -79,13 +80,21 @@ const Footer: React.FC = () => {
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4 flex-shrink-0 text-emerald-400" />
-              <a href="tel:+61435137936" className="hover:text-white transition-colors duration-200">
+              <a
+                href="tel:+61435137936"
+                onClick={() => trackContactClick('call')}
+                className="hover:text-white transition-colors duration-200"
+              >
                 +61 435 137 936
               </a>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 flex-shrink-0 text-emerald-400" />
-              <a href="mailto:info@wipely.au" className="hover:text-white transition-colors duration-200">
+              <a
+                href="mailto:info@wipely.au"
+                onClick={() => trackContactClick('email')}
+                className="hover:text-white transition-colors duration-200"
+              >
                 info@wipely.au
               </a>
             </li>

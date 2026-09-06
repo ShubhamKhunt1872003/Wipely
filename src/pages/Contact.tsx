@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import MapComponent from '../components/MapComponent';
+import { track, trackContactClick } from '../lib/metaPixel';
 import {
   Phone,
   Mail,
@@ -95,6 +96,9 @@ const Contact: React.FC = () => {
     // await fetch('https://formspree.io/f/your-form-id', { method: 'POST', body: JSON.stringify(data) })
     console.log('Contact form submitted:', data);
     await new Promise((resolve) => setTimeout(resolve, 800));
+    // Lead: a contact-form submission is a standard "generated a lead" event.
+    // Only the (non-personal) subject category is sent, never name/email/etc.
+    track('Lead', { content_name: 'contact_form', content_category: data.subject });
     setIsSubmitted(true);
     reset();
   };
@@ -167,7 +171,7 @@ const Contact: React.FC = () => {
                   <ArrowRight className="inline-block ml-2 w-5 h-5" />
                 </motion.button>
               </Link>
-              <a href="tel:+61435137936">
+              <a href="tel:+61435137936" onClick={() => trackContactClick('call')}>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -221,6 +225,7 @@ const Contact: React.FC = () => {
                   {info.href ? (
                     <a
                       href={info.href}
+                      onClick={() => trackContactClick(info.title === 'Phone' ? 'call' : 'email')}
                       className="text-lg font-medium text-emerald-600 mb-2 hover:text-emerald-700 transition-colors duration-200"
                     >
                       {info.details}
@@ -382,7 +387,11 @@ const Contact: React.FC = () => {
                     <Phone className="w-6 h-6 text-emerald-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Phone</h4>
-                      <a href="tel:+61435137936" className="text-gray-600 hover:text-emerald-600 transition-colors duration-200">
+                      <a
+                        href="tel:+61435137936"
+                        onClick={() => trackContactClick('call')}
+                        className="text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+                      >
                         +61 435 137 936
                       </a>
                     </div>
@@ -391,7 +400,11 @@ const Contact: React.FC = () => {
                     <Mail className="w-6 h-6 text-emerald-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Email</h4>
-                      <a href="mailto:info@wipely.au" className="text-gray-600 hover:text-emerald-600 transition-colors duration-200">
+                      <a
+                        href="mailto:info@wipely.au"
+                        onClick={() => trackContactClick('email')}
+                        className="text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+                      >
                         info@wipely.au
                       </a>
                     </div>

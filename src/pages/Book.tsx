@@ -293,9 +293,9 @@ const customCleaningExtras = [
 const WEB_APP_URL = `https://script.google.com/macros/s/AKfycbw_FY321a0qBIzyRMtTztQX2EoUMn_w_0yJrkPhpZ3BRuawirJe6HbOimwuGXVwB0SZ/exec`;
 
 // Email configuration
-const ENQUIRY_EMAIL = "wipelycleaning25@gmail.com";
+const ENQUIRY_EMAIL = 'wipelycleaning@gmail.com';
 
-// Maps the ?service= URL query param (set by every service page's "Book Now"
+// Maps the ?service= URL query @param (set by every service page's "Book Now"
 // link) to the internal serviceType used throughout the booking form/pricing
 // logic, plus (for the six specialised Custom Cleaning services, which the
 // pricing model represents as add-ons within `custom_cleaning` rather than
@@ -836,6 +836,24 @@ const Book: React.FC = () => {
     return basePrice + extrasPrice;
   };
 
+  // Shared params for every Meta Pixel event fired during the booking flow,
+  // so InitiateCheckout / the review step / the final conversion all report
+  // the same service name, price and currency consistently.
+  const getBookingEventParams = () => {
+    const label =
+      allServiceTypes.find((s) => s.value === watchedValues.serviceType)?.label ||
+      watchedValues.serviceType;
+    return {
+      content_name: label,
+      content_ids: [watchedValues.serviceType],
+      content_category: 'cleaning_service',
+      content_type: 'product',
+      value: calculatePrice(),
+      currency: 'AUD',
+      num_items: 1,
+    };
+  };
+
   const handleExtraToggle = (extraId: string) => {
     // Carpet
     if (extraId === "carpet_steam" || extraId === "carpet_steam_custom") {
@@ -943,6 +961,9 @@ const Book: React.FC = () => {
     setSubmitting(true);
     setSnackbarOpen(false); // Close any existing snackbar
 
+    const attribution = getAttribution();
+    const { fbc, fbp } = getMetaCookies();
+
     const formData = {
       ...data,
       // Address fields - multiple formats for compatibility
@@ -996,6 +1017,13 @@ const Book: React.FC = () => {
       console.log("Response:", response);
       console.log("=== END RESPONSE ===");
       if (response.success) {
+        // Primary conversion: Schedule is Meta's standard event for "a person
+        // booked an appointment for a service" - it's recognised by Ads
+        // Manager immediately, with value/currency for ROAS optimisation.
+        // CompleteBooking is a matching custom event so a per-service Custom
+        // Conversion can be built in Events Manager if needed.
+        track('Schedule', getBookingEventParams());
+        trackCustom('CompleteBooking', getBookingEventParams());
         setIsSubmitted(true);
       } else {
         setSnackbarSeverity("error");
@@ -1054,6 +1082,18 @@ const Book: React.FC = () => {
         "address",
       ]);
       if (!valid) return;
+    }
+
+    // Meta Pixel: mark booking-funnel progress once each step is confirmed
+    // (not on every field change), so events fire once per booking attempt.
+    if (currentStep === 1) {
+      trackCustom('SelectBookingService', getBookingEventParams());
+    }
+    if (currentStep === 4) {
+      track('InitiateCheckout', getBookingEventParams());
+    }
+    if (currentStep === 5) {
+      trackCustom('ReachedBookingReview', getBookingEventParams());
     }
 
     setCurrentStep(currentStep + 1);
