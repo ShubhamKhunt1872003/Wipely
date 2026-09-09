@@ -32,6 +32,8 @@ import postalCodes from "../data/postalcode.json";
 import pricing from "../data/pricing.json";
 import extras from "../data/extras.json";
 import AddonCard from "../components/booking/AddonCard";
+import { track, trackCustom } from "../lib/metaPixel";
+import { getAttribution, getMetaCookies } from "../lib/utm";
 
 // Import service-specific extras
 const regularCleaningExtras = [
