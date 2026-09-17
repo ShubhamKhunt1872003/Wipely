@@ -6,6 +6,7 @@ import Footer from './Footer';
 import MobileStickyCTA from './home/MobileStickyCTA';
 import StickyCallButton from './home/StickyCallButton';
 import WhatsAppButton from './WhatsAppButton';
+import WhatsAppPopup from './WhatsAppPopup';
 
 interface LayoutProps {
   children?: React.ReactNode;
@@ -28,6 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <MobileStickyCTA />
       <StickyCallButton />
       <WhatsAppButton />
+      <WhatsAppPopup />
     </div>
   );
 };
