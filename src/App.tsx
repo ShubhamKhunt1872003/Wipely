@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import MetaPixelTracker from './components/MetaPixelTracker';
-import { initMetaPixel } from './lib/metaPixel';
 import { captureAttribution } from './lib/utm';
 
 // Main Pages
@@ -29,7 +28,6 @@ import StairCaseCleaning from './pages/services/StairCaseCleaning';
 import CommercialSpacesCleaning from './pages/services/CommercialSpacesCleaning';
 function App() {
   useEffect(() => {
-    initMetaPixel();
     captureAttribution();
   }, []);
 
