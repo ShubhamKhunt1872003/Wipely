@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import MobileStickyCTA from './home/MobileStickyCTA';
 import StickyCallButton from './home/StickyCallButton';
+import WhatsAppButton from './WhatsAppButton';
 
 interface LayoutProps {
   children?: React.ReactNode;
@@ -26,6 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Footer />
       <MobileStickyCTA />
       <StickyCallButton />
+      <WhatsAppButton />
     </div>
   );
 };
