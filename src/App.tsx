@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import MetaPixelTracker from './components/MetaPixelTracker';
+import GA4Tracker from './components/GA4Tracker';
 import { captureAttribution } from './lib/utm';
 
 // Main Pages
@@ -34,6 +35,7 @@ function App() {
   return (
     <Router>
       <MetaPixelTracker />
+      <GA4Tracker />
       <Routes>
         <Route path="/review" element={<Rating />} />
         <Route element={<Layout />}>

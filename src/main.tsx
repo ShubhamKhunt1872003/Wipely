@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { initMetaPixel } from './lib/metaPixel';
+import { initGA4 } from './lib/ga4';
 
 // Runs synchronously at module load, before React renders anything - so window.fbq
 // exists before MetaPixelTracker's effect (a child of App, which fires before App's
@@ -10,6 +11,7 @@ import { initMetaPixel } from './lib/metaPixel';
 // inside App.tsx, which meant pageView() could run before window.fbq had been created,
 // silently dropping the very first PageView on every fresh page load.
 initMetaPixel();
+initGA4();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
