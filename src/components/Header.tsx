@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, ChevronRight, Sparkles, Phone, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, Phone, ArrowRight } from 'lucide-react';
 import { trackContactClick } from '../lib/metaPixel';
 
 interface NavLink {
@@ -82,9 +82,8 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <Sparkles className="w-7 h-7 text-emerald-600" />
-            <span className="font-display font-bold !text-xl text-gray-900">Wipely</span>
+          <Link to="/" aria-label="Wipely home" className="flex items-center">
+            <img src="/images/wipely-logo.svg" alt="Wipely" width={101} height={44} className="h-9 md:h-11 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Sparkles, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { trackContactClick } from '../lib/metaPixel';
 
 const quickLinks = [
@@ -33,10 +33,9 @@ const Footer: React.FC = () => {
     <footer className="bg-gray-900 text-white pt-16 pb-24 md:pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Sparkles className="w-7 h-7 text-emerald-400" />
-            <span className="font-display font-bold !text-xl text-white">Wipely</span>
-          </div>
+          <Link to="/" aria-label="Wipely home" className="inline-block mb-4">
+            <img src="/images/wipely-logo-white.svg" alt="Wipely" width={101} height={44} loading="lazy" className="h-11 w-auto" />
+          </Link>
           <p className="!text-sm leading-relaxed text-gray-400">
             Melbourne's trusted cleaning experts. We deliver spotless homes, offices, and peace of mind every time.
           </p>
