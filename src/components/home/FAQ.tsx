@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SectionHeading from './SectionHeading';
 import FAQAccordionItem from './FAQAccordionItem';
 
@@ -37,29 +37,23 @@ const faqs = [
   },
 ];
 
+// Rendered inline (not injected from an effect) so it is in the prerendered HTML.
+const faqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+}).replace(/</g, '\\u003c');
+
 const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faqs.map((faq) => ({
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-      })),
-    });
-    document.head.appendChild(script);
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
   return (
     <section className="py-16 sm:py-20 bg-emerald-50">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading eyebrow="FAQ" title="Frequently Asked Questions" align="left" className="mb-10" />
 

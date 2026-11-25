@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RouteMeta from './components/RouteMeta';
 import Layout from './components/Layout';
 import MetaPixelTracker from './components/MetaPixelTracker';
 import GA4Tracker from './components/GA4Tracker';
@@ -27,13 +28,17 @@ import OvenCleaning from './pages/services/OvenCleaning';
 import BBQCleaning from './pages/services/BBQCleaning';
 import StairCaseCleaning from './pages/services/StairCaseCleaning';
 import CommercialSpacesCleaning from './pages/services/CommercialSpacesCleaning';
-function App() {
+// The route tree without a router, so the same markup can be rendered under
+// <BrowserRouter> in the browser (below) and <StaticRouter> at build time
+// (entry-server.tsx), which is what makes the prerendered HTML hydrate cleanly.
+export function AppRoutes() {
   useEffect(() => {
     captureAttribution();
   }, []);
 
   return (
-    <Router>
+    <>
+      <RouteMeta />
       <MetaPixelTracker />
       <GA4Tracker />
       <Routes>
@@ -60,6 +65,14 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Route>
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   );
 }

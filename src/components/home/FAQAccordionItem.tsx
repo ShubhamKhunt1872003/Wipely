@@ -16,7 +16,10 @@ const FAQAccordionItem: React.FC<FAQAccordionItemProps> = ({ question, answer, i
       <span className="text-emerald-500 !text-2xl leading-none flex-shrink-0">{isOpen ? '-' : '+'}</span>
     </button>
 
-    {isOpen && <p className="mt-3 !text-[15px] text-gray-600 leading-relaxed">{answer}</p>}
+    {/* Always rendered (hidden when collapsed) so the answer is in the prerendered HTML for search engines. */}
+    <p hidden={!isOpen} className="mt-3 !text-[15px] text-gray-600 leading-relaxed">
+      {answer}
+    </p>
   </div>
 );
 

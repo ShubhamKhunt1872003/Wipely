@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   ChevronDown, 
   ChevronUp, 
@@ -243,23 +243,20 @@ const FAQ: React.FC = () => {
                   </div>
                 </button>
                 
-                <AnimatePresence>
-                  {openItems.includes(item.id) && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-4">
-                        <p className="text-gray-600 leading-relaxed">
-                          {item.answer}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Always mounted (collapsed to height 0 when closed) so every answer is in the prerendered HTML. */}
+                <motion.div
+                  initial={false}
+                  animate={openItems.includes(item.id) ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                  aria-hidden={!openItems.includes(item.id)}
+                >
+                  <div className="px-6 pb-4">
+                    <p className="text-gray-600 leading-relaxed">
+                      {item.answer}
+                    </p>
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>

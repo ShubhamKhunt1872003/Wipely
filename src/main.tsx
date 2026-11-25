@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import { normalizePath } from './seo/routeMeta';
 import App from './App.tsx';
 import './index.css';
 import { initMetaPixel } from './lib/metaPixel';
@@ -13,8 +14,21 @@ import { initGA4 } from './lib/ga4';
 initMetaPixel();
 initGA4();
 
-createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root')!;
+const app = (
   <StrictMode>
     <App />
   </StrictMode>
 );
+
+// Pages listed in src/seo/routeMeta.ts are prerendered at build time, and the root
+// is tagged with the path it was rendered for. Hydrate that markup when it matches
+// the current URL. For any other URL (e.g. an unknown path served by the SPA
+// fallback rewrite) discard it and render on the client as before.
+const prerenderedPath = container.dataset.prerendered;
+if (prerenderedPath && prerenderedPath === normalizePath(window.location.pathname)) {
+  hydrateRoot(container, app);
+} else {
+  container.innerHTML = '';
+  createRoot(container).render(app);
+}

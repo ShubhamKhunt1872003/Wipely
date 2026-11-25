@@ -4,59 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="facebook-domain-verification" content="k1ykb6c2nad3n5ola7ys4fwl8rk5px" />
-    <!-- ✅ Basic SEO -->
-    <title>Wipely | Professional Cleaning Services in Melbourne, Australia</title>
+    <!--
+      Route-specific tags. The build-time prerender (scripts/prerender.mjs) replaces
+      everything between these markers per page, using src/seo/routeMeta.ts.
+      Keep these defaults in sync with the "/" entry there.
+    -->
+    <!--route-meta-->
+    <title>Wipely | House & End of Lease Cleaning Melbourne</title>
     <meta
       name="description"
       content="Wipely provides professional home and office cleaning services across Melbourne, VIC. Book reliable and affordable cleaners online with Wipely.au."
     />
-    <meta
-      name="keywords"
-      content="cleaning service Melbourne, house cleaning Melbourne, office cleaning VIC, professional cleaners, Wipely cleaning services Australia"
-    />
-    <meta name="author" content="Wipely Australia" />
     <meta name="robots" content="index, follow" />
-
     <link rel="canonical" href="https://www.wipely.au/" />
+    <meta property="og:url" content="https://www.wipely.au/" />
+    <meta property="og:title" content="Wipely | House & End of Lease Cleaning Melbourne" />
+    <meta
+      property="og:description"
+      content="Wipely provides professional home and office cleaning services across Melbourne, VIC. Book reliable and affordable cleaners online with Wipely.au."
+    />
+    <meta name="twitter:title" content="Wipely | House & End of Lease Cleaning Melbourne" />
+    <meta
+      name="twitter:description"
+      content="Wipely provides professional home and office cleaning services across Melbourne, VIC. Book reliable and affordable cleaners online with Wipely.au."
+    />
+    <!--/route-meta-->
+
+    <meta name="author" content="Wipely Australia" />
 
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.wipely.au/" />
-    <meta property="og:title" content="Wipely | Professional Cleaning Services in Melbourne, Australia" />
-    <meta
-      property="og:description"
-      content="Book trusted home and office cleaning services in Melbourne with Wipely. Affordable, reliable, and eco-friendly cleaning solutions for Australian homes and businesses."
-    />
-    <meta property="og:image" content="https://www.wipely.au/images/og-image.jpg" />
+    <meta property="og:site_name" content="Wipely" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:image" content="https://www.wipely.au/images/wipely-profile-green-1080.png" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:alt" content="Wipely" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Wipely | Professional Cleaning Services in Melbourne, Australia" />
-    <meta
-      name="twitter:description"
-      content="Wipely offers professional and affordable home & office cleaning services across Melbourne. Book trusted cleaners today!"
-    />
-    <meta name="twitter:image" content="https://www.wipely.au/images/og-image.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="https://www.wipely.au/images/wipely-profile-green-1080.png" />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Wipely Cleaning Services",
-        "image": "https://www.wipely.au/images/og-image.jpg",
-        "@id": "https://www.wipely.au/",
+        "@type": "HouseCleaningService",
+        "@id": "https://www.wipely.au/#business",
+        "name": "Wipely",
         "url": "https://www.wipely.au/",
-        "telephone": "+61 435 137 936",
+        "logo": "https://www.wipely.au/images/wipely-logo.svg",
+        "image": "https://www.wipely.au/images/wipely-profile-green-1080.png",
+        "telephone": "+61435137936",
         "email": "info@wipely.au",
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "",
           "addressLocality": "Melbourne",
           "addressRegion": "VIC",
-          "postalCode": "",
           "addressCountry": "AU"
         },
         "geo": {
@@ -65,7 +71,7 @@
           "longitude": 144.9631
         },
         "openingHours": "Mo-Sa 08:00-18:00",
-        "areaServed": "Melbourne, VIC",
+        "areaServed": "Melbourne VIC",
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
           "name": "Cleaning Services",
