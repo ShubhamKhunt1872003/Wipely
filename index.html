@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Brand intro (#wi), played on every page load and replayed on every in-app page
+      change (src/components/IntroReplay.tsx calls window.wipelyIntro()).
+      Plain HTML/CSS so it paints before the JS bundle. The CSS animation always ends
+      with the overlay hidden, so it can never get stuck, even if JavaScript fails.
+      It only holds while #root is still empty (dev server / client-only render), so
+      it never fades out onto a blank page. Skipped entirely for reduced-motion users.
+    -->
+    <script>(function(d,c){var t;function p(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return c.add('wi-off');clearTimeout(t);var w=d.getElementById('wi');if(w){w.replaceWith(w.cloneNode(!0));c.remove('wi-on');void d.body.offsetWidth}c.add('wi-on')}addEventListener('animationend',function(e){if(e.animationName=='wi-out')t=setTimeout(function(){c.remove('wi-on')},200)});window.wipelyIntro=p;p()})(document,document.documentElement.classList)</script>
+    <style>#wi{position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:#F6F4EF;pointer-events:none;animation:wi-out .25s ease-in .65s forwards}#wi svg{width:180px;animation:wi-in .25s ease-out}#wi .s{stroke-dasharray:1;stroke-dashoffset:1;animation:wi-draw .5s ease-in-out .15s forwards}@media(min-width:768px){#wi svg{width:240px}}#wi:has(~#root:empty){animation-play-state:paused}.wi-off #wi{display:none}@media(prefers-reduced-motion:reduce){#wi{display:none}}.wi-on header,.wi-on main>*>:first-child{animation:wi-up .4s ease-out .65s backwards}@keyframes wi-in{from{opacity:0;transform:translateY(8px)}}@keyframes wi-draw{to{stroke-dashoffset:0}}@keyframes wi-out{to{opacity:0;visibility:hidden}}@keyframes wi-up{from{opacity:.6;transform:translateY(12px)}}</style>
+    <!-- Without JS, framer-motion's scroll reveals never run: show their content instead. -->
+    <noscript><style>#root [style*="opacity:0"]{opacity:1!important;transform:none!important}</style></noscript>
     <meta name="facebook-domain-verification" content="k1ykb6c2nad3n5ola7ys4fwl8rk5px" />
     <!--
       Route-specific tags. The build-time prerender (scripts/prerender.mjs) replaces
@@ -71,7 +83,7 @@
           "latitude": -37.8136,
           "longitude": 144.9631
         },
-        "openingHours": "Mo-Sa 08:00-18:00",
+        "openingHours": "Mo-Su 06:00-22:00",
         "areaServed": "Melbourne VIC",
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
@@ -91,6 +103,7 @@
   </head>
 
   <body>
+    <div id="wi" aria-hidden="true"><svg viewBox="-16 -115 436 190"><path fill="#141A2E" d="M23.9 0 1.3-65.5H19.9L32.6-27.5L46.9-65.5H62.5L76.7-27.5L89.4-65.5H108.1L85.4 0H69.8L54.7-42L39.5 0ZM111 0V-65.5H129V0ZM111-71.4V-89.4H129V-71.4ZM137.2 24V-65.5H154V-58.7Q156.9-62.2 161.4-64.3Q166.9-67 174.1-67Q183.4-67 191-62.4Q198.6-57.8 203-50.1Q207.4-42.4 207.4-32.8Q207.4-23.3 203.1-15.5Q198.7-7.7 191.1-3.1Q183.6 1.4 174 1.4Q167.2 1.4 161.6-1.1Q158-2.5 155.2-5V24ZM171.8-14.8Q176.8-14.8 180.7-17Q184.5-19.3 186.7-23.4Q188.8-27.5 188.8-32.8Q188.8-38 186.7-42.1Q184.5-46.1 180.7-48.4Q176.8-50.8 171.8-50.8Q167-50.8 163.2-48.5Q159.4-46.2 157.3-42.1Q155.2-38 155.2-32.8Q155.2-27.5 157.3-23.4Q159.4-19.3 163.2-17Q167-14.8 171.8-14.8ZM244.6 1.4Q234.1 1.4 226.4-3.2Q218.8-7.8 214.6-15.6Q210.4-23.4 210.4-32.9Q210.4-42.7 214.7-50.4Q219.1-58.1 226.6-62.5Q234-67 243.4-67Q251.2-67 257.2-64.5Q263.2-62 267.3-57.6Q271.4-53.2 273.6-47.3Q275.8-41.5 275.8-34.7Q275.8-32.8 275.6-30.9Q275.4-29 274.9-27.7H229.1Q229.3-25.2 230.3-23Q232.1-18.8 235.8-16.5Q239.5-14.2 244.8-14.2Q249.6-14.2 253-16.1Q256.4-18 258.4-21.4L272.8-14.5Q270.8-9.7 266.7-6.1Q262.6-2.5 256.9-.5Q251.3 1.4 244.6 1.4ZM229.4-40.9H256.7Q256.6-42.5 256.1-43.9Q254.8-47.9 251.5-50.2Q248.2-52.6 243.4-52.6Q238.7-52.6 235.3-50.3Q232-48 230.3-43.6Q229.8-42.4 229.4-40.9ZM281.3 0V-90.8H299.3V0ZM317.7 26.4Q314.8 26.4 312.1 25.9Q309.4 25.4 307.4 24.4V9.6Q309.1 10.1 311.4 10.4Q313.6 10.8 315.6 10.8Q320.8 10.8 323.1 8.3Q325.4 5.9 326.8 2.8L328 0L302.2-65.5H321.6L337-23.4L352.5-65.5H371.8L343.8 6.1Q341.1 12.8 337.3 17.4Q333.4 22 328.6 24.2Q323.7 26.4 317.7 26.4Z"/><path fill="#0A8A5F" d="M369.6 0V-18H387.6V0Z"/><path class="s" pathLength="1" fill="none" stroke="#0A8A5F" stroke-width="11" stroke-linecap="round" d="M7.1 44.7 C88.1 30.5 196.8 28.7 347.1 37.6"/></svg></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

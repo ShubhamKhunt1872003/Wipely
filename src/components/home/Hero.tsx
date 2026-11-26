@@ -25,42 +25,22 @@ const Hero: React.FC<HeroProps> = ({ postalCode, onPostalCodeChange, onSubmit, a
       <div className="relative z-10 min-h-[85vh] flex items-center pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl text-white">
-            <motion.span
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-flex items-center gap-2 !text-sm font-semibold tracking-wide uppercase text-emerald-300 mb-5"
-            >
+            <span className="inline-flex items-center gap-2 !text-sm font-semibold tracking-wide uppercase text-emerald-300 mb-5">
               <ShieldCheck className="w-4 h-4" />
               Professional • Reliable • Fully Insured
-            </motion.span>
+            </span>
 
-            <motion.h1
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.35, duration: 0.7 }}
-              className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6"
-            >
+            <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6">
               Professional Cleaning.
               <span className="block text-emerald-400">Exceptional Results.</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.7 }}
-              className="!text-lg sm:!text-xl text-gray-200 mb-8 max-w-xl"
-            >
+            <p className="!text-lg sm:!text-xl text-gray-200 mb-8 max-w-xl">
               From everyday home cleaning to end-of-lease and specialised cleaning, Wipely delivers reliable,
               professional cleaning across Melbourne.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.65, duration: 0.7 }}
-              className="flex flex-wrap items-center gap-4 mb-8"
-            >
+            <div className="flex flex-wrap items-center gap-4 mb-8">
               <Link
                 to="/book"
                 className="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-3.5 rounded-full font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl"
@@ -83,12 +63,9 @@ const Hero: React.FC<HeroProps> = ({ postalCode, onPostalCodeChange, onSubmit, a
                 <Phone className="w-5 h-5 mr-2" />
                 Call Us: +61 435 137 936
               </a>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
+            <div
             >
               <form
                 onSubmit={onSubmit}
@@ -125,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ postalCode, onPostalCodeChange, onSubmit, a
                   {availabilityMessage}
                 </motion.p>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

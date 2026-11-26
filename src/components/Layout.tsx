@@ -17,7 +17,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="min-h-screen bg-white pt-16">
       <Header />
       <motion.main
-        initial={{ opacity: 0 }}
+        // No initial opacity:0 here: that would ship the whole page hidden in the
+        // prerendered HTML until JS hydrates. The first-visit intro in index.html
+        // handles the entrance instead.
+        initial={false}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}

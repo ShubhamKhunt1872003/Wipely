@@ -25,10 +25,8 @@ import bathroomImg from '../../images/bathroomImg.jpg';
 import livingroomImg from '../../images/livingroom.jpg';
 import kitchenImg from '../../images/kitchenImg.jpg';
 import laundryroomImg from '../../images/laundryRoomImg.jpg';
-import kitchenBeforeImg from '../../images/kitchenBefore.jpg';
-import kitchenAfterImg from '../../images/kitchenAfter.jpg';
-import bathroomBeforeImg from '../../images/bathroomRegBefore.jpeg';
-import bathroomAfterImg from '../../images/bathroomRegAfter.jpeg';
+import RecentJobs from '../../components/RecentJobs';
+import { JOB_PHOTOS } from '../../data/jobPhotos';
 
 const includedServices = [
   {
@@ -150,26 +148,6 @@ const stats = [
   { number: '24hr', label: 'Response Time', icon: '⚡' },
 ];
 
-const transformationGallery = [
-  {
-    before: kitchenBeforeImg,
-    after: kitchenAfterImg,
-    title: 'Kitchen Maintenance',
-  },
-  {
-    before: bathroomBeforeImg,
-    after: bathroomAfterImg,
-    title: 'Bathroom Maintenance',
-  },
-  {
-    before:
-      'https://images.pexels.com/photos/4239037/pexels-photo-4239037.jpeg?auto=compress&cs=tinysrgb&w=600',
-    after:
-      'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=600',
-    title: 'Living Room Maintenance',
-  },
-];
-
 const faqs = [
   {
     question: 'How often should I schedule regular cleaning?',
@@ -189,7 +167,7 @@ const faqs = [
   {
     question: 'What are your hours and service area?',
     answer:
-      "We're based in Melbourne, VIC, and clean Monday to Saturday, 8am to 6pm. Call us on +61 435 137 936 or email info@wipely.au to check availability in your area.",
+      "We're based in Melbourne, VIC, and clean 7 days a week, 6am to 10pm. Call us on +61 435 137 936 or email info@wipely.au to check availability in your area.",
   },
 ];
 
@@ -437,55 +415,21 @@ const RegularCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Visual Transformation Gallery */}
-      <section className="py-14 sm:py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <SectionHeading
-            eyebrow="Results"
-            title="See the Transformation"
-            description="Real before-and-after results from Wipely regular cleans across Melbourne homes"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-            {transformationGallery.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="h-full flex flex-col bg-white rounded-xl shadow-md overflow-hidden border border-gray-100"
-              >
-                <div className="grid grid-cols-2">
-                  <div className="relative overflow-hidden group">
-                    <img
-                      src={item.before}
-                      alt={`${item.title} before Wipely cleaning`}
-                      className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white !text-xs font-semibold text-center py-1">
-                      Before
-                    </div>
-                  </div>
-                  <div className="relative overflow-hidden group">
-                    <img
-                      src={item.after}
-                      alt={`${item.title} after Wipely cleaning`}
-                      className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white !text-xs font-semibold text-center py-1">
-                      After
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4 text-center">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Real job photos (replaces stock before/after images) */}
+      <RecentJobs
+        background="bg-gray-50"
+        eyebrow="Our Work"
+        title="The Standard We Leave Behind"
+        description="Real photos from recent Wipely cleans in Melbourne: the same attention to detail goes into every regular visit."
+        photos={[
+          JOB_PHOTOS.kitchen,
+          JOB_PHOTOS.bathroomVanity,
+          JOB_PHOTOS.livingRoom,
+          JOB_PHOTOS.shower,
+          JOB_PHOTOS.bedroom,
+          JOB_PHOTOS.ensuiteVanity,
+        ]}
+      />
 
       {/* Why Choose Regular Cleaning */}
       <section className="py-14 sm:py-16 bg-white">

@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Star,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   Users,
   Home as HomeIcon,
   Award,
@@ -16,39 +13,11 @@ import {
 import GoogleReviewsCarousel from '../components/home/GoogleReviewsCarousel';
 import { GOOGLE_REVIEWS_PROFILE_URL } from '../data/googleReviews';
 import { useGoogleReviews } from '../hooks/useGoogleReviews';
-import bathroomBeforeImg from '../images/bathroomBefore.jpeg';
-import bathroomAfterImg from '../images/bathroomAfter.jpeg';
+import RecentJobs from '../components/RecentJobs';
+import { JOB_PHOTOS } from '../data/jobPhotos';
 
 const Reviews: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const { reviews, rating, userRatingCount, isLive } = useGoogleReviews();
-
-  const beforeAfterImages = [
-    {
-      before: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600",
-      after: "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=600",
-      title: "Kitchen Deep Clean",
-      location: "South Yarra"
-    },
-    {
-      before: bathroomBeforeImg,
-      after: bathroomAfterImg,
-      title: "Bathroom Restoration",
-      location: "Richmond"
-    },
-    {
-      before: "https://images.pexels.com/photos/4239037/pexels-photo-4239037.jpeg?auto=compress&cs=tinysrgb&w=600",
-      after: "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=600",
-      title: "Living Room Refresh",
-      location: "Carlton"
-    },
-    {
-      before: "https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=600",
-      after: "https://images.pexels.com/photos/6197260/pexels-photo-6197260.jpeg?auto=compress&cs=tinysrgb&w=600",
-      title: "End of Lease Clean",
-      location: "Fitzroy"
-    }
-  ];
 
   const cleaningJourney = [
     {
@@ -75,7 +44,7 @@ const Reviews: React.FC = () => {
     {
       step: 4,
       title: "Spotless Home",
-      description: "Final inspection and your satisfaction guaranteed",
+      description: "Final walkthrough, plus a free re-clean if you tell us within 24 hours",
       icon: Award,
       duration: "Complete"
     }
@@ -87,21 +56,6 @@ const Reviews: React.FC = () => {
     { number: "1,200+", label: "Happy Clients", icon: Users },
     { number: "24hr", label: "Response Time", icon: Clock }
   ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % beforeAfterImages.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % beforeAfterImages.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + beforeAfterImages.length) % beforeAfterImages.length);
-  };
 
   return (
     <div>
@@ -159,91 +113,20 @@ const Reviews: React.FC = () => {
         </div>
       </section>
 
-      {/* Before & After Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              See the Transformation
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Real before and after photos from our recent cleaning projects across Melbourne
-            </p>
-          </motion.div>
-
-          <div className="relative">
-            <div className="overflow-hidden rounded-2xl shadow-2xl">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className="relative"
-              >
-                <div className="grid grid-cols-2 gap-0">
-                  <div className="relative">
-                    <img
-                      src={beforeAfterImages[currentSlide].before}
-                      alt="Before cleaning"
-                      className="w-full h-96 object-cover"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white text-center py-4">
-                      <span className="text-lg font-semibold">Before</span>
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <img
-                      src={beforeAfterImages[currentSlide].after}
-                      alt="After cleaning"
-                      className="w-full h-96 object-cover"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-center py-4">
-                      <span className="text-lg font-semibold">After</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
-                  <h3 className="font-semibold text-gray-900">{beforeAfterImages[currentSlide].title}</h3>
-                  <p className="text-sm text-gray-600">{beforeAfterImages[currentSlide].location}</p>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200"
-            >
-              <ChevronLeft className="w-6 h-6 text-gray-700" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200"
-            >
-              <ChevronRight className="w-6 h-6 text-gray-700" />
-            </button>
-
-            {/* Slide Indicators */}
-            <div className="flex justify-center mt-6 space-x-2">
-              {beforeAfterImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                    currentSlide === index ? 'bg-emerald-600' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Real job photos (replaces stock before/after carousel) */}
+      <RecentJobs
+        eyebrow="Our Work"
+        title="See the Results"
+        description="Real photos taken by our cleaners on recent jobs around Melbourne, not stock images."
+        photos={[
+          JOB_PHOTOS.kitchen,
+          JOB_PHOTOS.shower,
+          JOB_PHOTOS.livingRoom,
+          JOB_PHOTOS.ensuiteVanity,
+          JOB_PHOTOS.kitchenOvens,
+          JOB_PHOTOS.wardrobe,
+        ]}
+      />
 
       {/* Cleaning Journey Timeline */}
       <section className="py-20 bg-gray-50">
@@ -418,7 +301,7 @@ const Reviews: React.FC = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Award className="w-5 h-5" />
-                <span>Satisfaction guaranteed</span>
+                <span>Free 24-hour re-clean</span>
               </div>
             </div>
           </motion.div>

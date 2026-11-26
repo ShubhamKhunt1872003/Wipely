@@ -4,7 +4,8 @@ import postalCodes from '../data/postalcode.json';
 import Hero from '../components/home/Hero';
 import TrustBar from '../components/home/TrustBar';
 import ServicesSection from '../components/home/ServicesSection';
-import BeforeAfter from '../components/home/BeforeAfter';
+import RecentJobs from '../components/RecentJobs';
+import { JOB_PHOTOS } from '../data/jobPhotos';
 import WhyWipelyHowItWorks from '../components/home/WhyWipelyHowItWorks';
 import GoogleReviews from '../components/home/GoogleReviews';
 import FAQ from '../components/home/FAQ';
@@ -38,7 +39,17 @@ const Home: React.FC = () => {
       />
       <TrustBar />
       <ServicesSection />
-      <BeforeAfter />
+      <RecentJobs
+        background="bg-gray-50"
+        photos={[
+          JOB_PHOTOS.kitchen,
+          JOB_PHOTOS.shower,
+          JOB_PHOTOS.livingRoom,
+          JOB_PHOTOS.bathroomVanity,
+          JOB_PHOTOS.bedroom,
+          JOB_PHOTOS.kitchenOvens,
+        ]}
+      />
       <WhyWipelyHowItWorks />
       <GoogleReviews />
       <FAQ />

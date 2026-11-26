@@ -46,7 +46,7 @@ const mainServices = [
       'Full property deep clean',
       'Oven, rangehood & exhaust',
       'Carpet cleaning available',
-      'Bond-back guarantee support',
+      'Free re-clean within 24 hours',
     ],
     icon: CheckCircle,
     image: endOfLeaseImg,
@@ -109,8 +109,8 @@ const whyWipely = [
   },
   {
     icon: Award,
-    title: 'Satisfaction Guaranteed',
-    description: "Not happy? We'll re-clean for free or refund your money. Your satisfaction is our priority.",
+    title: 'Re-clean Promise',
+    description: "Not happy with any part of your clean? Tell us within 24 hours and we'll come back and re-clean it for free.",
   },
 ];
 

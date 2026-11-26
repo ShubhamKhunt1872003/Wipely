@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RouteMeta from './components/RouteMeta';
+import IntroReplay from './components/IntroReplay';
 import Layout from './components/Layout';
 import MetaPixelTracker from './components/MetaPixelTracker';
 import GA4Tracker from './components/GA4Tracker';
+import ScrollToTop from './components/ScrollToTop';
 import { captureAttribution } from './lib/utm';
 
 // Main Pages
@@ -38,7 +40,9 @@ export function AppRoutes() {
 
   return (
     <>
+      <ScrollToTop />
       <RouteMeta />
+      <IntroReplay />
       <MetaPixelTracker />
       <GA4Tracker />
       <Routes>

@@ -48,8 +48,8 @@ const FAQ: React.FC = () => {
     {
       id: '4',
       question: 'What if I\'m not happy with the service?',
-      answer: 'Your satisfaction is our top priority. If something\'s not right, contact us within 24 hours and we\'ll make it right ,  no fuss. We offer a satisfaction guarantee and will return to re-clean any areas that don\'t meet your expectations.',
-      category: 'Quality Guarantee'
+      answer: 'If something isn\'t right, tell us within 24 hours of your clean and we\'ll come back and re-clean that area for free, no fuss.',
+      category: 'Re-clean Promise'
     },
     {
       id: '5',
@@ -102,7 +102,7 @@ const FAQ: React.FC = () => {
     {
       id: '13',
       question: 'Do you clean on weekends and public holidays?',
-      answer: 'Yes, we offer cleaning services 7 days a week, including weekends. Public holiday availability may vary, and there may be a small surcharge for holiday bookings. Contact us to check availability for your preferred date.',
+      answer: 'Yes, we clean 7 days a week, from 6am to 10pm, including weekends. Public holiday availability may vary, and there may be a small surcharge for holiday bookings. Contact us to check availability for your preferred date.',
       category: 'Scheduling'
     },
     {

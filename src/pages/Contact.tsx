@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import MapComponent from '../components/MapComponent';
 import { track, trackContactClick } from '../lib/metaPixel';
+import { sendContactMessage } from '../lib/contactForm';
+import { buildWhatsAppHref } from '../lib/whatsapp';
 import {
   Phone,
   Mail,
@@ -24,10 +26,12 @@ interface ContactFormData {
   phone?: string;
   subject: string;
   message: string;
+  botcheck?: boolean;
 }
 
 const Contact: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitFailed, setSubmitFailed] = useState(false);
   const {
     register,
     handleSubmit,
@@ -53,8 +57,8 @@ const Contact: React.FC = () => {
     {
       icon: Clock,
       title: 'Hours',
-      details: 'Mon–Sat: 8 AM – 6 PM',
-      description: 'Sunday: Emergency only',
+      details: '7 days: 6 AM – 10 PM',
+      description: 'Open every day, including weekends',
     },
     {
       icon: MapPin,
@@ -86,17 +90,22 @@ const Contact: React.FC = () => {
     },
     {
       icon: Sparkles,
-      title: 'Quality Guaranteed',
-      description: "Not happy with a spot we missed? We'll come back and fix it.",
+      title: 'Free Re-clean Promise',
+      description: "Tell us within 24 hours and we'll come back and re-clean it for free.",
     },
   ];
 
   const onSubmit = async (data: ContactFormData) => {
-    // Here you would typically submit to your form service, e.g.
-    // await fetch('https://formspree.io/f/your-form-id', { method: 'POST', body: JSON.stringify(data) })
-    console.log('Contact form submitted:', data);
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    // Lead: a contact-form submission is a standard "generated a lead" event.
+    setSubmitFailed(false);
+    try {
+      await sendContactMessage(data);
+    } catch (err) {
+      // Never show "sent" unless the message really reached the inbox.
+      console.error(err);
+      setSubmitFailed(true);
+      return;
+    }
+    // Lead: fired only after a confirmed delivery, so ad reporting counts real enquiries.
     // Only the (non-personal) subject category is sent, never name/email/etc.
     track('Lead', { content_name: 'contact_form', content_category: data.subject });
     setIsSubmitted(true);
@@ -352,6 +361,42 @@ const Contact: React.FC = () => {
                   )}
                 </div>
 
+                {/* Honeypot for bots: hidden from people and screen readers. */}
+                <input
+                  type="checkbox"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                  {...register('botcheck')}
+                />
+
+                {submitFailed && (
+                  <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 !text-sm text-red-700">
+                    <p className="font-semibold">Sorry, your message couldn't be sent.</p>
+                    <p className="mt-1">
+                      Please contact us directly:{' '}
+                      <a href="tel:+61435137936" onClick={() => trackContactClick('call')} className="font-semibold underline">
+                        call +61 435 137 936
+                      </a>
+                      ,{' '}
+                      <a
+                        href={buildWhatsAppHref()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold underline"
+                      >
+                        message us on WhatsApp
+                      </a>{' '}
+                      or email{' '}
+                      <a href="mailto:info@wipely.au" onClick={() => trackContactClick('email')} className="font-semibold underline">
+                        info@wipely.au
+                      </a>
+                      .
+                    </p>
+                  </div>
+                )}
+
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
@@ -413,8 +458,8 @@ const Contact: React.FC = () => {
                     <Clock className="w-6 h-6 text-emerald-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Hours</h4>
-                      <p className="text-gray-600">Mon – Sat: 8 AM – 6 PM</p>
-                      <p className="text-gray-600">Sunday: Emergency only</p>
+                      <p className="text-gray-600">Monday – Sunday: 6 AM – 10 PM</p>
+                      <p className="text-gray-600">Open every day, including weekends</p>
                     </div>
                   </div>
                 </div>

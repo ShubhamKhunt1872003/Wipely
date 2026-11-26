@@ -10,14 +10,13 @@ import {
   Award,
   Calendar,
   Leaf,
-  Star,
 } from 'lucide-react';
 import SectionHeading from '../../components/home/SectionHeading';
 import FAQAccordionItem from '../../components/home/FAQAccordionItem';
 import endOfLeaseImg from '../../images/endOfLeaseImg.jpg';
 import eolSectionImg from '../../images/eolSectionImg.jpg';
-import bathroomBeforeImg from '../../images/bathroomBefore.jpeg';
-import bathroomAfterImg from '../../images/bathroomAfter.jpeg';
+import RecentJobs from '../../components/RecentJobs';
+import { JOB_PHOTOS } from '../../data/jobPhotos';
 
 const includedServices = [
   { task: 'Full Kitchen Degreasing', description: 'Oven, stovetop, splashbacks, and all surfaces' },
@@ -68,28 +67,6 @@ const whyChooseWipely = [
   },
 ];
 
-const beforeAfterImages = [
-  {
-    before:
-      'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=400',
-    after:
-      'https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=400',
-    title: 'Kitchen Transformation',
-  },
-  {
-    before: bathroomBeforeImg,
-    after: bathroomAfterImg,
-    title: 'Bathroom Restoration',
-  },
-  {
-    before:
-      'https://images.pexels.com/photos/4239037/pexels-photo-4239037.jpeg?auto=compress&cs=tinysrgb&w=400',
-    after:
-      'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400',
-    title: 'Living Room Deep Clean',
-  },
-];
-
 const faqs = [
   {
     question: 'How long does an end of lease clean take?',
@@ -104,7 +81,7 @@ const faqs = [
   {
     question: "What if I'm not happy with the clean?",
     answer:
-      "That's our re-clean promise: if your property manager flags something we missed, we'll return and fix it at no extra cost.",
+      "That's covered by our re-clean promise: tell us within 24 hours of the clean and we'll come back and re-clean anything we missed, free of charge.",
   },
   {
     question: 'How do I book an end of lease clean?',
@@ -113,7 +90,7 @@ const faqs = [
   },
   {
     question: 'What areas do you service?',
-    answer: "We're based in Melbourne, VIC, and provide end of lease cleaning across the Melbourne area, Monday to Saturday, 8am to 6pm.",
+    answer: "We're based in Melbourne, VIC, and provide end of lease cleaning across the Melbourne area, 7 days a week, 6am to 10pm.",
   },
 ];
 
@@ -130,7 +107,7 @@ const EndOfLease: React.FC = () => {
           >
             <span className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 !text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
               <Shield className="w-4 h-4" />
-              Bond Back Guarantee
+              Free 24-Hour Re-clean
             </span>
             <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-gray-900 mb-6">
               End of Lease <span className="text-emerald-600">Cleaning</span>
@@ -230,9 +207,9 @@ const EndOfLease: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { icon: Shield, title: 'Bond Back Guarantee', description: 'Meet all real estate standards' },
+                  { icon: Shield, title: 'Free Re-clean', description: 'Tell us within 24 hours' },
                   { icon: CheckCircle, title: 'Deep Cleaning', description: 'Every surface thoroughly cleaned' },
-                  { icon: Clock, title: 'Flexible Timing', description: 'Available 7 days a week' },
+                  { icon: Clock, title: 'Flexible Timing', description: '7 days, 6am to 10pm' },
                   { icon: Award, title: 'Experienced Team', description: 'Specialized bond cleaning experts' },
                 ].map((benefit) => (
                   <div key={benefit.title} className="flex items-start space-x-3">
@@ -287,75 +264,20 @@ const EndOfLease: React.FC = () => {
         </div>
       </section>
 
-      {/* Before & After Gallery */}
-      <section className="py-14 sm:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <SectionHeading
-            eyebrow="Results"
-            title="Bond Cleaning Transformations"
-            description="See the difference our professional bond cleaning makes"
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            {beforeAfterImages.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group h-full flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-100"
-              >
-                <div className="relative overflow-hidden">
-                  <div className="grid grid-cols-2 gap-0">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={item.before}
-                        alt={`${item.title} before Wipely bond clean`}
-                        className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-red-600 to-red-500 text-white text-center py-3 !text-sm font-semibold">
-                        Before
-                      </div>
-                    </div>
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={item.after}
-                        alt={`${item.title} after Wipely bond clean`}
-                        className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-emerald-600 to-emerald-500 text-white text-center py-3 !text-sm font-semibold">
-                        After
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 !text-xs font-semibold text-gray-700 shadow-lg">
-                    Bond Clean
-                  </div>
-                  <div className="absolute top-0 left-1/2 transform -translate-x-0.5 h-full w-1 bg-white/80 shadow-sm"></div>
-                </div>
-
-                <div className="flex-1 flex flex-col p-6 bg-gradient-to-br from-gray-50 to-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-300">
-                        {item.title}
-                      </h3>
-                      <p className="!text-sm text-gray-500 mt-1">Professional Bond Cleaning</p>
-                    </div>
-                    <div className="flex items-center space-x-1 flex-shrink-0">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Real job photos (replaces stock before/after images) */}
+      <RecentJobs
+        eyebrow="Results"
+        title="Bond Cleans We've Finished"
+        description="Real photos from recent Wipely end of lease cleans in Melbourne, ready for the final inspection."
+        photos={[
+          JOB_PHOTOS.kitchen,
+          JOB_PHOTOS.kitchenOvens,
+          JOB_PHOTOS.shower,
+          JOB_PHOTOS.ensuiteVanity,
+          JOB_PHOTOS.bedroom,
+          JOB_PHOTOS.wardrobe,
+        ]}
+      />
 
       {/* Add-ons */}
       <section className="py-14 sm:py-16 bg-gradient-to-r from-emerald-50 to-sage-50">

@@ -19,6 +19,8 @@ import {
   ThumbsUp,
   BadgeCheck,
 } from 'lucide-react';
+import RecentJobs from '../components/RecentJobs';
+import { JOB_PHOTOS } from '../data/jobPhotos';
 
 const About: React.FC = () => {
   const whyChooseUs = [
@@ -402,6 +404,21 @@ const About: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Real job photos */}
+      <RecentJobs
+        eyebrow="Our Work"
+        title="Real Homes We've Cleaned"
+        description="A few photos our cleaners took on recent jobs around Melbourne."
+        photos={[
+          JOB_PHOTOS.livingRoom,
+          JOB_PHOTOS.kitchen,
+          JOB_PHOTOS.shower,
+          JOB_PHOTOS.bedroom,
+          JOB_PHOTOS.bathroomVanity,
+          JOB_PHOTOS.wardrobe,
+        ]}
+      />
 
       {/* Flexible Cleaning Solutions */}
       <section className="py-20 bg-gray-50 overflow-hidden">

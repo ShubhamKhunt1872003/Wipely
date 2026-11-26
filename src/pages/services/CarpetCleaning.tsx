@@ -94,8 +94,8 @@ const CarpetCleaning: React.FC = () => {
       icon: Wind
     },
     {
-      title: "Satisfaction Guarantee",
-      description: "100% guarantee — if you're not happy, we'll make it right.",
+      title: "Re-clean Promise",
+      description: "Not happy with any part of your clean? Tell us within 24 hours and we'll come back and re-clean it for free.",
       icon: Heart
     },
     {
@@ -107,24 +107,6 @@ const CarpetCleaning: React.FC = () => {
       title: "Healthier Home",
       description: "Removes allergens, bacteria, and dust mites for cleaner air.",
       icon: Users
-    }
-  ];
-
-  const beforeAfterImages = [
-    {
-      before: "https://images.pexels.com/photos/4239037/pexels-photo-4239037.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400",
-      title: "Living Room Carpet"
-    },
-    {
-      before: "https://images.pexels.com/photos/6197119/pexels-photo-6197119.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/6197121/pexels-photo-6197121.jpeg?auto=compress&cs=tinysrgb&w=400",
-      title: "Office Carpet"
-    },
-    {
-      before: "https://images.pexels.com/photos/4107286/pexels-photo-4107286.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=400",
-      title: "Bedroom Carpet"
     }
   ];
 
@@ -280,7 +262,7 @@ const CarpetCleaning: React.FC = () => {
                     {[
                       { icon: Shield, text: "Safe & Non-Toxic" },
                       { icon: Wind, text: "Fast Drying" },
-                      { icon: Award, text: "Guaranteed Results" },
+                      { icon: Award, text: "Free 24h Re-clean" },
                       { icon: Users, text: "Trained Experts" }
                     ].map((benefit) => (
                       <div key={benefit.text} className="flex items-center space-x-2">
@@ -391,66 +373,6 @@ const CarpetCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Before & After Gallery */}
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-10"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-[5px]">
-              Carpet Cleaning Results
-            </h2>
-            <div className="w-20 h-1 bg-emerald-500 rounded mt-[5px] mb-6 mx-auto"></div>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto text-center">
-              See the dramatic difference our professional carpet cleaning makes to homes and offices across Melbourne
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {beforeAfterImages.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-md overflow-hidden"
-              >
-                <div className="grid grid-cols-2">
-                  <div className="relative overflow-hidden group">
-                    <img
-                      src={item.before}
-                      alt="Before"
-                      className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white text-xs font-semibold text-center py-1">
-                      Before
-                    </div>
-                  </div>
-                  <div className="relative overflow-hidden group">
-                    <img
-                      src={item.after}
-                      alt="After"
-                      className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-xs font-semibold text-center py-1">
-                      After
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4 text-center">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Why Choose Wipely */}
       <section className="py-14 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-4">
@@ -469,7 +391,7 @@ const CarpetCleaning: React.FC = () => {
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Professional equipment, expert techniques, and guaranteed satisfaction
+              Professional equipment, expert techniques, and a free re-clean if we miss anything
             </p>
           </motion.div>
 

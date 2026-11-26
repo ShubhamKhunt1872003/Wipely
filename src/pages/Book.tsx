@@ -1300,7 +1300,7 @@ const Book: React.FC = () => {
           🌱 <span>Eco-Friendly Cleaning Products</span>
         </div>
         <div className="flex items-center gap-2">
-          ⭐ <span>100% Satisfaction Guarantee</span>
+          ⭐ <span>Free re-clean within 24 hours</span>
         </div>
         <div className="flex items-center gap-2">
           💳 <span>No Hidden Charges</span>

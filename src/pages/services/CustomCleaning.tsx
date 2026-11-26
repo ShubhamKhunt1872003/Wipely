@@ -99,8 +99,8 @@ const CustomCleaning: React.FC = () => {
       icon: Award
     },
     {
-      title: "Quality Guarantee",
-      description: "We stand behind our work with a satisfaction guarantee. If you're not happy, we'll make it right at no extra cost.",
+      title: "Re-clean Promise",
+      description: "Not happy with any part of your clean? Tell us within 24 hours and we'll come back and re-clean it for free.",
       icon: Shield
     },
     {

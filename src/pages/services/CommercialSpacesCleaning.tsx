@@ -45,7 +45,7 @@ const CommercialSpacesCleaning: React.FC = () => {
     { icon: Shield, text: "Eco-Friendly Solutions" },
     { icon: Users, text: "Trained Experts" },
     { icon: Wind, text: "Fast & Efficient" },
-    { icon: Award, text: "Guaranteed Satisfaction" },
+    { icon: Award, text: "Free 24h Re-clean" },
   ];
 
   const whyChooseWipely = [

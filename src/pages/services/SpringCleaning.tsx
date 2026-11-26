@@ -18,8 +18,8 @@ import {
 } from 'lucide-react';
 import oneOfSpringCleaningImg from "../../images/oneOfSpringImg.jpg";
 import oneOfSpringCLImg from "../../images/oneOfSpringCLImg.jpg";
-import bathroomBeforeImg from "../../images/bathroomBefore.jpeg";
-import bathroomAfterImg from "../../images/bathroomAfter.jpeg";
+import RecentJobs from '../../components/RecentJobs';
+import { JOB_PHOTOS } from '../../data/jobPhotos';
 
 const SpringCleaning: React.FC = () => {
   const includedServices = [
@@ -91,24 +91,6 @@ const SpringCleaning: React.FC = () => {
       icon: Heart,
       title: "Respectful Service",
       description: "Trained professionals who treat your home with care and respect."
-    }
-  ];
-
-  const beforeAfterImages = [
-    {
-      before: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=400",
-      title: "Kitchen Deep Clean"
-    },
-    {
-      before: bathroomBeforeImg,
-      after: bathroomAfterImg,
-      title: "Bathroom Refresh"
-    },
-    {
-      before: "https://images.pexels.com/photos/4239037/pexels-photo-4239037.jpeg?auto=compress&cs=tinysrgb&w=400",
-      after: "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400",
-      title: "Living Room Transformation"
     }
   ];
 
@@ -326,58 +308,20 @@ const SpringCleaning: React.FC = () => {
         </div>
       </section>
 
-      {/* Visual Transformation Gallery */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-display text-4xl font-bold text-gray-900 mb-4">
-              Spring Clean Transformations
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The kind of difference our deep clean makes, room by room
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            {beforeAfterImages.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="h-full"
-              >
-                <div className="h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden card-hover border border-gray-100">
-                  <div className="grid grid-cols-2 gap-0">
-                    <div className="relative">
-                      <img src={item.before} alt={`Before cleaning: ${item.title}`} className="w-full h-48 object-cover" />
-                      <div className="absolute bottom-0 left-0 right-0 bg-red-600 text-white text-center py-2 text-sm font-medium">
-                        Before
-                      </div>
-                    </div>
-                    <div className="relative">
-                      <img src={item.after} alt={`After cleaning: ${item.title}`} className="w-full h-48 object-cover" />
-                      <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-center py-2 text-sm font-medium">
-                        After
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 flex-1 flex items-center">
-                    <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Real job photos (replaces stock before/after images) */}
+      <RecentJobs
+        eyebrow="Our Work"
+        title="Deep Cleans, Finished Properly"
+        description="Real photos from recent Wipely cleans in Melbourne, not stock images."
+        photos={[
+          JOB_PHOTOS.kitchen,
+          JOB_PHOTOS.shower,
+          JOB_PHOTOS.kitchenOvens,
+          JOB_PHOTOS.bathroomVanity,
+          JOB_PHOTOS.livingRoom,
+          JOB_PHOTOS.wardrobe,
+        ]}
+      />
 
       {/* Why Book One-Off */}
       <section className="py-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">

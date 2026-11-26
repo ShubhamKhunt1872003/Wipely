@@ -11,11 +11,12 @@ const faqs = [
   {
     question: 'Do you bring your own cleaning products and equipment?',
     answer:
-      'Yes — our cleaners bring eco-friendly cleaning products as standard. [BUSINESS OWNER TO CONFIRM: full equipment list]',
+      "Yes. We bring all the cleaning products and equipment needed for the job, so you don't need to provide anything.",
   },
   {
     question: 'Do I need to be home during the cleaning?',
-    answer: '[BUSINESS OWNER TO CONFIRM]',
+    answer:
+      "No, you don't need to stay home. Many customers just give us access and get on with their day, but you're welcome to stay if you prefer. It's completely up to you.",
   },
   {
     question: 'How do I book a cleaning?',
